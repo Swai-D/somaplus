@@ -8,8 +8,11 @@ Somaplus is a school management system for East African schools, built by Odessa
 | --- | --- |
 | `public/assets/` | Static files of the purchased UI template (CSS, JS, plugins, fonts, images). Served as-is. |
 | `resources/template-original/` | Original template source: the 62 static HTML pages, the template `README.md` and the `tools/` scripts that produced the pages. Reference only; never served and never edited. |
-| `resources/views/` | Blade wrappers built on top of the template (added from PR 3 onward). |
-| `app/Domain/` | Business behaviour as Actions/Services, grouped by domain. |
+| `resources/views/` | Blade wrappers built on top of the template. `layouts/base.blade.php` loads the template's Bootstrap, icon and `somaplus.css` assets; the full application layout (header, sidebar from `config/menu.php`) is added with navigation. |
+| `lang/en`, `lang/sw` | Translations. English is the fallback; every key must exist in both languages (enforced by `tests/Unit/TranslationParityTest.php`). |
+| `app/Support/` | Shared helpers. `Money` holds amounts as integer minor units (TZS by default; TZS, KES, UGX, USD, EUR supported). |
+| `app/Domain/` | Business behaviour as Actions/Services, grouped by domain. Folders are created when the first feature needs them. |
+| `tests/` | Pest tests: `Unit/` for plain PHP, `Feature/` for HTTP and database tests (SQLite in memory). |
 | `docs/` | This file, `SMOKE-TEST.md` and other project documentation. |
 
 ## Template boundary
@@ -18,7 +21,7 @@ The template is a purchased asset and stays exactly as supplied.
 
 - Files under `public/assets/` and `resources/template-original/` are never edited, renamed, minified or modernized. The move into these folders was a pure rename, verified with a sha256 manifest of all 456 files.
 - Product behaviour is added by Blade wrappers that include the template's assets and copy its markup. If something needs different styling, it goes in a new stylesheet, not in a template file.
-- The UI stays on the template's Bootstrap and jQuery. Tailwind is not introduced.
+- The UI stays on the template's Bootstrap and jQuery. Tailwind is not used (the Laravel default was removed); Vite only builds `resources/js/app.js`.
 - `resources/template-original/tools/*.py` are the template author's build scripts. They are kept for reference and are not part of the application.
 
 ## Tenancy (planned for PR 2)

@@ -5,8 +5,9 @@ Read this file, `README.md` and `docs/` at the start of every session. Update th
 
 ## Stack
 
-Laravel 12, PHP 8.3, PostgreSQL 16, Vite, Pest, Pint, and Larastan level 5. Queue, cache, and session drivers are database-backed. Local supporting services are PostgreSQL, Redis, and Mailpit in `docker-compose.yml`; Laravel Sail is not used.
-(Confirm or change this list in the first PR, then keep it true.) Product name everywhere in the UI, emails, SMS sender text and docs: **Somaplus**. Use `APP_NAME="Somaplus"`.
+Laravel 12, PHP 8.3, PostgreSQL 16, Vite, Pest 4, Pint, Larastan 3 (level 5) and `spatie/laravel-permission`. Queue, cache, and session drivers are database-backed. Local supporting services are PostgreSQL, Redis, and Mailpit in `docker-compose.yml`; Laravel Sail is not used. Tailwind is not used: the UI is the purchased template (Bootstrap/jQuery), and Vite only builds the small `resources/js/app.js`.
+Keep `config.platform.php` in `composer.json` at `8.3.0` so `composer.lock` always resolves on PHP 8.3 (CI and production); a lock built on a newer PHP breaks `composer install`.
+Product name everywhere in the UI, emails, SMS sender text and docs: **Somaplus**. Use `APP_NAME="Somaplus"`.
 
 ## Template preservation
 
@@ -45,10 +46,13 @@ Plans (Basic/Medium/Enterprise) live in the database (`subscription_plans`). `co
 - After pushing, wait for CI (about two minutes), read the check runs and annotations, fix failures, then open the PR (use the REST API with `gh`). The owner merges only on green CI; if a PR was merged early with a defect, open a fix PR. Before saying something is merged, check the PR's base branch is `main`.
 - Stop-hook warnings about unpushed commits: compare `git ls-remote origin <branch>` with `git rev-parse HEAD`; if equal the warning is wrong.
 - Every feature updates tests, `docs/`, `docs/SMOKE-TEST.md` and the EN/SW help articles.
+- Claude's cloud sandbox cannot reach Packagist (`repo.packagist.org` is blocked), so it cannot run `composer require` or `composer update`. When a change needs a new or updated PHP package, Claude gives the owner the exact command, the owner runs it locally and pushes `composer.json` and `composer.lock`, and Claude continues from there. `npm` works in the sandbox.
+- Because of that, CI is the proof that PHP checks pass. Claude lints PHP with `php -l` but states clearly when Pint, PHPStan and Pest have not run locally.
 
 ## Commands
 
 ```sh
+docker compose up -d
 php artisan migrate --seed
 vendor/bin/pest
 vendor/bin/pint --test
