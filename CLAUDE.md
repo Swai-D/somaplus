@@ -47,7 +47,8 @@ Plans (Basic/Medium/Enterprise) live in the database (`subscription_plans`). `co
 - Stop-hook warnings about unpushed commits: compare `git ls-remote origin <branch>` with `git rev-parse HEAD`; if equal the warning is wrong.
 - Every feature updates tests, `docs/`, `docs/SMOKE-TEST.md` and the EN/SW help articles.
 - Claude's cloud sandbox cannot reach Packagist (`repo.packagist.org` is blocked), so it cannot run `composer require` or `composer update`. When a change needs a new or updated PHP package, Claude gives the owner the exact command, the owner runs it locally and pushes `composer.json` and `composer.lock`, and Claude continues from there. `npm` works in the sandbox.
-- Because of that, CI is the proof that PHP checks pass. Claude lints PHP with `php -l` but states clearly when Pint, PHPStan and Pest have not run locally.
+- Because of that, CI is the proof that PHP checks pass. Claude lints PHP with `php -l` but states clearly when PHPStan and Pest have not run locally.
+- Pint can still run in the sandbox: `git clone --depth 1 --branch <version locked in composer.lock> https://github.com/laravel/pint <scratch dir>`, then `php <scratch dir>/builds/pint --test` (or without `--test` to fix) from the repo root. CI job logs are on a host the sandbox cannot reach, so use this to see Pint's exact complaints.
 
 ## Commands
 
