@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-mode="light_mode">
+<head>
+<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guardian List | SomaPlus School Management</title>
+<script src="assets/js/theme-script.js"></script>
+<link rel="shortcut icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/animate.css">
+<link rel="stylesheet" href="assets/plugins/tabler-icons/tabler-icons.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/edu-widgets.css">
+<link rel="stylesheet" href="assets/css/somaplus.css">
+<link rel="stylesheet" href="assets/plugins/flatpickr/flatpickr.min.css">
+</head>
+<body>
+<div id="global-loader"><div class="whirly-loader"></div></div>
+<div class="main-wrapper">
+<div class="header">
+<div class="main-header">
+<!-- Logo -->
+<div class="header-left active">
+<a class="logo logo-normal" href="index.html">
+<img alt="Img" src="assets/img/logo.svg"/>
+</a>
+<a class="logo logo-white" href="index.html">
+<img alt="Img" src="assets/img/logo-white.svg"/>
+</a>
+<a class="logo-small" href="index.html">
+<img alt="Img" src="assets/img/logo-small.svg"/>
+</a>
+<a class="logo-small-white" href="index.html">
+<img alt="Img" src="assets/img/logo-small-white.svg"/>
+</a>
+</div>
+<!-- /Logo -->
+<a class="mobile_btn" href="#sidebar" id="mobile_btn">
+<span class="bar-icon">
+<span></span>
+<span></span>
+<span></span>
+</span>
+</a>
+<!-- Header Menu -->
+<ul class="nav user-menu">
+<!-- Search -->
+<li class="nav-item nav-searchinputs">
+<div class="top-nav-search">
+<a class="responsive-search" href="javascript:void(0);">
+<i class="fa fa-search"></i>
+</a>
+<form action="#" class="dropdown">
+<div class="searchinputs input-group dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" id="dropdownMenuClickable">
+<input placeholder="Search" type="text"/>
+<div class="search-addon">
+<span><i class="ti ti-search"></i></span>
+</div>
+<span class="input-group-text">
+<kbd class="d-flex align-items-center"><img alt="img" class="me-1" src="assets/img/icons/command.svg"/>K</kbd>
+</span>
+</div>
+<div aria-labelledby="dropdownMenuClickable" class="dropdown-menu search-dropdown">
+<div class="search-info">
+<h6><span><i class="feather-16" data-feather="search"></i></span>Recent Searches
+										</h6>
+<ul class="search-tags"><li><a href="student-list.html">Students</a></li><li><a href="teacher-list.html">Teachers</a></li><li><a href="fees-collect.html">Fees</a></li></ul>
+</div>
+<div class="search-info">
+<h6><span><i class="feather-16" data-feather="help-circle"></i></span>Help</h6>
+
+
+</div>
+
+</div>
+</form>
+</div>
+</li>
+<!-- /Search -->
+<!-- Select Store -->
+<!-- /Select Store -->
+<!-- Flag -->
+<li class="nav-item dropdown has-arrow flag-nav nav-item-box">
+<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
+<img alt="Language" class="img-fluid" src="assets/img/flags/us-flag.svg"/>
+</a>
+<div class="dropdown-menu dropdown-menu-right">
+<a class="dropdown-item" href="javascript:void(0);">
+<img alt="Img" height="16" src="assets/img/flags/english.svg"/>English
+							</a>
+<a class="dropdown-item" href="javascript:void(0);">
+<img alt="Img" height="16" src="assets/img/flags/arabic.svg"/>Kiswahili
+							</a>
+</div>
+</li>
+<!-- /Flag -->
+<li class="nav-item nav-item-box">
+<a href="javascript:void(0);" id="btnFullscreen">
+<i class="ti ti-maximize"></i>
+</a>
+</li>
+<li class="nav-item nav-item-box">
+<a href="email.html">
+<i class="ti ti-mail"></i>
+<span class="badge rounded-pill">1</span>
+</a>
+</li>
+<!-- Notifications -->
+<li class="nav-item dropdown nav-item-box">
+<a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" href="javascript:void(0);">
+<i class="ti ti-bell"></i>
+</a>
+<div class="dropdown-menu notifications">
+<div class="topnav-dropdown-header">
+<h5 class="notification-title">Notifications</h5>
+<a class="clear-noti" href="javascript:void(0)">Mark all as read</a>
+</div>
+<div class="noti-content">
+<ul class="notification-list"><li class="notification-message"><a class="recent-msg" href="notice-board.html"><div class="media d-flex"><span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-03.jpg"/></span><div class="flex-grow-1"><p class="noti-details"><span class="noti-title">Amina Juma</span> applied for sick leave</p><p class="noti-time">10 mins ago</p></div></div></a></li><li class="notification-message"><a class="recent-msg" href="notice-board.html"><div class="media d-flex"><span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-17.jpg"/></span><div class="flex-grow-1"><p class="noti-details">Fee payment received from <span class="noti-title">Class 7 (A)</span></p><p class="noti-time">05 mins ago</p></div></div></a></li><li class="notification-message"><a class="recent-msg" href="notice-board.html"><div class="media d-flex"><span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-02.jpg"/></span><div class="flex-grow-1"><p class="noti-details">New notice posted: <span class="noti-title">Mid-term exam schedule</span></p><p class="noti-time">1 hour ago</p></div></div></a></li></ul>
+</div>
+<div class="topnav-dropdown-footer d-flex align-items-center gap-3">
+<a class="btn btn-secondary btn-md w-100" href="admin-dashboard.html#">Cancel</a>
+<a class="btn btn-primary btn-md w-100" href="notification.html">View all</a>
+</div>
+</div>
+</li>
+<!-- /Notifications -->
+<li class="nav-item nav-item-box">
+<a href="general.html"><i class="ti ti-settings"></i></a>
+</li>
+<li class="nav-item dropdown has-arrow main-drop profile-nav">
+<a class="nav-link userset" data-bs-toggle="dropdown" href="javascript:void(0);">
+<span class="user-info p-0">
+<span class="user-letter">
+<img alt="Img" class="img-fluid" src="assets/img/profiles/avatar-01.jpg"/>
+</span>
+</span>
+</a>
+<div class="dropdown-menu menu-drop-user">
+<div class="profileset d-flex align-items-center">
+<span class="user-img me-2">
+<img alt="Img" src="assets/img/profiles/avatar-01.jpg"/>
+</span>
+<div>
+<h6 class="fw-medium">School Admin</h6>
+<p>Administrator</p>
+</div>
+</div>
+<a class="dropdown-item" href="profile.html"><i class="ti ti-user-circle me-2"></i>My Profile</a>
+<a class="dropdown-item" href="general.html"><i class="ti ti-file-text me-2"></i>Reports</a>
+<a class="dropdown-item" href="general.html"><i class="ti ti-settings-2 me-2"></i>Settings</a>
+<hr class="my-2"/>
+<a class="dropdown-item logout" href="login.html"><i class="ti ti-logout me-2"></i>Logout</a>
+</div>
+</li>
+</ul>
+<!-- /Header Menu -->
+<!-- Mobile Menu -->
+<div class="dropdown mobile-user-menu">
+<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-ellipsis-v"></i></a>
+<div class="dropdown-menu dropdown-menu-right">
+<a class="dropdown-item" href="profile.html">My Profile</a>
+<a class="dropdown-item" href="general.html">Settings</a>
+<a class="dropdown-item" href="login.html">Logout</a>
+</div>
+</div>
+<!-- /Mobile Menu -->
+</div>
+</div>
+<div class="sidebar" id="sidebar">
+<div class="sidebar-logo"><a href="index.html" class="logo logo-normal"><img src="assets/img/logo.svg" alt="SomaPlus"></a><a href="index.html" class="logo logo-white"><img src="assets/img/logo-white.svg" alt="SomaPlus"></a><a href="index.html" class="logo-small"><img src="assets/img/logo-small.svg" alt="SomaPlus"></a><a href="index.html" class="logo-small-white"><img src="assets/img/logo-small-white.svg" alt="SomaPlus"></a>
+<a id="toggle_btn" href="javascript:void(0);"><i data-feather="chevrons-left" class="feather-16"></i></a></div>
+<div class="sidebar-header p-3 pb-0 pt-2"><div class="text-center rounded bg-light p-2 mb-4 sidebar-profile d-flex align-items-center">
+<div class="avatar avatar-md online"><img src="assets/img/edu/users/user1.png" alt="Admin" class="img-fluid rounded-circle"></div>
+<div class="text-start sidebar-profile-info ms-2"><h6 class="fs-14 fw-bold mb-1">School Admin</h6><p class="fs-12">Administrator</p></div></div></div>
+<div class="sidebar-inner slimscroll"><div id="sidebar-menu" class="sidebar-menu"><ul><li class="submenu-open"><h6 class="submenu-hdr">Main</h6><ul><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-layout-grid fs-16 me-2"></i><span>Dashboard</span><span class="menu-arrow"></span></a><ul><li><a href="index.html">School</a></li><li><a href="index-2.html">Student</a></li><li><a href="index-3.html">Teacher</a></li><li><a href="index-4.html">Parent</a></li><li><a href="index-5.html">LMS</a></li></ul></li></ul></li><li class="submenu-open"><h6 class="submenu-hdr">Academics</h6><ul><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-school fs-16 me-2"></i><span>Students</span><span class="menu-arrow"></span></a><ul><li><a href="add-new-student.html">Add New Student</a></li><li><a href="student-list.html">Student List</a></li><li><a href="suspended-student.html">Suspend Student</a></li><li><a href="student-category.html">Student Categories</a></li><li><a href="edit-student.html">Edit Student</a></li><li><a href="student-details.html">Student Details</a></li></ul></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-user-check fs-16 me-2"></i><span>Teachers</span><span class="menu-arrow"></span></a><ul><li><a href="add-new-teacher.html">Add New Teacher</a></li><li><a href="teacher-list.html">Teacher List</a></li><li><a href="edit-teacher.html">Edit Teacher</a></li><li><a href="teacher-details.html">Teacher Details</a></li><li><a href="teacher-timetable.html">Teacher Timetable</a></li></ul></li><li class="submenu"><a href="javascript:void(0);" class="subdrop active"><i class="ti ti-users fs-16 me-2"></i><span>Guardian</span><span class="menu-arrow"></span></a><ul style="display: block;"><li><a href="add-new-guardian.html">Add New Guardians</a></li><li><a href="guardian-list.html" class="active">Guardians List</a></li><li><a href="edit-guardian.html">Edit Guardian</a></li><li><a href="guardian-details.html">Guardian Details</a></li></ul></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-chalkboard fs-16 me-2"></i><span>Classes</span><span class="menu-arrow"></span></a><ul><li><a href="section-list.html">Section</a></li><li><a href="subject-list.html">Subjects</a></li><li><a href="class-list.html">Class List</a></li><li><a href="class-room-list.html">Class Room</a></li></ul></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-file-pencil fs-16 me-2"></i><span>Examinations</span><span class="menu-arrow"></span></a><ul><li><a href="exam.html">Exam</a></li><li><a href="exam-schedule.html">Exam Schedule</a></li><li><a href="exam-result.html">Exam Result</a></li></ul></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-calendar-check fs-16 me-2"></i><span>Attendance</span><span class="menu-arrow"></span></a><ul><li><a href="student-attendance.html">Student Attendance</a></li><li><a href="teacher-attendance.html">Teacher Attendance</a></li><li><a href="employee-attendance.html">Employee Attendance</a></li></ul></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-clock fs-16 me-2"></i><span>Leaves</span><span class="menu-arrow"></span></a><ul><li><a href="leave-types.html">Leave Types</a></li><li><a href="leave-request.html">Leave Request</a></li></ul></li><li><a href="certificate.html"><i class="ti ti-certificate fs-16 me-2"></i><span>Certificate</span></a></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-books fs-16 me-2"></i><span>Library</span><span class="menu-arrow"></span></a><ul><li><a href="books-list.html">Books List</a></li><li><a href="members-list.html">Members List</a></li><li><a href="member-details.html">Members Details</a></li><li><a href="issue-return.html">Issue Return</a></li></ul></li></ul></li><li class="submenu-open"><h6 class="submenu-hdr">Finance</h6><ul><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-cash fs-16 me-2"></i><span>Fees Collection</span><span class="menu-arrow"></span></a><ul><li><a href="fees-collect.html">Fees Collect</a></li><li><a href="fees-type.html">Fees Type</a></li><li><a href="fees-group.html">Fees Group</a></li><li><a href="fees-discount.html">Fees Discount</a></li></ul></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-cash fs-16 me-2"></i><span>Accounts</span><span class="menu-arrow"></span></a><ul><li><a href="income-head.html">Income Head</a></li><li><a href="income-list.html">Income List</a></li><li><a href="expense-head.html">Expense Head</a></li><li><a href="expense-list.html">Expense List</a></li><li><a href="transaction.html">Transaction</a></li></ul></li></ul></li><li class="submenu-open"><h6 class="submenu-hdr">People</h6><ul><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-user-cog fs-16 me-2"></i><span>HRM</span><span class="menu-arrow"></span></a><ul><li><a href="employee-list.html">Employee List</a></li><li><a href="employee-details.html">Employee Details</a></li><li><a href="add-new-employee.html">Add New Employee</a></li><li><a href="payroll.html">Payroll</a></li><li><a href="designation.html">Designation</a></li><li><a href="department.html">Department</a></li></ul></li></ul></li><li class="submenu-open"><h6 class="submenu-hdr">Communication</h6><ul><li><a href="notice-board.html"><i class="ti ti-notes fs-16 me-2"></i><span>Notice Board</span></a></li><li><a href="event.html"><i class="ti ti-calendar-event fs-16 me-2"></i><span>Event</span></a></li><li><a href="message.html"><i class="ti ti-message fs-16 me-2"></i><span>Message</span></a></li></ul></li><li class="submenu-open"><h6 class="submenu-hdr">Administration</h6><ul><li><a href="subscription-plan.html"><i class="ti ti-tag fs-16 me-2"></i><span>Subscription Plan</span></a></li><li><a href="role-access.html"><i class="ti ti-shield-lock fs-16 me-2"></i><span>Role & Access</span></a></li><li><a href="assign-role-plan.html"><i class="ti ti-user-shield fs-16 me-2"></i><span>Assign Role</span></a></li><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-user-cog fs-16 me-2"></i><span>Settings</span><span class="menu-arrow"></span></a><ul><li><a href="general.html">General</a></li><li><a href="notification.html">Notification</a></li><li><a href="currencies.html">Currencies</a></li><li><a href="languages.html">Languages</a></li></ul></li></ul></li><li class="submenu-open"><h6 class="submenu-hdr">Pages</h6><ul><li class="submenu"><a href="javascript:void(0);" class=""><i class="ti ti-lock fs-16 me-2"></i><span>Authentication</span><span class="menu-arrow"></span></a><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></li></ul></li></ul></div></div></div>
+<div class="page-wrapper"><div class="content">
+<div class="page-header"><div class="add-item d-flex"><div class="page-title"><h4>Guardian List</h4><h6>Dashboard</h6></div></div><ul class="table-top-head"><li class="me-2"><a data-bs-placement="top" data-bs-toggle="tooltip" href="javascript:location.reload()" title="Refresh"><i class="ti ti-refresh"></i></a></li><li class="me-2"><a data-bs-placement="top" data-bs-toggle="tooltip" id="collapse-header" title="Collapse"><i class="ti ti-chevron-up"></i></a></li></ul><div class="page-btn"><a class="btn btn-primary d-flex align-items-center gap-1" href="add-new-guardian.html">
+
+<i class="ti ti-circle-plus me-1"></i>
+
+      Add Guardian    </a></div></div>
+
+<div class="mt-4">
+<div class="card">
+
+<div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3"><div class="search-set"><div class="search-input"><span class="btn-searchset"><i class="ti ti-search fs-14 feather-search"></i></span></div></div><div class="d-flex align-items-center flex-wrap gap-2"><div class="dropdown"><a class="btn btn-white btn-md d-inline-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-file-export me-1"></i>Export</a><ul class="dropdown-menu p-3">
+<li>
+<button class="dropdown-item px-3 py-2 rounded text-gray-5 d-flex align-items-center gap-2" data-bs-target="#exampleModalView" data-bs-toggle="modal" type="button">
+<i class="ti ti-file-type-pdf"></i>
+                                            PDF
+                                        </button>
+</li>
+<li>
+<button class="dropdown-item px-3 py-2 rounded text-gray-5 d-flex align-items-center gap-2" data-bs-target="#exampleModalEdit" data-bs-toggle="modal" type="button">
+<i class="ti ti-file-spreadsheet"></i>
+                                            Excel
+                                        </button>
+</li>
+</ul></div><div class="dropdown"><a class="btn btn-white btn-md d-inline-flex align-items-center dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-filter me-1"></i>Filter</a><div class="dropdown-menu p-3 filter-menu" style="min-width:320px">
+<div class="d-flex align-items-center justify-content-between border-bottom py-2 px-3">
+<span class="fw-semibold text-dark">Filter</span>
+<button type="button">
+<i class="ti ti-x"></i>
+</button>
+</div>
+<form action="guardian-list.html#" class="p-3">
+<div class="row g-3">
+<div class="col-12">
+<label class="fw-semibold text-dark d-inline-block mb-2 form-label" for="subject">Gender</label>
+<select class="form-control form-select" id="subject">
+<option value="Select">Select Subject</option>
+<option value="Match">Match</option>
+<option value="English">English</option>
+<option value="Bangla">Bangla</option>
+<option value="Economics">Economics</option>
+<option value="Physics">Physics</option>
+</select>
+</div>
+<div class="col-12">
+<label class="fw-semibold text-dark d-inline-block mb-2 form-label" for="status">Status</label>
+<select class="form-control form-select" id="status">
+<option value="Select">Select Status</option>
+<option value="Active">Active</option>
+<option value="Inactive">Inactive</option>
+</select>
+</div>
+<div class="col-6">
+<button class="btn btn-outline-danger text-danger w-100" type="reset">Reset</button>
+</div>
+<div class="col-6">
+<button class="btn btn-primary w-100" type="submit">Apply</button>
+</div>
+</div>
+</form>
+</div></div></div></div><div class="card-body p-0"><div class="table-responsive"><table class="datatable table">
+<thead class="thead-light">
+<tr>
+<th scope="col">
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">S.L</span></div>
+</th>
+<th scope="col">ID</th>
+<th scope="col">Name</th>
+<th scope="col">Child</th>
+<th scope="col">Email</th>
+<th scope="col">Phone Number</th>
+<th scope="col">Join Date</th>
+<th scope="col">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">01</span></div>
+</td>
+<td><span class="text-primary">AD52365</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Marvin McKinney Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img1.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Marvin McKinney</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Darlene Robertson Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img1.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Darlene Robertson</h6>
+<span class="text-gray-5">Class: 1 (A)</span>
+</div>
+</div>
+</td>
+<td>chinthaka@hotmail.com</td>
+<td>209.555.0104</td>
+<td>05 May 2012</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">02</span></div>
+</td>
+<td><span class="text-primary">AD65412</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Esther Howard Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img2.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Esther Howard
+                                                </h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Jane Cooper Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img2.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Jane Cooper</h6>
+<span class="text-gray-5">Class: 2 (B)</span>
+</div>
+</div>
+</td>
+<td>esther@example.com</td>
+<td>305.442.0899</td>
+<td>10 Feb 2014</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">03</span></div>
+</td>
+<td><span class="text-primary">AD76548</span></td>
+<td>
+<div class="d-flex align-items-center"><img alt="Cody Fisher" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img3.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Cody Fisher</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center"><img alt="Robert Fox" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img3.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Robert Fox</h6>
+<span class="text-gray-5">Class: 3 (A)</span>
+</div>
+</div>
+</td>
+<td>codyf@example.com</td>
+<td>312.900.0981</td>
+<td>08 Mar 2016</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">04</span></div>
+</td>
+<td><span class="text-primary">AD33221</span></td>
+<td>
+<div class="d-flex align-items-center"><img alt="Jenny Wilson" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img4.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Jenny Wilson
+                                                </h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center"><img alt="Albert Flores" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img4.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Albert Flores
+                                                </h6><span class="text-gray-5">Class: 4 (B)</span>
+</div>
+</div>
+</td>
+<td>jenny@example.com</td>
+<td>404.788.1120</td>
+<td>15 Aug 2017</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">05</span></div>
+</td>
+<td><span class="text-primary">AD77231</span></td>
+<td>
+<div class="d-flex align-items-center"><img alt="Theresa Webb" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img5.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Theresa Webb
+                                                </h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center"><img alt="Leslie Alexander" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img5.png"/>
+<div>
+<h6 class="mb-0 fw-medium text-gray-5">Leslie Alexander
+                                                </h6><span class="text-gray-5">Class: 5 (A)</span>
+</div>
+</div>
+</td>
+<td>theresa.webb@example.com</td>
+<td>213.987.7770</td>
+<td>22 Sep 2018</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">06</span></div>
+</td>
+<td><span class="text-primary">AD52366</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="John Smith Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img2.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">John
+                                                    Smith</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Student Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img2.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Kathryn Murphy</h6>
+<span class="text-gray-5">Class: 2 (B)</span>
+</div>
+</div>
+</td>
+<td>kathryn.murphy@example.com</td>
+<td>208.555.1122</td>
+<td>12 Jan 2013</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">07</span></div>
+</td>
+<td><span class="text-primary">AD52367</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Teacher Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img3.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Theresa Webb</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Student Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img3.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">Guy
+                                                    Hawkins</h6>
+<span class="text-gray-5">Class: 3 (C)</span>
+</div>
+</div>
+</td>
+<td>guy.hawkins@example.com</td>
+<td>203.555.2145</td>
+<td>27 Mar 2014</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">08</span></div>
+</td>
+<td><span class="text-primary">AD52368</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Teacher Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img4.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Courtney Henry</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Student Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img4.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Eleanor Pena</h6>
+<span class="text-gray-5">Class: 4 (A)</span>
+</div>
+</div>
+</td>
+<td>eleanor.pena@example.com</td>
+<td>210.555.1098</td>
+<td>08 Sep 2014</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">09</span></div>
+</td>
+<td><span class="text-primary">AD52369</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Teacher Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img5.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Albert Flores</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Student Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img5.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Jenny Wilson</h6>
+<span class="text-gray-5">Class: 5 (B)</span>
+</div>
+</div>
+</td>
+<td>jenny.wilson@example.com</td>
+<td>212.555.3223</td>
+<td>11 Nov 2015</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">10</span></div>
+</td>
+<td><span class="text-primary">AD52370</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Teacher Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img6.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Jerome Bell</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Student Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img6.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Esther Howard</h6>
+<span class="text-gray-5">Class: 6 (A)</span>
+</div>
+</div>
+</td>
+<td>esther.howard@example.com</td>
+<td>210.555.7766</td>
+<td>22 Feb 2016</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">11</span></div>
+</td>
+<td><span class="text-primary">AD52371</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Teacher Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img7.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Devon Lane</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Student Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img7.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Robert Fox</h6>
+<span class="text-gray-5">Class: 7 (C)</span>
+</div>
+</div>
+</td>
+<td>robert.fox@example.com</td>
+<td>202.555.8974</td>
+<td>10 Jul 2017</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="d-flex align-items-center"><label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label><span class="ms-2">12</span></div>
+</td>
+<td><span class="text-primary">AD52372</span></td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Teacher Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/teacher-avatar-img8.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Floyd Miles</h6>
+</div>
+</div>
+</td>
+<td>
+<div class="d-flex align-items-center">
+<img alt="Student Image" class="flex-shrink-0 me-2 rounded" src="assets/img/edu/thumbs/avatar-img8.png"/>
+<div>
+<h6 class="mb-0 fw-medium flex-grow-1 text-gray-5">
+                                                    Leslie Alexander</h6>
+<span class="text-gray-5">Class: 8 (A)</span>
+</div>
+</div>
+</td>
+<td>leslie.alexander@example.com</td>
+<td>205.555.6742</td>
+<td>21 Oct 2018</td>
+<td>
+<div class="dropdown table-action"><a aria-expanded="false" class="btn btn-icon btn-sm" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end p-2"><li><a class="dropdown-item d-flex align-items-center rounded-1" href="guardian-list.html"><i class="me-2"></i>View Guardian</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="edit-guardian.html"><i class="me-2"></i>Edit</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1" href="login.html"><i class="me-2"></i>Login</a></li><li><a class="dropdown-item d-flex align-items-center rounded-1 text-danger" data-bs-target="#exampleModalDelete" data-bs-toggle="modal" href="javascript:void(0);"><i class="me-2"></i>Delete</a></li></ul></div>
+</td>
+</tr>
+</tbody>
+</table></div></div></div>
+</div>
+
+</div>
+<div class="copyright-footer d-flex align-items-center justify-content-between border-top bg-white gap-3 flex-wrap"><p class="fs-13 text-gray-9 mb-0">&copy; <span id="current-year"></span> SomaPlus. All rights reserved.</p><p>Built by <a href="javascript:void(0);" class="link-primary">Odessa Lab Technologies</a></p></div></div>
+</div>
+<div aria-hidden="true" class="modal fade" id="exampleModalDelete" tabindex="-1">
+<div class="modal-dialog modal-sm modal-dialog-centered" style="max-width:340px">
+<div class="modal-content rounded-3 card">
+<div class="modal-body pt-4 px-4 pb-4 text-center">
+<span class="mb-3 fs-1 text-danger">
+<i class="ti ti-trash"></i>
+</span>
+<h6 class="fw-semibold text-dark mb-0">Are your sure you want to Suspend this teacher
+                </h6>
+<div class="d-flex align-items-center justify-content-center gap-3 mt-4">
+<button class="flex-grow-1 border text-danger px-4 py-2 rounded" type="reset">
+                        Cancel
+                    </button>
+<button class="flex-grow-1 btn btn-primary border px-3 py-2 rounded" type="button">
+                        Yes, Suspend
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</div><script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/feather.min.js"></script>
+<script src="assets/plugins/simplebar/simplebar.min.js"></script>
+<script src="assets/js/datatable.js"></script>
+<script src="assets/plugins/flatpickr/flatpickr.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script>document.querySelectorAll("#current-year").forEach(function(e){e.textContent=new Date().getFullYear()});</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+/* SomaPlus overrides on top of the Dream design system */
+
+/* file upload zones (replaces Edudash drop-zone) */
+.image-upload.sp-upload{background:#fff;border-radius:8px}
+.image-upload.sp-upload input[type=file]{height:92px}
+.image-upload.sp-upload .image-uploads{padding:22px 0;pointer-events:none}
+.image-upload.sp-upload .image-uploads i{display:block;margin:0 auto 4px;color:#FE9F43}
+
+/* dashboard calendar (flatpickr inline) */
+.sp-calendar .flatpickr-calendar.inline{width:100%;max-width:100%;box-shadow:none}
+.sp-calendar .flatpickr-innerContainer,.sp-calendar .flatpickr-rContainer,.sp-calendar .flatpickr-days,.sp-calendar .dayContainer{width:100%;min-width:100%;max-width:100%}
+.sp-calendar .flatpickr-day{max-width:none}
+
+/* chat (ported Edudash widget, restyled to Dream) */
+.chat-message-list{background:#F7F7F9}
+.chat-single-message.left .chat-message-content{border:1px solid #E6EAED}
+.chat-single-message{align-items:flex-start;gap:12px;flex-wrap:nowrap;justify-content:flex-start}
+.chat-single-message>img{width:40px;height:40px;flex-shrink:0}
+.chat-single-message .chat-message-content{width:auto;max-width:100%;padding:.9rem 1.1rem}
+.chat-wrapper input[type=text],.chat-wrapper input:not([type]),.navbar-search input{border:1px solid #E6EAED;border-radius:8px;padding:8px 12px;height:40px;width:100%;outline:0;background:#fff}
+.chat-wrapper input:focus{border-color:#FE9F43}
+.chat-message-box-action button:not(.btn){width:40px;height:40px;border:1px solid #E6EAED;border-radius:8px;background:#fff;color:#212B36}
+.navbar-search{position:relative}
+.navbar-search .icon,.navbar-search i{position:absolute;right:12px;top:50%;transform:translateY(-50%)}
+.chat-sidebar-single:hover{background:#FFF5EB}
+
+/* attendance radios / misc */
+.table td .form-check{display:inline-flex;align-items:center;margin-right:.9rem;white-space:nowrap}
+.table td:has(.form-check-input[type=radio]){white-space:nowrap}
+#calendar .fc-button-primary{background:#FE9F43;border-color:#FE9F43}
+#calendar .fc-button-primary:hover,#calendar .fc-button-active{background:#e88a2d!important;border-color:#e88a2d!important}
+
+/* denser tables so wide Edudash tables fit beside the Dream sidebar */
+.table.datatable th,.table.datatable td{padding:.65rem .6rem;white-space:nowrap}
+.table.datatable td .avatar,.table.datatable td img.flex-shrink-0{flex-shrink:0}
+.page-wrapper .card-body.p-0 .table-responsive{overflow-x:auto}
+.dataTables_length,.dataTables_length label{white-space:nowrap}
+.dataTables_wrapper .dataTables_length select{min-width:70px}
