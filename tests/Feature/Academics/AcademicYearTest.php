@@ -16,7 +16,7 @@ beforeEach(function () {
     $this->owner = userWithRole($this->school, 'owner');
 
     $this->inSchool = fn (Closure $work, ?Tenant $school = null) => TenantContext::run($school ?? $this->school, $work);
-    $this->year = fn (array $attributes = []) => ($this->inSchool)(fn () => AcademicYear::factory()->create($attributes));
+    $this->year = fn (array $attributes = [], ?Tenant $school = null) => ($this->inSchool)(fn () => AcademicYear::factory()->create($attributes), $school);
 });
 
 it('adds an academic year', function () {
