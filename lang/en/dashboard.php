@@ -13,6 +13,8 @@ return [
         'read_only' => 'Read-only',
     ],
     'grace_ends' => 'Grace period ends on :date.',
+    'academic_year' => 'Academic year',
+    'no_year' => 'Not set',
     'your_roles' => 'Your role',
     'no_role' => 'No role yet',
 ];

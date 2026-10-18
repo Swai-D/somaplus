@@ -26,5 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
     Route::get('/help/{article}', [HelpController::class, 'show'])->name('help.show');
+
+    require __DIR__.'/academics.php';
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

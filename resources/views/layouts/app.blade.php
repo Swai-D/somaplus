@@ -24,6 +24,13 @@
                     <div class="alert alert-warning" role="alert">{{ __('tenancy.read_only') }}</div>
                 @endif
 
+                @if (session('status'))
+                    <div class="alert alert-success" role="status">{{ session('status') }}</div>
+                @endif
+                @error('delete')
+                    <div class="alert alert-danger" role="alert">{{ $message }}</div>
+                @enderror
+
                 @yield('page')
             </div>
             @include('partials.footer')
