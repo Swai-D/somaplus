@@ -47,6 +47,17 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
+                        <p class="text-muted mb-1">{{ __('dashboard.academic_year') }}</p>
+                        <h4 class="mb-0">{{ $summary['academic_year'] ?? __('dashboard.no_year') }}</h4>
+                        @if ($summary['term'])
+                            <p class="text-muted fs-13 mt-2 mb-0">{{ $summary['term'] }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
                         <p class="text-muted mb-1">{{ __('dashboard.your_roles') }}</p>
                         <h4 class="mb-0">{{ $summary['roles'] === [] ? __('dashboard.no_role') : implode(', ', $summary['roles']) }}</h4>
                     </div>

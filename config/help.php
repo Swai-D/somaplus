@@ -18,6 +18,7 @@ return [
     'articles' => [
         'getting-started',
         'forgot-password',
+        'academic-structure',
         'roles',
         'subscription',
     ],

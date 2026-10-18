@@ -54,3 +54,14 @@ function makeSchoolUser(Tenant $school, array $attributes = [], ?string $role = 
         return $user;
     });
 }
+
+/**
+ * A user of the given school with the given role, loaded fresh the way a request
+ * would load it (so no relation cached while the test set things up).
+ */
+function userWithRole(Tenant $school, string $role): User
+{
+    $user = makeSchoolUser($school, [], $role);
+
+    return TenantContext::runAsSystem(fn () => User::findOrFail($user->id));
+}

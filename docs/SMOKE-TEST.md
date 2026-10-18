@@ -84,3 +84,17 @@ Mail goes to Mailpit (`http://localhost:8025`) with the `MAIL_*` values of `.env
 4. Opening the link, choosing a password of 8 or more characters (twice) and saving returns to sign-in with a success message; the new password signs in, the old one does not.
 5. Using the same link again, or the same link on Beta's address, answers "This reset link is not valid or has expired."
 6. After switching to Kiswahili, the pages and the email are in Swahili. Help has the article "Forgot your password".
+
+## Academic structure
+
+Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, created in the sign-in section).
+
+1. The sidebar has Academics with three items: Academic years, Classes and streams, Subjects.
+2. Academic years: add `2026` from 2026-01-01 to 2026-12-31 and mark it current. Adding `2026-27` from 2026-12-31 is refused (overlap); `2027` from 2027-01-01 is accepted. Marking `2027` current removes the badge from `2026`.
+3. Open `2026`: add `Term 1` (2026-01-12 to 2026-04-03) and `Term 2` (2026-05-04 to 2026-08-14). A term dated 2025-12-01 to 2026-03-01 is refused (outside the year); one starting 2026-04-03 is refused (overlap). The dashboard shows the current year and, when today is inside a term, that term.
+4. Deleting `2026` while it has terms is refused with a message; after deleting both terms it works.
+5. Classes: add `Form 1` (order 1) and `Form 2` (order 2); they are listed in that order. Open `Form 1` and add streams `A` and `B`; a second `A` is refused, but `Form 2` can have its own `A`. Deleting `Form 1` while it has streams is refused.
+6. Subjects: add `Mathematics` with code `MATH`; a second `Mathematics`, or another subject with code `MATH`, is refused. A subject without a code is fine.
+7. Sign in as a teacher: all pages can be opened, but there are no add, edit or delete buttons, and posting a change by hand answers 403. A parent / student sees no Academics menu and gets 403 on `/academics/years`.
+8. Set the school to `read_only`: pages open, changes answer 403.
+9. At Beta's address nothing of Acme's years, classes or subjects is visible, and Acme's record ids give 404.

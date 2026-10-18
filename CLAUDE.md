@@ -30,6 +30,7 @@ Every tenant-owned Eloquent model uses `App\Models\Concerns\BelongsToTenant`. Ne
 ## Academic and school rules
 
 - A school has academic years, terms, classes (levels), streams and subjects. Students belong to a class and stream per year; history is never overwritten, a promotion or transfer adds a new record.
+- The academic structure lives in `App\Domain\Academics`. Features that refer to a year, term, class, stream or subject keep restrictive foreign keys and add their own check to `DeleteAcademicRecord`; records are never silently removed or overwritten.
 - Marks, grades and positions are computed server-side from grading scales the school configures; reports must be reproducible for any past term.
 - Fees: structures, invoices and payments are separate records. A payment never edits an invoice; balances are derived. Receipts are numbered without gaps. Operations a client may resend (payments, mark entry, invoice generation) must be idempotent.
 - Student and guardian data is personal data (often minors). Collect only what is needed, log access to sensitive records in the audit log, and never put it in error tracking, logs or URLs.

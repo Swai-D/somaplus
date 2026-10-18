@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Support\Menu;
 use App\Tenancy\TenantContext;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
 
 /**
  * @param  array<int, array<string, mixed>>  $items
@@ -108,8 +110,10 @@ it('marks the entry of the current page as active', function () {
         ->assertSee('class="active"', false);
 });
 
-it('only lists the dashboard and help until a feature adds its own entry', function () {
-    $routes = collect(config('menu.sections'))->flatMap(fn ($section) => $section['items'])->pluck('route')->all();
+it('only lists entries whose routes exist', function () {
+    $entries = collect(config('menu.sections'))->flatMap(fn ($section) => $section['items'])
+        ->flatMap(fn ($item) => $item['children'] ?? [$item]);
 
-    expect($routes)->toBe(['dashboard', 'help.index']);
+    expect($entries->pluck('route')->filter()->reject(fn ($route) => Route::has($route))->all())->toBe([])
+        ->and($entries->pluck('label')->reject(fn ($label) => Lang::has($label, 'en') && Lang::has($label, 'sw'))->all())->toBe([]);
 });

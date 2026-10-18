@@ -29,6 +29,9 @@ return [
         'parent_student',
     ],
 
-    'permissions' => [],
+    'permissions' => [
+        'academics.view' => ['owner', 'head_teacher', 'teacher', 'accountant'],
+        'academics.manage' => ['owner', 'head_teacher'],
+    ],
 
 ];

@@ -28,6 +28,18 @@ return [
                 'Kama barua haifiki, angalia folda ya spam, subiri dakika moja ujaribu tena, au muulize msimamizi wa shule.',
             ],
         ],
+        'academic-structure' => [
+            'title' => 'Miaka ya masomo, madarasa na masomo',
+            'summary' => 'Weka miaka, mihula, madarasa, mikondo na masomo ya shule yako.',
+            'body' => [
+                'Fungua Muundo wa masomo kwenye menyu. Kuna kurasa tatu: Miaka ya masomo, Madarasa na mikondo, na Masomo. Wamiliki na walimu wakuu wanaweza kuongeza na kubadilisha; walimu na wahasibu wanaweza kuangalia tu.',
+                'Miaka ya masomo: ongeza mwaka kwa tarehe zake za kuanza na kuisha, kisha uufungue kuongeza mihula yake. Mihula lazima iwe ndani ya mwaka na isiingiliane; miaka pia haiwezi kuingiliana. Weka mwaka mmoja kuwa wa sasa: dashibodi inaonyesha mwaka wa sasa na muhula ambao leo iko ndani yake.',
+                'Madarasa na mikondo: ongeza madarasa ya shule yako, kama Kidato cha 1 au Darasa la 4, na uyape nambari ya kupanga mpangilio wa kuorodheshwa. Fungua darasa kuongeza mikondo yake, kama A na B. Darasa lisilo na mikondo ni kundi moja.',
+                'Masomo: ongeza kila somo linalofundishwa shuleni. Msimbo mfupi si lazima.',
+                'Majina lazima yawe tofauti ndani ya shule (mihula ndani ya mwaka wake, mikondo ndani ya darasa lake). Mwaka ambao bado una mihula, au darasa ambalo bado lina mikondo, haviwezi kufutwa hadi hiyo ifutwe.',
+                'Usajili wa shule ukiwa wa kusoma tu bado unaweza kuangalia kila kitu, lakini hakuna kinachoweza kubadilishwa.',
+            ],
+        ],
         'roles' => [
             'title' => 'Wadhifa',
             'summary' => 'Wadhifa tano ambazo mtu anaweza kuwa nazo shuleni.',

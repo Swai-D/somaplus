@@ -13,6 +13,8 @@ return [
         'read_only' => 'Kusoma tu',
     ],
     'grace_ends' => 'Muda wa neema unaisha :date.',
+    'academic_year' => 'Mwaka wa masomo',
+    'no_year' => 'Haujawekwa',
     'your_roles' => 'Wadhifa wako',
     'no_role' => 'Bado huna wadhifa',
 ];

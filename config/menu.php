@@ -13,6 +13,8 @@
 |   route       named route; an entry whose route does not exist is hidden
 |   permission  optional; the signed-in person must hold it in their school
 |   feature     optional; the school's plan must include it
+|   active      optional list of route name patterns that also mark the entry as
+|               active (for example "academics.years.*")
 |   scope       "school" (default), "central" (platform admins) or "both"
 |   children    optional list of entries; the parent is shown only when at
 |               least one child is, and has no route of its own
@@ -32,6 +34,35 @@ return [
                     'icon' => 'ti ti-layout-grid',
                     'route' => 'dashboard',
                     'scope' => 'both',
+                ],
+            ],
+        ],
+        [
+            'label' => 'menu.sections.school',
+            'items' => [
+                [
+                    'label' => 'menu.academics',
+                    'icon' => 'ti ti-school',
+                    'children' => [
+                        [
+                            'label' => 'menu.academic_years',
+                            'route' => 'academics.years.index',
+                            'permission' => 'academics.view',
+                            'active' => ['academics.years.*', 'academics.terms.*'],
+                        ],
+                        [
+                            'label' => 'menu.classes',
+                            'route' => 'academics.classes.index',
+                            'permission' => 'academics.view',
+                            'active' => ['academics.classes.*', 'academics.streams.*'],
+                        ],
+                        [
+                            'label' => 'menu.subjects',
+                            'route' => 'academics.subjects.index',
+                            'permission' => 'academics.view',
+                            'active' => ['academics.subjects.*'],
+                        ],
+                    ],
                 ],
             ],
         ],

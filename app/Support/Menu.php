@@ -88,6 +88,7 @@ final class Menu
         }
 
         $route = $item['route'] ?? null;
+        $patterns = array_values(array_filter((array) ($item['active'] ?? []), 'is_string'));
 
         if (! is_string($route) || ! Route::has($route)) {
             return null;
@@ -97,7 +98,7 @@ final class Menu
             'label' => $label,
             'icon' => $icon,
             'url' => route($route),
-            'active' => $request->routeIs($route, $route.'.*'),
+            'active' => $request->routeIs($route, $route.'.*', ...$patterns),
             'children' => [],
         ];
     }
