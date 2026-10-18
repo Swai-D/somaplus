@@ -50,6 +50,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import os
+          import re
           import xml.etree.ElementTree as ET
 
           def esc(text):
@@ -59,10 +60,16 @@ jobs:
               with open('pest.log', errors='replace') as handle:
                   tail = ''.join(handle.readlines()[-80:])
               print('::error title=Pest output (last lines)::' + esc(tail[-4000:]))
+              with open('pest.log', errors='replace') as handle:
+                  plain = re.sub(r'\x1b\[[0-9;]*m', '', handle.read())
+              failed = [line.strip() for line in plain.splitlines() if 'FAIL' in line or 'Error' in line or 'Exception' in line]
+              print('::error title=Pest failing lines::' + esc('\n'.join(failed)[:4000]))
 
           try:
               shown = 0
-              for case in ET.parse('pest-junit.xml').getroot().iter('testcase'):
+              with open('pest-junit.xml', errors='replace') as handle:
+                  xml_text = re.sub('[\x00-\x08\x0b\x0c\x0e-\x1f]', '', handle.read())
+              for case in ET.fromstring(xml_text).iter('testcase'):
                   for kind in ('failure', 'error'):
                       node = case.find(kind)
                       if node is not None and shown < 8:
