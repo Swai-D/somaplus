@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\EnsurePlanAllows;
+use App\Http\Middleware\EnsureTenantWritable;
+use App\Http\Middleware\ResolveTenant;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,7 +14,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->web(prepend: [
+            ResolveTenant::class,
+        ]);
+
+        $middleware->alias([
+            'plan' => EnsurePlanAllows::class,
+            'tenant.writable' => EnsureTenantWritable::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
