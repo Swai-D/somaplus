@@ -17,6 +17,7 @@ return [
 
     'articles' => [
         'getting-started',
+        'forgot-password',
         'roles',
         'subscription',
     ],

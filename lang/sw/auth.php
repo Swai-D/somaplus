@@ -9,6 +9,7 @@ return [
     'password' => 'Nenosiri',
     'password_placeholder' => 'Weka nenosiri lako',
     'remember' => 'Nikumbuke',
+    'forgot' => 'Umesahau nenosiri?',
     'submit' => 'Ingia',
     'failed' => 'Taarifa hizi hazilingani na kumbukumbu zetu.',
     'throttle' => 'Majaribio mengi ya kuingia. Jaribu tena baada ya sekunde :seconds.',

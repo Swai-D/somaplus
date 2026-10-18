@@ -17,6 +17,17 @@ return [
                 'Kutoka, fungua wasifu wako kwenye upau wa juu kisha chagua Toka.',
             ],
         ],
+        'forgot-password' => [
+            'title' => 'Umesahau nenosiri',
+            'summary' => 'Jinsi ya kuchagua nenosiri jipya.',
+            'body' => [
+                'Kwenye ukurasa wa kuingia, chagua "Umesahau nenosiri?", andika barua pepe unayotumia shuleni kisha chagua "Tuma kiungo cha kubadilisha".',
+                'Kwa usalama, ukurasa unatoa jibu lile lile iwe barua pepe ni ya shule yako au la. Ikiwa ni ya shule yako, kiungo kinakuja kwa barua pepe.',
+                'Fungua kiungo, chagua nenosiri jipya lenye angalau herufi 8, liandike mara mbili kisha hifadhi. Kiungo kinafanya kazi kwa dakika 60 na mara moja tu.',
+                'Kiungo kinafanya kazi kwenye shule iliyokituma tu. Ukifanya kazi shule mbili, omba kiungo kwenye anwani ya kila shule.',
+                'Kama barua haifiki, angalia folda ya spam, subiri dakika moja ujaribu tena, au muulize msimamizi wa shule.',
+            ],
+        ],
         'roles' => [
             'title' => 'Wadhifa',
             'summary' => 'Wadhifa tano ambazo mtu anaweza kuwa nazo shuleni.',

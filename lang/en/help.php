@@ -17,6 +17,17 @@ return [
                 'To leave, open your profile in the top bar and choose Log out.',
             ],
         ],
+        'forgot-password' => [
+            'title' => 'Forgot your password',
+            'summary' => 'How to choose a new password.',
+            'body' => [
+                'On the sign-in page, choose "Forgot password?", type the email address you use at your school and choose "Send reset link".',
+                'For safety, the page gives the same answer whether or not the address belongs to your school. If it does, a link arrives by email.',
+                'Open the link, choose a new password of at least 8 characters, type it twice and save. The link works for 60 minutes and only once.',
+                'A link only works at the school that sent it. If you work at two schools, ask for a link at each school\'s own address.',
+                'If no email arrives, check your spam folder, wait a minute and try again, or ask your school administrator.',
+            ],
+        ],
         'roles' => [
             'title' => 'Roles',
             'summary' => 'The five roles a person can have in a school.',
