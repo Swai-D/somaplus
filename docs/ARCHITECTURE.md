@@ -34,7 +34,16 @@ One school is one tenant, in a single database. Tenant ids are ULIDs.
 - **Tenant-owned models.** Add the `App\Models\Concerns\BelongsToTenant` trait and a `tenant_id` ULID column (`foreignUlid('tenant_id')->constrained('tenants')`, no cascading delete: a school's data is never removed because of a subscription change). The trait applies `TenantScope` to every query, fills `tenant_id` on create, and refuses to write a row for another tenant or to move a row between tenants (`TenancyViolation`).
 - **Fails closed.** With no current tenant, a scoped query returns nothing and creating a row throws. The only way to see every school's rows is `TenantContext::runAsSystem(fn () => ...)`, reserved for reviewed super-admin and system operations; every call needs a reason in code review.
 - **Queued jobs.** A job that touches tenant data uses the `App\Tenancy\TenantAwareJob` trait: dispatch it with `->forCurrentTenant()`; only the tenant id is serialized, and `RestoreTenantContext` job middleware reloads the tenant and runs the job inside it. A job without a tenant id fails.
-- **Not yet tenant-aware:** `users` and Spatie permissions (teams mode keyed by tenant) arrive with roles and permissions.
+- **Users** are the one tenant-owned model that does not use `BelongsToTenant`; see below.
+
+## Users, roles and permissions
+
+- **Users.** `users.tenant_id` points at the school; a super-admin (`is_super_admin`) belongs to the platform and has no school. `UserScope` shows a school only its own users, the central domain only super-admins, and everything only inside `TenantContext::runAsSystem()`. A normal user always has a school (taken from the current tenant when created); a super-admin cannot be created inside or for a school; a user cannot be moved to another school or promoted to super-admin afterwards. `tenant_id` and `is_super_admin` are not mass assignable. The email address is unique per school, not globally, so one person can sign in at two schools. Password reset tokens are still keyed by email only and must be made per school with the sign-in work.
+- **Roles.** `spatie/laravel-permission` runs in teams mode, where the team is the school (`permission.team_foreign_key` is `tenant_id`, a ULID that cannot be null). `TenantTeamResolver` always answers with the current tenant and refuses to be set to anything else, so a role check can never be answered for another school. Roles and role assignments belong to a school; permission names are shared rows.
+- **The five roles** are in `config/roles.php` (`owner`, `head_teacher`, `teacher`, `accountant`, `parent_student`), with English and Swahili labels in `lang/*/roles.php`. Every new school gets all five (`Tenant::created` runs `SyncTenantRoles`). Syncing is idempotent and only adds; it never revokes.
+- **Permissions** are added to `config/roles.php` only together with the feature that checks them (`'students.view' => ['owner', 'teacher']`). Existing schools receive a new permission by running `SyncTenantRoles` for each school (a data migration), because the config is seed data and not the source of truth.
+- **Assigning roles.** Assign by name or id (`$user->assignRole('teacher')`), inside the school's context. `User::assignRole()` refuses a `Role` object of another school, which the package does not check by itself. Do not assign roles outside a tenant context.
+- Super-admin permissions, sign-in and password reset arrive with authentication.
 
 ## Plans and subscriptions
 

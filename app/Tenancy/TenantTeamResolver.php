@@ -13,7 +13,7 @@ use Spatie\Permission\Contracts\PermissionsTeamResolver;
  */
 final class TenantTeamResolver implements PermissionsTeamResolver
 {
-    public function getPermissionsTeamId(): int|string|null
+    public function getPermissionsTeamId(): ?string
     {
         return TenantContext::instance()->currentId();
     }

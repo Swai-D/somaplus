@@ -25,3 +25,24 @@ App\Models\Tenant::create(['name' => 'Beta', 'slug' => 'beta', 'subscription_pla
 2. `http://localhost:8000` (central domain) shows the home page. `http://acme.localhost:8000` shows it too. `http://nobody.localhost:8000` answers 404.
 3. Sending `X-Tenant: acme` to the central domain does not change the tenant.
 4. Set `subscription_status` of Acme to `read_only`: pages still load.
+
+## Users and roles
+
+From `php artisan tinker`, with the two schools Acme and Beta from the previous section:
+
+```php
+$acme = App\Models\Tenant::where('slug', 'acme')->first();
+$id = App\Tenancy\TenantContext::run($acme, function () {
+    $user = App\Models\User::factory()->create();
+    $user->assignRole('teacher');
+    dump($user->tenant_id, $user->hasRole('teacher'));
+
+    return $user->id;
+});
+```
+
+1. A new school has five roles: `Spatie\Permission\Models\Role::where('tenant_id', $acme->id)->pluck('name')` lists owner, head_teacher, teacher, accountant and parent_student.
+2. The snippet above prints Acme's id and `true`.
+3. Outside any school, `App\Models\User::count()` counts only super-admins, not the user just created.
+4. Inside Beta (`TenantContext::run($beta, ...)`), `App\Models\User::count()` does not include Acme's user, and `hasRole('teacher')` on that user, loaded with `App\Tenancy\TenantContext::runAsSystem(fn () => App\Models\User::find($id))`, is `false`.
+5. `php artisan tinker` shows the same email can be used at Acme and at Beta, but twice at Acme is refused.
