@@ -25,6 +25,16 @@ final class TenancyViolation extends LogicException
         return new self("{$model} cannot be moved to another tenant.");
     }
 
+    public static function superAdminInTenant(): self
+    {
+        return new self('A super-admin belongs to the platform and cannot be created for, or inside, a school.');
+    }
+
+    public static function superAdminChanged(): self
+    {
+        return new self('A user cannot be promoted to or demoted from super-admin after creation.');
+    }
+
     public static function jobWithoutTenant(string $job): self
     {
         return new self("Queued job {$job} carries no tenant id; call forCurrentTenant() when dispatching it.");

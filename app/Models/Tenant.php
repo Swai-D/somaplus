@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Domain\Settings\SyncTenantRoles;
 use App\Enums\SubscriptionStatus;
 use Database\Factories\TenantFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -35,6 +36,12 @@ class Tenant extends Model
         'subscription_status',
         'grace_ends_at',
     ];
+
+    protected static function booted(): void
+    {
+        // Every school starts with the same set of roles.
+        static::created(fn (self $tenant) => app(SyncTenantRoles::class)->handle($tenant));
+    }
 
     protected function casts(): array
     {
