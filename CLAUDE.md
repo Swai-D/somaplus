@@ -15,7 +15,7 @@ The purchased UI template must remain exactly as supplied. Keep its static files
 
 ## Tenancy (one school = one tenant)
 
-Every tenant-owned Eloquent model uses `App\Models\Concerns\BelongsToTenant`. Never query across tenants by bypassing that global scope except in explicit, reviewed super-admin/system operations. Resolve tenants by subdomain/custom domain; local-only header/session overrides must not be enabled in production. Use `TenantContext::run()` for scoped work and do not retain context between requests or jobs. Queued work attaches `RestoreTenantContext`; serialized queue payloads carry the tenant ID. Tenant ids are ULIDs. Permissions use Spatie Permission in teams mode keyed by tenant.
+Every tenant-owned Eloquent model uses `App\Models\Concerns\BelongsToTenant`. Never query across tenants by bypassing that global scope except in explicit, reviewed super-admin/system operations. Resolve tenants by subdomain/custom domain (`ResolveTenant`); there is no header or session override, and none may be added. Use `TenantContext::run()` for scoped work and do not retain context between requests or jobs. With no tenant, scoped queries return nothing; `TenantContext::runAsSystem()` is the only way to see all schools and needs a reason in review. Queued work uses the `TenantAwareJob` trait (`RestoreTenantContext` middleware); serialized queue payloads carry the tenant ID only. Tenant ids are ULIDs. Permissions use Spatie Permission in teams mode keyed by tenant.
 
 ## Code conventions
 
@@ -37,7 +37,7 @@ Every tenant-owned Eloquent model uses `App\Models\Concerns\BelongsToTenant`. Ne
 
 ## Plans
 
-Plans (Basic/Medium/Enterprise) live in the database (`subscription_plans`). `config/plans.php` only seeds them, so adding a feature to a plan needs a data migration. Gate with the `plan:` route middleware, the `feature` key in `config/menu.php`, and `Plans::current()->allows()` for logic outside requests. Degrade quietly instead of refusing work already done (for example a late sync after a downgrade). Test every gated feature on each tier.
+Plans (Basic/Medium/Enterprise) live in the database (`subscription_plans`). `config/plans.php` only seeds them, so adding a feature to a plan needs a data migration. `PlanSeeder` only creates missing plans and never overwrites one. Gate with the `plan:` route middleware, the `feature` key in `config/menu.php`, and `Plans::current()->allows()` for logic outside requests. Add a feature key to a plan only when a feature that checks it exists. Routes that change data use `tenant.writable` so read-only schools can still read. Degrade quietly instead of refusing work already done (for example a late sync after a downgrade). Test every gated feature on each tier.
 
 ## Workflow
 

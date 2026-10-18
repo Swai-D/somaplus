@@ -24,13 +24,24 @@ The template is a purchased asset and stays exactly as supplied.
 - The UI stays on the template's Bootstrap and jQuery. Tailwind is not used (the Laravel default was removed); Vite only builds `resources/js/app.js`.
 - `resources/template-original/tools/*.py` are the template author's build scripts. They are kept for reference and are not part of the application.
 
-## Tenancy (planned for PR 2)
+## Tenancy
 
-One school is one tenant, in a single database. Tenant-owned models will use a `BelongsToTenant` trait that adds a global scope; the tenant is resolved from the subdomain or custom domain. Details are written here when the code lands.
+One school is one tenant, in a single database. Tenant ids are ULIDs.
 
-## Plans (planned for PR 2)
+- **Resolving the tenant.** `App\Http\Middleware\ResolveTenant` runs first in the `web` group and picks the tenant from the request host (`config/tenancy.php`): a host in `central_domains` has no tenant (the super-admin area); a tenant's own `domain` matches exactly; otherwise `<slug>.<base_domain>` matches the school with that slug. Any other host is a 404. There is deliberately no header or session override for choosing a tenant.
+- **Context.** `App\Tenancy\TenantContext` holds the current tenant. It is bound as a scoped instance, so nothing survives between requests or queued jobs. Use `TenantContext::run($tenant, fn () => ...)` for work on behalf of one school; the previous context is restored afterwards, even on an exception.
+- **Tenant-owned models.** Add the `App\Models\Concerns\BelongsToTenant` trait and a `tenant_id` ULID column (`foreignUlid('tenant_id')->constrained('tenants')`, no cascading delete: a school's data is never removed because of a subscription change). The trait applies `TenantScope` to every query, fills `tenant_id` on create, and refuses to write a row for another tenant or to move a row between tenants (`TenancyViolation`).
+- **Fails closed.** With no current tenant, a scoped query returns nothing and creating a row throws. The only way to see every school's rows is `TenantContext::runAsSystem(fn () => ...)`, reserved for reviewed super-admin and system operations; every call needs a reason in code review.
+- **Queued jobs.** A job that touches tenant data uses the `App\Tenancy\TenantAwareJob` trait: dispatch it with `->forCurrentTenant()`; only the tenant id is serialized, and `RestoreTenantContext` job middleware reloads the tenant and runs the job inside it. A job without a tenant id fails.
+- **Not yet tenant-aware:** `users` and Spatie permissions (teams mode keyed by tenant) arrive with roles and permissions.
 
-Plans (Basic, Medium, Enterprise) live in the `subscription_plans` table. Features are gated by the `plan:` route middleware, the `feature` key in `config/menu.php` and `Plans::current()->allows()`. Adding a feature to a plan needs a data migration.
+## Plans and subscriptions
+
+- Plans live in the `subscription_plans` table (`key`, `name`, `features` JSON). `config/plans.php` only seeds missing plans through `PlanSeeder` (`php artisan migrate --seed`); the seeder never overwrites an existing plan, so changing a plan's features needs a data migration.
+- Feature keys are added to a plan only when a feature that checks the key exists. For now the three plans (basic, medium, enterprise) have no features.
+- A tenant has one plan (`subscription_plan_id`) and a `subscription_status`: `active`, `grace` or `read_only`. A lapsed subscription moves from grace to read-only and never deletes data. Nothing changes the status automatically yet.
+- Gating: `plan:<feature>[,<feature>]` route middleware (403 unless the current school's plan has every feature), `Plans::current()->allows('<feature>')` for code outside requests, and the `feature` key in `config/menu.php` (with navigation). With no tenant, nothing is allowed.
+- `tenant.writable` route middleware answers 403 to changes (anything but GET/HEAD/OPTIONS) from a read-only school. Routes that change data must use it; login and logout must not.
 
 ## Environments
 
