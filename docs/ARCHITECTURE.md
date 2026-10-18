@@ -53,6 +53,10 @@ One school is one tenant, in a single database. Tenant ids are ULIDs.
 - **Navigation.** `config/menu.php` lists sections and entries (label key, icon, route, optional permission, plan feature, scope and children). `App\Support\Menu` hides an entry whose route does not exist, whose permission the person lacks, whose plan feature the school does not have, or whose scope does not match (school or central address). A parent shows only when a child does. A feature PR adds its menu entry, route, permission and plan feature together.
 - **Layout.** A view composer on `layouts.app` supplies the user, the school, the menu and the role label; header, sidebar and footer are our own Blade partials built from the template's markup, with no sample data.
 
+## Help articles
+
+Help lives inside the application at `/help` (`HelpController`, sign-in required, also on the central address). The slugs are listed in `config/help.php`; the text of each article (title, summary and a list of paragraphs) is in `lang/en/help.php` and `lang/sw/help.php` under `articles.<slug>`. Every feature adds its article in both languages, and `tests/Feature/Help/HelpTest.php` fails if a configured article is missing in either. An article describes only what the application really does.
+
 ## Plans and subscriptions
 
 - Plans live in the `subscription_plans` table (`key`, `name`, `features` JSON). `config/plans.php` only seeds missing plans through `PlanSeeder` (`php artisan migrate --seed`); the seeder never overwrites an existing plan, so changing a plan's features needs a data migration.

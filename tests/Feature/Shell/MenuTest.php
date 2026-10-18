@@ -108,8 +108,8 @@ it('marks the entry of the current page as active', function () {
         ->assertSee('class="active"', false);
 });
 
-it('only lists the dashboard until a feature adds its own entry', function () {
+it('only lists the dashboard and help until a feature adds its own entry', function () {
     $routes = collect(config('menu.sections'))->flatMap(fn ($section) => $section['items'])->pluck('route')->all();
 
-    expect($routes)->toBe(['dashboard']);
+    expect($routes)->toBe(['dashboard', 'help.index']);
 });
