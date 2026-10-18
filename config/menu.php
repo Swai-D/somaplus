@@ -35,6 +35,17 @@ return [
                 ],
             ],
         ],
+        [
+            'label' => 'menu.sections.support',
+            'items' => [
+                [
+                    'label' => 'menu.help',
+                    'icon' => 'ti ti-help-circle',
+                    'route' => 'help.index',
+                    'scope' => 'both',
+                ],
+            ],
+        ],
     ],
 
 ];

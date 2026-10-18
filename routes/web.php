@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
+    Route::get('/help', [HelpController::class, 'index'])->name('help.index');
+    Route::get('/help/{article}', [HelpController::class, 'show'])->name('help.show');
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

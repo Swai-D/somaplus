@@ -64,5 +64,12 @@ App\Models\User::factory()->superAdmin()->create(['name' => 'Root', 'email' => '
 4. Five wrong passwords in a row block further attempts for about a minute, even with the right password.
 5. The flag menu in the header switches between English and Kiswahili; menu, dashboard and error messages change, and the choice survives signing out.
 6. Set Acme to `read_only`: a yellow notice shows on every page, and signing in, signing out and reading still work.
-7. The sidebar shows only "Dashboard". Other items appear as the features that own them are built.
+7. The sidebar shows only "Dashboard" and "Help". Other items appear as the features that own them are built.
 8. "Log out" in the profile menu returns to `/login`.
+
+## Help
+
+1. "Help" in the sidebar opens `/help` with three articles: Getting started, Roles, Subscription and plan.
+2. Opening an article shows its text; "All help articles" returns to the list.
+3. After switching to Kiswahili, the list and the articles are in Swahili.
+4. `/help/nothing-here` answers 404; without signing in, `/help` redirects to `/login`.
