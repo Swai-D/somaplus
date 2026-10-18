@@ -39,28 +39,38 @@ jobs:
         run: vendor/bin/phpstan analyse --level=5 --memory-limit=1G
 
       - name: Pest (SQLite in memory)
-        run: vendor/bin/pest --log-junit=pest-junit.xml
+        run: |
+          set -o pipefail
+          vendor/bin/pest --log-junit=pest-junit.xml 2>&1 | tee pest.log
 
-      # CI job logs cannot be read from the contributor sandbox, so failing tests
-      # are also written as annotations on the check run (GitHub shows up to 10).
+      # CI job logs cannot be read from the contributor sandbox, so a failing run
+      # also writes the end of the Pest output and each failing test as annotations.
       - name: Report failing tests as annotations
         if: failure()
         run: |
           python3 - <<'PY'
-          import os, xml.etree.ElementTree as ET
-          path = 'pest-junit.xml'
-          if not os.path.exists(path):
-              raise SystemExit(0)
-          shown = 0
-          for case in ET.parse(path).getroot().iter('testcase'):
-              for kind in ('failure', 'error'):
-                  node = case.find(kind)
-                  if node is not None and shown < 10:
-                      text = ' '.join(((node.get('message') or '') + ' ' + (node.text or '')).split())[:600]
-                      name = (case.get('name') or '').replace('%', '%25')
-                      text = text.replace('%', '%25').replace('\r', ' ').replace('\n', ' ')
-                      print(f"::error title=Pest: {name}::{text}")
-                      shown += 1
+          import os
+          import xml.etree.ElementTree as ET
+
+          def esc(text):
+              return text.replace('%', '%25').replace('\r', '').replace('\n', '%0A')
+
+          if os.path.exists('pest.log'):
+              with open('pest.log', errors='replace') as handle:
+                  tail = ''.join(handle.readlines()[-80:])
+              print('::error title=Pest output (last lines)::' + esc(tail[-4000:]))
+
+          try:
+              shown = 0
+              for case in ET.parse('pest-junit.xml').getroot().iter('testcase'):
+                  for kind in ('failure', 'error'):
+                      node = case.find(kind)
+                      if node is not None and shown < 8:
+                          text = ' '.join(((node.get('message') or '') + ' ' + (node.text or '')).split())[:600]
+                          print('::error title=Pest: ' + esc(case.get('name') or '') + '::' + esc(text))
+                          shown += 1
+          except Exception as error:
+              print('::error title=Could not read pest-junit.xml::' + esc(repr(error)))
           PY
 
       - name: Composer audit
