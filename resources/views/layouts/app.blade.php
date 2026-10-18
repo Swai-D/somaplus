@@ -1,0 +1,42 @@
+@extends('layouts.base')
+
+@push('head')
+    <script src="{{ asset('assets/js/theme-script.js') }}"></script>
+@endpush
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/edu-widgets.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/flatpickr/flatpickr.min.css') }}">
+@endpush
+
+@section('content')
+    <div id="global-loader"><div class="whirly-loader"></div></div>
+
+    <div class="main-wrapper">
+        @include('partials.header')
+        @include('partials.sidebar')
+
+        <div class="page-wrapper">
+            <div class="content">
+                @if ($currentSchool?->isReadOnly())
+                    <div class="alert alert-warning" role="alert">{{ __('tenancy.read_only') }}</div>
+                @endif
+
+                @yield('page')
+            </div>
+            @include('partials.footer')
+        </div>
+    </div>
+    @stack('modals')
+@endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/js/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/simplebar/simplebar.min.js') }}"></script>
+    @stack('vendor')
+    <script src="{{ asset('assets/plugins/flatpickr/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+    @stack('page-scripts')
+@endpush

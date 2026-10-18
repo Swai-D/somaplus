@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Support\Menu;
 use App\Tenancy\TenantContext;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +25,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // What the application layout (header, sidebar, banner) needs, from real data.
+        View::composer('layouts.app', function ($view): void {
+            $authenticated = Auth::user();
+            $user = $authenticated instanceof User ? $authenticated : null;
+            $context = $this->app->make(TenantContext::class);
+
+            $view->with([
+                'currentUser' => $user,
+                'currentSchool' => $context->current(),
+                'menu' => Menu::fromConfig()->build($user, request()),
+                'roleLabel' => $user === null ? '' : ($user->isSuperAdmin()
+                    ? __('layout.platform_admin')
+                    : (string) $user->getRoleNames()->map(fn ($role) => __('roles.'.$role))->implode(', ')),
+            ]);
+        });
     }
 }
