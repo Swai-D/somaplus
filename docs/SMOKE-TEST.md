@@ -69,7 +69,18 @@ App\Models\User::factory()->superAdmin()->create(['name' => 'Root', 'email' => '
 
 ## Help
 
-1. "Help" in the sidebar opens `/help` with three articles: Getting started, Roles, Subscription and plan.
+1. "Help" in the sidebar opens `/help` with the articles Getting started, Forgot your password, Roles and Subscription and plan.
 2. Opening an article shows its text; "All help articles" returns to the list.
 3. After switching to Kiswahili, the list and the articles are in Swahili.
 4. `/help/nothing-here` answers 404; without signing in, `/help` redirects to `/login`.
+
+## Password reset
+
+Mail goes to Mailpit (`http://localhost:8025`) with the `MAIL_*` values of `.env.example`.
+
+1. On `http://acme.localhost:8000/login`, "Forgot password?" opens the forgot-password page naming the school.
+2. Asking for a link for `asha@acme.test` shows "If that email address belongs to this school…" and an email arrives in Mailpit with a link to `acme.localhost`.
+3. Asking for an address that does not exist shows the same message and sends nothing.
+4. Opening the link, choosing a password of 8 or more characters (twice) and saving returns to sign-in with a success message; the new password signs in, the old one does not.
+5. Using the same link again, or the same link on Beta's address, answers "This reset link is not valid or has expired."
+6. After switching to Kiswahili, the pages and the email are in Swahili. Help has the article "Forgot your password".

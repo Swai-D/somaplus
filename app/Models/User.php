@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\UserScope;
+use App\Notifications\ResetPasswordNotification;
 use App\Tenancy\TenancyViolation;
 use App\Tenancy\TenantContext;
 use BackedEnum;
@@ -116,6 +117,24 @@ class User extends Authenticatable
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
+    }
+
+    /**
+     * The key under which this person's password reset token is stored.
+     *
+     * The email address alone is not unique (the same address can belong to a
+     * person at two schools), so the key is a hash of the school and the address.
+     * That keeps the reset tokens of the schools apart. The address itself is
+     * still what the person types and what the reset link carries.
+     */
+    public function getEmailForPasswordReset(): string
+    {
+        return hash('sha256', ($this->tenant_id ?? '').'|'.mb_strtolower($this->email));
+    }
+
+    public function sendPasswordResetNotification(#[\SensitiveParameter] $token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     public function isSuperAdmin(): bool

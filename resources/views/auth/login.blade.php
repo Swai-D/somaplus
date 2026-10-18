@@ -26,6 +26,10 @@
                                 <h4 class="fs-16">{{ $school ? __('auth.subtitle_school', ['school' => $school->name]) : __('auth.subtitle_platform') }}</h4>
                             </div>
 
+                            @if (session('status'))
+                                <div class="alert alert-success" role="status">{{ session('status') }}</div>
+                            @endif
+
                             <div class="mb-3">
                                 <label class="form-label" for="email">{{ __('auth.email') }}<span class="text-danger"> *</span></label>
                                 <div class="input-group">
@@ -44,12 +48,15 @@
                                 @error('password')<div class="text-danger fs-13 mt-1">{{ $message }}</div>@enderror
                             </div>
 
-                            <div class="form-login authentication-check">
+                            <div class="form-login authentication-check d-flex align-items-center justify-content-between">
                                 <div class="custom-control custom-checkbox">
                                     <label class="checkboxs ps-4 mb-0 pb-0 line-height-1 fs-16 text-gray-6">
                                         <input class="form-control" name="remember" type="checkbox" value="1" {{ old('remember') ? 'checked' : '' }}>
                                         <span class="checkmarks"></span>{{ __('auth.remember') }}
                                     </label>
+                                </div>
+                                <div class="text-end">
+                                    <a class="text-orange fs-16 fw-medium" href="{{ route('password.request') }}">{{ __('auth.forgot') }}</a>
                                 </div>
                             </div>
 

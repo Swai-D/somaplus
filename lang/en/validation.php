@@ -6,6 +6,10 @@ return [
     'email' => 'The :attribute must be a valid email address.',
     'boolean' => 'The :attribute field must be true or false.',
     'in' => 'The selected :attribute is not valid.',
+    'confirmed' => 'The :attribute confirmation does not match.',
+    'min' => [
+        'string' => 'The :attribute must be at least :min characters.',
+    ],
     'max' => [
         'string' => 'The :attribute must not be longer than :max characters.',
     ],
@@ -13,5 +17,6 @@ return [
         'email' => 'email address',
         'password' => 'password',
         'locale' => 'language',
+        'token' => 'reset link',
     ],
 ];

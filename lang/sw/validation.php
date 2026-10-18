@@ -6,6 +6,10 @@ return [
     'email' => ':attribute lazima iwe barua pepe halali.',
     'boolean' => 'Sehemu ya :attribute lazima iwe ndiyo au hapana.',
     'in' => ':attribute iliyochaguliwa si halali.',
+    'confirmed' => 'Uthibitisho wa :attribute haulingani.',
+    'min' => [
+        'string' => ':attribute iwe angalau herufi :min.',
+    ],
     'max' => [
         'string' => ':attribute isizidi herufi :max.',
     ],
@@ -13,5 +17,6 @@ return [
         'email' => 'barua pepe',
         'password' => 'nenosiri',
         'locale' => 'lugha',
+        'token' => 'kiungo cha kubadilisha',
     ],
 ];

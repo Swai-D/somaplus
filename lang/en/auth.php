@@ -9,6 +9,7 @@ return [
     'password' => 'Password',
     'password_placeholder' => 'Enter your password',
     'remember' => 'Remember me',
+    'forgot' => 'Forgot password?',
     'submit' => 'Sign in',
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many sign-in attempts. Try again in :seconds seconds.',
