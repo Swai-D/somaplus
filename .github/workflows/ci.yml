@@ -39,7 +39,29 @@ jobs:
         run: vendor/bin/phpstan analyse --level=5 --memory-limit=1G
 
       - name: Pest (SQLite in memory)
-        run: vendor/bin/pest
+        run: vendor/bin/pest --log-junit=pest-junit.xml
+
+      # CI job logs cannot be read from the contributor sandbox, so failing tests
+      # are also written as annotations on the check run (GitHub shows up to 10).
+      - name: Report failing tests as annotations
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import os, xml.etree.ElementTree as ET
+          path = 'pest-junit.xml'
+          if not os.path.exists(path):
+              raise SystemExit(0)
+          shown = 0
+          for case in ET.parse(path).getroot().iter('testcase'):
+              for kind in ('failure', 'error'):
+                  node = case.find(kind)
+                  if node is not None and shown < 10:
+                      text = ' '.join(((node.get('message') or '') + ' ' + (node.text or '')).split())[:600]
+                      name = (case.get('name') or '').replace('%', '%25')
+                      text = text.replace('%', '%25').replace('\r', ' ').replace('\n', ' ')
+                      print(f"::error title=Pest: {name}::{text}")
+                      shown += 1
+          PY
 
       - name: Composer audit
         run: composer audit
