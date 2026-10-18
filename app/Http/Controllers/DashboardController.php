@@ -14,6 +14,6 @@ class DashboardController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        return view('dashboard', ['summary' => $summary->handle($user)]);
+        return view('dashboard', ['user' => $user, 'summary' => $summary->handle($user)]);
     }
 }
