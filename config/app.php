@@ -82,6 +82,9 @@ return [
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
+    // Languages a person can switch to (server-side, kept in the session). Each needs a lang/<code> folder.
+    'available_locales' => ['en', 'sw'],
+
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
     /*

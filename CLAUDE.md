@@ -11,7 +11,7 @@ Product name everywhere in the UI, emails, SMS sender text and docs: **Somaplus*
 
 ## Template preservation
 
-The purchased UI template must remain exactly as supplied (the final version is the `somaplus/` folder of `Swai-D/merge-temp`; `resources/template-original/laravel/` is its supplied Blade mock, kept as reference and never routed as it is). Keep its static files in `public/assets/` and the original source in `resources/template-original/`; never edit, rename, minify, or modernize them. Build Blade wrappers around them. Do not replace Bootstrap/jQuery with Tailwind. The sidebar's permitted navigation comes from `config/menu.php` (label, icon, route, permission, optional plan feature).
+The purchased UI template must remain exactly as supplied (the final version is the `somaplus/` folder of `Swai-D/merge-temp`; `resources/template-original/laravel/` is its supplied Blade mock, kept as reference and never routed as it is). Keep its static files in `public/assets/` and the original source in `resources/template-original/`; never edit, rename, minify, or modernize them. Build Blade wrappers around them. Do not replace Bootstrap/jQuery with Tailwind. The sidebar's permitted navigation comes from `config/menu.php` (label, icon, route, optional permission, optional plan feature, scope); an entry is added only together with its route, and `App\Support\Menu` hides what the person may not see. Pages extend `layouts.app` and fill its `page` section. Language is switched on the server (`SetLocale`, session); never load the template's `somaplus-i18n.js` or `somaplus-crud.js`. Sign-in lives in `App\Domain\Auth`; who can sign in where is decided by `UserScope`, not by comparing tenants by hand.
 
 ## Tenancy (one school = one tenant)
 
@@ -20,7 +20,7 @@ Every tenant-owned Eloquent model uses `App\Models\Concerns\BelongsToTenant`. Ne
 ## Code conventions
 
 - Keep controllers thin. Behaviour lives in Actions/Services (`app/Domain/...`), validation in FormRequests, authorization in Policies.
-- Domain folders: `app/Domain/{Academics,Students,Attendance,Exams,Fees,Staff,Communication,Settings,Integrations}` (add more only when needed).
+- Domain folders: `app/Domain/{Academics,Students,Attendance,Exams,Fees,Staff,Communication,Settings,Integrations,Auth}` (add more only when needed).
 - Money is stored as integer minor units and formatted with `App\Support\Money`. Default currency TZS (TZS, KES, UGX, USD, EUR supported).
 - Two languages everywhere: English (fallback) and Swahili. Every label, message, validation text and help article exists in both.
 - A shop/school setting or switch must change real behaviour. No decorative features.
