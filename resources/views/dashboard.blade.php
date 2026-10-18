@@ -5,7 +5,7 @@
 @section('page')
     <div class="d-md-flex d-block align-items-center justify-content-between mb-3">
         <div class="my-auto mb-2">
-            <h3 class="page-title mb-1">{{ __('dashboard.welcome', ['name' => $currentUser->name]) }}</h3>
+            <h3 class="page-title mb-1">{{ __('dashboard.welcome', ['name' => $user->name]) }}</h3>
             <p class="text-muted mb-0">
                 {{ $summary['scope'] === 'school' ? $summary['school'] : __('dashboard.platform') }}
             </p>
