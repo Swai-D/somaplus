@@ -11,7 +11,7 @@ Product name everywhere in the UI, emails, SMS sender text and docs: **Somaplus*
 
 ## Template preservation
 
-The purchased UI template must remain exactly as supplied. Keep its static files in `public/assets/` and the original source in `resources/template-original/`; never edit, rename, minify, or modernize them. Build Blade wrappers around them. Do not replace Bootstrap/jQuery with Tailwind. The sidebar's permitted navigation comes from `config/menu.php` (label, icon, route, permission, optional plan feature).
+The purchased UI template must remain exactly as supplied (the final version is the `somaplus/` folder of `Swai-D/merge-temp`; `resources/template-original/laravel/` is its supplied Blade mock, kept as reference and never routed as it is). Keep its static files in `public/assets/` and the original source in `resources/template-original/`; never edit, rename, minify, or modernize them. Build Blade wrappers around them. Do not replace Bootstrap/jQuery with Tailwind. The sidebar's permitted navigation comes from `config/menu.php` (label, icon, route, permission, optional plan feature).
 
 ## Tenancy (one school = one tenant)
 

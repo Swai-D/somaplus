@@ -7,7 +7,7 @@ Somaplus is a school management system for East African schools, built by Odessa
 | Path | Purpose |
 | --- | --- |
 | `public/assets/` | Static files of the purchased UI template (CSS, JS, plugins, fonts, images). Served as-is. |
-| `resources/template-original/` | Original template source: the 62 static HTML pages, the template `README.md` and the `tools/` scripts that produced the pages. Reference only; never served and never edited. |
+| `resources/template-original/` | The template as supplied, except `assets/`: its 64 static HTML pages (62 pages plus login and register), its `README.md`, the `tools/` scripts that produced the pages, and `laravel/`, the Blade version of the same pages (layout, header, sidebar, one view per page, `routes/somaplus.php`). Reference only; never served and never edited. |
 | `resources/views/` | Blade wrappers built on top of the template. `layouts/base.blade.php` loads the template's Bootstrap, icon and `somaplus.css` assets; the full application layout (header, sidebar from `config/menu.php`) is added with navigation. |
 | `lang/en`, `lang/sw` | Translations. English is the fallback; every key must exist in both languages (enforced by `tests/Unit/TranslationParityTest.php`). |
 | `app/Support/` | Shared helpers. `Money` holds amounts as integer minor units (TZS by default; TZS, KES, UGX, USD, EUR supported). |
@@ -19,10 +19,11 @@ Somaplus is a school management system for East African schools, built by Odessa
 
 The template is a purchased asset and stays exactly as supplied.
 
-- Files under `public/assets/` and `resources/template-original/` are never edited, renamed, minified or modernized. The move into these folders was a pure rename, verified with a sha256 manifest of all 456 files.
+- Files under `public/assets/` and `resources/template-original/` are never edited, renamed, minified or modernized. Both folders are an exact copy of the `somaplus/` folder of `Swai-D/merge-temp` at commit `b716aa1` (the final template: 537 files), verified file by file with sha256. To take a newer version of the template, replace both folders with the new supplied files and verify again the same way.
 - Product behaviour is added by Blade wrappers that include the template's assets and copy its markup. If something needs different styling, it goes in a new stylesheet, not in a template file.
 - The UI stays on the template's Bootstrap and jQuery. Tailwind is not used (the Laravel default was removed); Vite only builds `resources/js/app.js`.
 - `resources/template-original/tools/*.py` are the template author's build scripts. They are kept for reference and are not part of the application.
+- The supplied `laravel/` package is a UI-only mock: every page is static markup with made-up data, mounted with `Route::view`, with no login, tenant or permission checks. It is not copied into `resources/views/` or routed as it is, because school users would see fake students and fees. Our own wrappers in `resources/views/` reuse its markup, and a page gets a route only together with the feature that gives it real data.
 
 ## Tenancy
 

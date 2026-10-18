@@ -87,11 +87,11 @@
 <img alt="Language" class="img-fluid" src="assets/img/flags/us-flag.svg"/>
 </a>
 <div class="dropdown-menu dropdown-menu-right">
-<a class="dropdown-item" href="javascript:void(0);">
+<a class="dropdown-item" data-lang="en" href="javascript:void(0);">
 <img alt="Img" height="16" src="assets/img/flags/english.svg"/>English
 							</a>
-<a class="dropdown-item" href="javascript:void(0);">
-<img alt="Img" height="16" src="assets/img/flags/arabic.svg"/>Kiswahili
+<a class="dropdown-item" data-lang="sw" href="javascript:void(0);">
+<img alt="Img" height="16" src="assets/img/flags/tz.svg"/>Kiswahili
 							</a>
 </div>
 </li>
@@ -197,7 +197,7 @@
 <div><p class="mb-1 text-white">Total Expenses</p><h4 class="text-white mb-1">20,000</h4>
 <span class="fs-12 text-white"><i class="ti ti-trending-up me-1"></i>10% <span class="opacity-75">+5 This Month</span></span></div>
 <span class="avatar avatar-lg" style="background:rgba(255,255,255,.2)"><i class="ti ti-wallet text-white fs-24"></i></span></div></div></div></div><div class="row"><div class="col-xl-8 d-flex"><div class="card flex-fill"><div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-2">
-<h5 class="card-title mb-0">Revenue Statistic</h5><div class="d-flex align-items-center gap-3"><span class="fs-13"><i class="ti ti-point-filled text-teal"></i>Total Fee: <b>$500</b></span><span class="fs-13"><i class="ti ti-point-filled text-primary"></i>Collected Fee: <b>$300</b></span></div></div>
+<h5 class="card-title mb-0">Revenue Statistic</h5><div class="d-flex align-items-center gap-3"><span class="fs-13"><i class="ti ti-point-filled text-teal"></i>Total Fee: <b>TSh 500</b></span><span class="fs-13"><i class="ti ti-point-filled text-primary"></i>Collected Fee: <b>TSh 300</b></span></div></div>
 <div class="card-body"><div id="revenueStatistic"></div></div></div></div><div class="col-xl-4 d-flex"><div class="card flex-fill ">
 <div class="card-header d-flex align-items-center justify-content-between"><h5 class="card-title mb-0">Student Attendance</h5><a href="javascript:void(0);" class="btn btn-sm btn-light">View all</a></div>
 <div class="card-body"><div class="mb-4"><div class="d-flex justify-content-between mb-2"><span class="text-dark">Present</span><span class="fw-semibold text-dark">87%</span></div><div class="progress progress-xs"><div class="progress-bar bg-success" style="width:87%"></div></div></div><div class="mb-4"><div class="d-flex justify-content-between mb-2"><span class="text-dark">Absent</span><span class="fw-semibold text-dark">40%</span></div><div class="progress progress-xs"><div class="progress-bar bg-danger" style="width:40%"></div></div></div><div class="mb-4"><div class="d-flex justify-content-between mb-2"><span class="text-dark">Late</span><span class="fw-semibold text-dark">20%</span></div><div class="progress progress-xs"><div class="progress-bar bg-warning" style="width:20%"></div></div></div><div class="mb-4"><div class="d-flex justify-content-between mb-2"><span class="text-dark">Half day</span><span class="fw-semibold text-dark">20%</span></div><div class="progress progress-xs"><div class="progress-bar bg-info" style="width:20%"></div></div></div></div></div></div></div><div class="row"><div class="col-xl-4 col-md-6 d-flex"><div class="card flex-fill ">
@@ -233,7 +233,7 @@
 <a href="event.html" class="btn btn-sm btn-light">View</a></div></div></div></div></div><div class="row"><div class="col-xl-4 col-md-6 d-flex"><div class="card flex-fill ">
 <div class="card-header d-flex align-items-center justify-content-between"><h5 class="card-title mb-0">User Overview</h5><a href="javascript:void(0);" class="btn btn-sm btn-light">View all</a></div>
 <div class="card-body"><div id="userOverview"></div><div class="d-flex justify-content-around mt-3"><div class="text-center"><p class="fs-13 mb-1">Student</p><h6 class="fw-bold mb-0">750</h6></div><div class="text-center"><p class="fs-13 mb-1">Teacher</p><h6 class="fw-bold mb-0">56</h6></div><div class="text-center"><p class="fs-13 mb-1">Staffs</p><h6 class="fw-bold mb-0">15</h6></div></div></div></div></div><div class="col-xl-8 col-md-6 d-flex"><div class="card flex-fill"><div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-2">
-<h5 class="card-title mb-0">Income Vs Expense</h5><div class="d-flex align-items-center gap-3"><span class="fs-13"><i class="ti ti-point-filled text-success"></i>Income: <b>$500</b></span><span class="fs-13"><i class="ti ti-point-filled text-primary"></i>Expense: <b>$300</b></span></div></div>
+<h5 class="card-title mb-0">Income Vs Expense</h5><div class="d-flex align-items-center gap-3"><span class="fs-13"><i class="ti ti-point-filled text-success"></i>Income: <b>TSh 500</b></span><span class="fs-13"><i class="ti ti-point-filled text-primary"></i>Expense: <b>TSh 300</b></span></div></div>
 <div class="card-body"><div id="incomeExpense"></div></div></div></div></div><div class="row"><div class="col-xl-4 col-md-6 d-flex"><div class="card flex-fill ">
 <div class="card-header d-flex align-items-center justify-content-between"><h5 class="card-title mb-0">Top Teachers</h5><a href="teacher-list.html" class="btn btn-sm btn-light">View all</a></div>
 <div class="card-body"><div class="d-flex align-items-center justify-content-between gap-2 border-bottom pb-3 mb-3">
@@ -271,6 +271,8 @@
 <script src="assets/js/datatable.js"></script>
 <script src="assets/plugins/flatpickr/flatpickr.min.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/somaplus-i18n.js"></script>
+<script src="assets/js/somaplus-crud.js"></script>
 <script>
 
 (function(){
@@ -279,12 +281,12 @@
     series:[{name:'Total Fee',data:[25,35,50,60,26,20,40,20,50,16,10,40]},{name:'Collected Fee',data:[15,16,24,30,20,15,20,10,25,10,6,20]}],
     chart:{type:'bar',height:280,stacked:true,toolbar:{show:false}},colors:['#0E9384','#FE9F43'],
     plotOptions:{bar:{columnWidth:'45%',borderRadius:4}},xaxis:{categories:months},
-    yaxis:{labels:{formatter:function(v){return '$'+v+'k'}}},legend:{show:false},grid:{borderColor:'#E6EAED',strokeDashArray:3},fill:{opacity:1},dataLabels:{enabled:false}
+    yaxis:{labels:{formatter:function(v){return 'TSh '+v+'k'}}},legend:{show:false},grid:{borderColor:'#E6EAED',strokeDashArray:3},fill:{opacity:1},dataLabels:{enabled:false}
   }).render();
   new ApexCharts(document.querySelector("#incomeExpense"),{
     series:[{name:'Income',data:[48,35,55,32,48,30,15,50,57]},{name:'Expense',data:[12,20,15,26,22,60,40,32,25]}],
     chart:{type:'area',height:290,toolbar:{show:false}},colors:['#03C95A','#FE9F43'],stroke:{curve:'smooth',width:2},
-    dataLabels:{enabled:false},legend:{show:false},xaxis:{categories:months.slice(0,9)},yaxis:{labels:{formatter:function(v){return '$'+v+'k'}}},
+    dataLabels:{enabled:false},legend:{show:false},xaxis:{categories:months.slice(0,9)},yaxis:{labels:{formatter:function(v){return 'TSh '+v+'k'}}},
     grid:{borderColor:'#E6EAED',strokeDashArray:3},fill:{type:'gradient',gradient:{opacityFrom:.35,opacityTo:.02}}
   }).render();
   new ApexCharts(document.querySelector("#userOverview"),{

@@ -12,9 +12,9 @@ with sync_playwright() as p:
         pg.on("pageerror", lambda e: errs.append(str(e)[:120]))
         pg.on("requestfailed", lambda r: errs.append("FAILED " + r.url.split("/assets/")[-1][:60]) if "file://" in r.url and "theme/" not in r.url else None)
         pg.goto("file://" + f); pg.wait_for_timeout(900)
-        info = pg.evaluate("""() => ({h: document.querySelector('.page-wrapper').scrollHeight,
+        info = pg.evaluate("""() => ({h: (document.querySelector('.page-wrapper')||document.body).scrollHeight,
           overflowX: document.documentElement.scrollWidth > innerWidth + 2,
-          unstyled: [...document.querySelectorAll('.page-wrapper [class]')].filter(e=>/(^| )(bg-base|radius-|px-\\d|py-\\d)/.test(e.className)).length})""")
+          unstyled: [...document.querySelectorAll('body [class]')].filter(e=>/(^| )(bg-base|radius-|px-\\d|py-\\d)/.test(e.className)).length})""")
         pg.screenshot(path=f"/home/claude/shots/all/{name}.png")
         res[name] = {"errs": errs, **info}
         pg.close()

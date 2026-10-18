@@ -14,8 +14,8 @@ EDU = os.environ.get("EDU_SRC", "/home/claude/merge-temp/edudash-temp")
 DREAM = os.environ.get("DREAM_SRC", "/home/claude/merge-temp/dream-temp")
 APP = "SomaPlus"
 sys.path.insert(0, HERE)
-from dashboards import render_school
-SPECIAL = {"index": render_school}
+from dashboards import render_school, render_student, render_teacher, render_parent, render_lms, render_subscription
+SPECIAL = {"index": render_school, "index-2": render_student, "index-3": render_teacher, "index-4": render_parent, "index-5": render_lms, "subscription-plan": render_subscription}
 
 # ------------------------------------------------------------------ tokens
 def css_tokens(path):
@@ -151,6 +151,12 @@ def new(soup, name, cls=None, **attrs):
 
 def frag(html):
     return BeautifulSoup(html, "lxml").body.contents[0]
+
+CURRENCY = "TSh"
+
+def localize(s):
+    s = re.sub(r"\$(?=\d)", CURRENCY + " ", s)
+    return s.replace("'$'+", f"'{CURRENCY} '+").replace('"$"+', f'"{CURRENCY} "+')
 
 def link_fix(s):
     s = re.sub(r"\.php\.html", ".html", s)
@@ -433,8 +439,18 @@ SECTIONS = [
 ICON_OVERRIDE = {"Dashboard": "layout-grid", "Certificate": "certificate", "Assign Role": "user-shield", "Role & Access": "shield-lock",
                  "Authentication": "lock", "Subscription Plan": "tag", "Event": "calendar-event", "Notice Board": "notes"}
 
-def build_sidebar(current):
+def build_sidebar(current, blade=False):
     tree = {i["label"]: i for i in build_menu_tree()}
+    def href(u):
+        if not blade:
+            return u
+        return "{{ url('/') }}" if u == "index.html" else "{{ url('%s') }}" % u[:-5]
+    def is_(u):
+        return "request()->is('%s')" % ("/" if u == "index.html" else u[:-5])
+    def cls_active(u, extra=""):
+        if blade:
+            return ' class="{{ %s ? \'active\' : \'\' }}"' % is_(u)
+        return ' class="active"' if u == current else ""
     h = []
     for title, labels in SECTIONS:
         h.append(f'<li class="submenu-open"><h6 class="submenu-hdr">{title}</h6><ul>')
@@ -444,17 +460,23 @@ def build_sidebar(current):
                 continue
             icon = ti(ICON_OVERRIDE.get(lb, it["icon"]))
             if it["children"]:
-                active = any(c["href"] == current for c in it["children"])
-                h.append(f'<li class="submenu"><a href="javascript:void(0);" class="{"subdrop active" if active else ""}"><i class="ti ti-{icon} fs-16 me-2"></i><span>{lb}</span><span class="menu-arrow"></span></a>')
-                h.append(f'<ul{" style=\"display: block;\"" if active else ""}>')
+                if blade:
+                    cond = " || ".join(is_(c["href"]) for c in it["children"])
+                    a_cls = "{{ (%s) ? 'subdrop active' : '' }}" % cond
+                    ul_style = " style=\"{{ (%s) ? 'display: block;' : '' }}\"" % cond
+                else:
+                    active = any(c["href"] == current for c in it["children"])
+                    a_cls = "subdrop active" if active else ""
+                    ul_style = ' style="display: block;"' if active else ""
+                h.append(f'<li class="submenu"><a href="javascript:void(0);" class="{a_cls}"><i class="ti ti-{icon} fs-16 me-2"></i><span>{lb}</span><span class="menu-arrow"></span></a>')
+                h.append(f'<ul{ul_style}>')
                 for c in it["children"]:
-                    h.append(f'<li><a href="{c["href"]}"{" class=\"active\"" if c["href"] == current else ""}>{c["label"]}</a></li>')
+                    h.append(f'<li><a href="{href(c["href"])}"{cls_active(c["href"])}>{c["label"]}</a></li>')
                 h.append("</ul></li>")
             else:
-                act = it["href"] == current
-                h.append(f'<li><a href="{it["href"]}"{" class=\"active\"" if act else ""}><i class="ti ti-{icon} fs-16 me-2"></i><span>{lb}</span></a></li>')
+                h.append(f'<li><a href="{href(it["href"])}"{cls_active(it["href"])}><i class="ti ti-{icon} fs-16 me-2"></i><span>{lb}</span></a></li>')
         h.append("</ul></li>")
-    logo = lambda cls, src: f'<a href="index.html" class="{cls}"><img src="assets/img/{src}" alt="{APP}"></a>'
+    logo = lambda cls, src: f'<a href="{href("index.html")}" class="{cls}"><img src="assets/img/{src}" alt="{APP}"></a>'
     return f'''<div class="sidebar" id="sidebar">
 <div class="sidebar-logo">{logo("logo logo-normal","logo.svg")}{logo("logo logo-white","logo-white.svg")}{logo("logo-small","logo-small.svg")}{logo("logo-small-white","logo-small-white.svg")}
 <a id="toggle_btn" href="javascript:void(0);"><i data-feather="chevrons-left" class="feather-16"></i></a></div>
@@ -504,6 +526,10 @@ def build_header():
         for a in hs.select("div.topnav-dropdown-footer a"):
             if a.get("href", "").startswith("activities"):
                 a["href"] = "notification.html"
+        for i, a in enumerate(hs.select("li.flag-nav a.dropdown-item")[:2]):
+            a["data-lang"] = ("en", "sw")[i]
+            if i == 1:
+                a.find("img")["src"] = "assets/img/flags/tz.svg"
         _dream_header = str(hs.select_one("div.header"))
         _dream_header = _dream_header.replace("activities.html", "notice-board.html")
     return _dream_header
@@ -537,6 +563,8 @@ TAIL = '''<script src="assets/js/bootstrap.bundle.min.js"></script>
 {apex}<script src="assets/js/datatable.js"></script>
 <script src="assets/plugins/flatpickr/flatpickr.min.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/somaplus-i18n.js"></script>
+<script src="assets/js/somaplus-crud.js"></script>
 {inline}
 </body>
 </html>
@@ -557,7 +585,11 @@ document.addEventListener('DOMContentLoaded',function(){
   }).render();
 });""")}
 
+PARTS = {}
+
 def assemble(out_name, title, content, modal_html, inline):
+    content, modal_html = localize(content), localize(modal_html)
+    inline = [localize(c) for c in inline]
     html = HEAD.format(title=title)
     html += build_header() + "\n" + build_sidebar(out_name)
     html += '\n<div class="page-wrapper"><div class="content">\n' + content + '\n</div>\n'
@@ -572,6 +604,7 @@ def assemble(out_name, title, content, modal_html, inline):
     if stem in EXTRA:
         apex += EXTRA[stem][0]
         inl += f"<script>{EXTRA[stem][1]}</script>\n"
+    PARTS[stem] = {"title": title, "content": link_fix(content), "modal": link_fix(modal_html), "vendor": apex, "scripts": inl}
     html += TAIL.format(apex=apex, inline=inl)
     html = link_fix(html)
     return html
@@ -633,6 +666,8 @@ def convert(path):
         tidy_buttons(root)
         dots_buttons(root)
         forms(root)
+    import crud
+    crud.apply(stem, body, container, ph)
     content = "".join(str(c) for c in body.contents)
     modal_html = str(container)[len('<div>'):-len('</div>')]
     if ph is not None:
@@ -653,6 +688,9 @@ def main():
             continue
         open(f"{ROOT}/{name}", "w", encoding="utf8").write(html)
         print("built", name)
+    if not only:
+        import json
+        json.dump(PARTS, open(f"{HERE}/parts.json", "w"))
 
 if __name__ == "__main__":
     main()
