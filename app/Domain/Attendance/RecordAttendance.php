@@ -41,17 +41,20 @@ final class RecordAttendance
 
                 $note = trim((string) ($row['note'] ?? ''));
 
-                AttendanceRecord::query()->updateOrCreate(
-                    ['student_id' => $student->id, 'attended_on' => $date],
-                    [
-                        'academic_year_id' => $year->id,
-                        'school_class_id' => $class->id,
-                        'stream_id' => $stream?->id,
-                        'status' => $row['status'],
-                        'note' => $note === '' ? null : $note,
-                        'recorded_by' => Auth::id(),
-                    ],
-                );
+                // whereDate, because a date cast may be stored with a time part on some databases.
+                $record = AttendanceRecord::query()
+                    ->where('student_id', $student->id)
+                    ->whereDate('attended_on', $date)
+                    ->first() ?? new AttendanceRecord(['student_id' => $student->id, 'attended_on' => $date]);
+
+                $record->fill([
+                    'academic_year_id' => $year->id,
+                    'school_class_id' => $class->id,
+                    'stream_id' => $stream?->id,
+                    'status' => $row['status'],
+                    'note' => $note === '' ? null : $note,
+                    'recorded_by' => Auth::id(),
+                ])->save();
             }
 
             $this->audit->handle('attendance.recorded', $class);
