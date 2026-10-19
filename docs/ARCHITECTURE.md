@@ -64,9 +64,15 @@ One school is one tenant, in a single database. Tenant ids are ULIDs.
 - **Deleting**: `DeleteAcademicRecord` refuses a year that has terms and a class that has streams. History is never removed: features that later refer to these records (students, marks, fees) keep restrictive foreign keys and add their own check to that action.
 - The dashboard shows the current year and the term that today falls in.
 
-## Help articles
+## Help centre
 
-Help lives inside the application at `/help` (`HelpController`, sign-in required, also on the central address). The slugs are listed in `config/help.php`; the text of each article (title, summary and a list of paragraphs) is in `lang/en/help.php` and `lang/sw/help.php` under `articles.<slug>`. Every feature adds its article in both languages, and `tests/Feature/Help/HelpTest.php` fails if a configured article is missing in either. An article describes only what the application really does.
+Help lives inside the application at `/help` (`HelpController`, sign-in required, also on the central address), in the structure of the Odessa POS help centre: categories with an icon, a search box, article pages with a table of contents, the other articles of the category and previous/next buttons, and a contact card for Odessa Lab customer care.
+
+- `config/help.php` holds the categories (key => icon) in display order; a category without articles is not shown. Titles and descriptions are in `lang/{en,sw}/help.php`.
+- Articles are Markdown files `resources/docs/{en,sw}/<category>/<slug>.md` with front matter `title`, `summary`, `keywords`, `order`. English is the fallback for an article a language lacks, but a test requires both languages to have the same articles.
+- `App\Support\Help\HelpCenter` reads, searches (title 10, keywords 6, summary 3, text 1 points; every word must match) and renders them (`html_input` stripped; each `##` heading gets an id for the table of contents). `[text](help:category/slug)` links to another article.
+- Route: `/help/{category}/{slug}`, both parts limited to `[a-z0-9-]+`, so no file outside `resources/docs` can be read.
+- An article describes only what the application really does. Every feature adds or updates its articles in both languages.
 
 ## Plans and subscriptions
 

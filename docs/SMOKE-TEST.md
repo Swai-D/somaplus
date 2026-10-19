@@ -67,12 +67,13 @@ App\Models\User::factory()->superAdmin()->create(['name' => 'Root', 'email' => '
 7. The sidebar shows only "Dashboard" and "Help". Other items appear as the features that own them are built.
 8. "Log out" in the profile menu returns to `/login`.
 
-## Help
+## Help centre
 
-1. "Help" in the sidebar opens `/help` with the articles Getting started, Forgot your password, Roles and Subscription and plan.
-2. Opening an article shows its text; "All help articles" returns to the list.
-3. After switching to Kiswahili, the list and the articles are in Swahili.
-4. `/help/nothing-here` answers 404; without signing in, `/help` redirects to `/login`.
+1. "Help" in the sidebar opens `/help` with a search box, the topic cards (Getting started, Academics, Account and roles, Plans and subscription, Problems and answers) and the contact card.
+2. Opening an article shows its text with "On this page", the other articles of the topic and previous/next buttons; links to other articles work.
+3. Searching "stream" finds "Classes and streams"; after switching to Kiswahili, "mkondo" finds "Madarasa na mikondo"; nonsense shows "No guide found".
+4. After switching to Kiswahili, topics and articles are in Swahili.
+5. `/help/academics/nothing-here` answers 404; without signing in, `/help` redirects to `/login`.
 
 ## Password reset
 

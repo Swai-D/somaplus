@@ -25,7 +25,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
-    Route::get('/help/{article}', [HelpController::class, 'show'])->name('help.show');
+    Route::get('/help/{category}/{slug}', [HelpController::class, 'show'])
+        ->where(['category' => '[a-z0-9-]+', 'slug' => '[a-z0-9-]+'])
+        ->name('help.show');
 
     require __DIR__.'/academics.php';
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
