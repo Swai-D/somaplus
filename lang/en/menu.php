@@ -3,13 +3,13 @@
 return [
     'sections' => [
         'main' => 'Main',
-        'school' => 'School',
+        'academics' => 'Academics',
         'support' => 'Support',
     ],
     'dashboard' => 'Dashboard',
-    'academics' => 'Academics',
     'academic_years' => 'Academic years',
-    'classes' => 'Classes and streams',
+    'classes' => 'Classes',
+    'class_list' => 'Class list',
     'subjects' => 'Subjects',
     'help' => 'Help',
 ];

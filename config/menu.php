@@ -38,20 +38,21 @@ return [
             ],
         ],
         [
-            'label' => 'menu.sections.school',
+            'label' => 'menu.sections.academics',
             'items' => [
                 [
-                    'label' => 'menu.academics',
-                    'icon' => 'ti ti-school',
+                    'label' => 'menu.academic_years',
+                    'icon' => 'ti ti-calendar-event',
+                    'route' => 'academics.years.index',
+                    'permission' => 'academics.view',
+                    'active' => ['academics.years.*', 'academics.terms.*'],
+                ],
+                [
+                    'label' => 'menu.classes',
+                    'icon' => 'ti ti-chalkboard',
                     'children' => [
                         [
-                            'label' => 'menu.academic_years',
-                            'route' => 'academics.years.index',
-                            'permission' => 'academics.view',
-                            'active' => ['academics.years.*', 'academics.terms.*'],
-                        ],
-                        [
-                            'label' => 'menu.classes',
+                            'label' => 'menu.class_list',
                             'route' => 'academics.classes.index',
                             'permission' => 'academics.view',
                             'active' => ['academics.classes.*', 'academics.streams.*'],

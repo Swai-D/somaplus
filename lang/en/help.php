@@ -32,7 +32,7 @@ return [
             'title' => 'Academic years, classes and subjects',
             'summary' => 'Set up the years, terms, classes, streams and subjects of your school.',
             'body' => [
-                'Open Academics in the menu. There are three pages: Academic years, Classes and streams, and Subjects. Owners and head teachers can add and change them; teachers and accountants can only look.',
+                'In the menu, under Academics, open Academic years, or Classes and then Class list or Subjects. Streams are added inside each class. Owners and head teachers can add and change them; teachers and accountants can only look.',
                 'Academic years: add a year with its start and end dates, then open it to add its terms. Terms must lie inside the year and may not overlap each other; years may not overlap either. Mark one year as current: the dashboard shows the current year and the term that today falls in.',
                 'Classes and streams: add the classes of your school, such as Form 1 or Standard 4, and give each a number to set the order in which they are listed. Open a class to add its streams, such as A and B. A class without streams is one group.',
                 'Subjects: add every subject taught at the school. The short code is optional.',

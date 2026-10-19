@@ -32,7 +32,7 @@ return [
             'title' => 'Miaka ya masomo, madarasa na masomo',
             'summary' => 'Weka miaka, mihula, madarasa, mikondo na masomo ya shule yako.',
             'body' => [
-                'Fungua Muundo wa masomo kwenye menyu. Kuna kurasa tatu: Miaka ya masomo, Madarasa na mikondo, na Masomo. Wamiliki na walimu wakuu wanaweza kuongeza na kubadilisha; walimu na wahasibu wanaweza kuangalia tu.',
+                'Kwenye menyu, chini ya Masomo, fungua Mwaka wa Masomo, au Madarasa kisha Orodha ya Madarasa au Mada. Mikondo inaongezwa ndani ya kila darasa. Wamiliki na walimu wakuu wanaweza kuongeza na kubadilisha; walimu na wahasibu wanaweza kuangalia tu.',
                 'Miaka ya masomo: ongeza mwaka kwa tarehe zake za kuanza na kuisha, kisha uufungue kuongeza mihula yake. Mihula lazima iwe ndani ya mwaka na isiingiliane; miaka pia haiwezi kuingiliana. Weka mwaka mmoja kuwa wa sasa: dashibodi inaonyesha mwaka wa sasa na muhula ambao leo iko ndani yake.',
                 'Madarasa na mikondo: ongeza madarasa ya shule yako, kama Kidato cha 1 au Darasa la 4, na uyape nambari ya kupanga mpangilio wa kuorodheshwa. Fungua darasa kuongeza mikondo yake, kama A na B. Darasa lisilo na mikondo ni kundi moja.',
                 'Masomo: ongeza kila somo linalofundishwa shuleni. Msimbo mfupi si lazima.',
