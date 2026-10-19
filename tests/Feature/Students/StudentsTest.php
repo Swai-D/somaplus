@@ -297,13 +297,13 @@ it('keeps students away from parents and students', function () {
 });
 
 it('hides a school from another school', function () {
-    $theirs = ($this->student)(['first_name' => 'Hidden'], $this->other);
+    $theirs = ($this->student)(['first_name' => 'Zxqhidden'], $this->other);
 
-    $this->actingAs($this->owner)->get("{$this->url}/students")->assertDontSee('Hidden');
+    $this->actingAs($this->owner)->get("{$this->url}/students")->assertDontSee('Zxqhidden');
     $this->actingAs($this->owner)->get("{$this->url}/students/{$theirs->id}")->assertNotFound();
     $this->actingAs($this->owner)->put("{$this->url}/students/{$theirs->id}", ($this->valid)())->assertNotFound();
     $this->actingAs($this->owner)->post("{$this->url}/students/{$theirs->id}/leave", ['left_on' => '2026-01-01'])->assertNotFound();
-    $this->actingAs($this->owner)->post("{$this->url}/students/search", ['term' => 'Hidden'])->assertDontSee('Hidden');
+    $this->actingAs($this->owner)->post("{$this->url}/students/search", ['term' => 'zxq'])->assertDontSee('Zxqhidden');
 });
 
 it('lets a read-only school look but not change', function () {
@@ -317,8 +317,11 @@ it('lets a read-only school look but not change', function () {
     $this->actingAs($owner)->post("{$this->url}/students/{$student->id}/leave", ['left_on' => '2026-01-01'])->assertForbidden();
 });
 
-it('sends a guest to sign in and gives the central address no students', function () {
+it('sends a guest to sign in', function () {
     $this->get("{$this->url}/students")->assertRedirect("{$this->url}/login");
+});
+
+it('gives the central address no students', function () {
     $this->actingAs(User::factory()->superAdmin()->create())->get('http://somaplus.test/students')->assertForbidden();
 });
 

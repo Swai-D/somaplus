@@ -36,6 +36,8 @@ class Student extends Model
 
     public const LEFT = 'left';
 
+    protected $attributes = ['status' => self::ACTIVE];
+
     protected $fillable = [
         'admission_number', 'first_name', 'middle_name', 'last_name', 'gender', 'date_of_birth', 'admitted_on',
     ];
