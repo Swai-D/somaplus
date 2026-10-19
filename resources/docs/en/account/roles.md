@@ -1,0 +1,23 @@
+---
+title: Roles
+summary: The five roles a person can have in a school and what they decide.
+keywords: role, owner, head teacher, teacher, accountant, parent, student, permission, access
+order: 2
+---
+Every school has the same five roles: **Owner**, **Head teacher**, **Teacher**, **Accountant** and **Parent / student**.
+
+## What a role decides
+
+A role decides what a person can see and do. The side menu shows only what the person's role allows, and a page that the role does not allow answers "forbidden" even if someone types its address.
+
+| What | Owner | Head teacher | Teacher | Accountant | Parent / student |
+|---|---|---|---|---|---|
+| Look at academic years, classes and subjects | Yes | Yes | Yes | Yes | No |
+| Add, change and delete them | Yes | Yes | No | No | No |
+
+More rows are added here as new parts of Somaplus arrive.
+
+## Good to know
+
+- A person's role belongs to one school. The same person at another school needs a role there too.
+- Your role is shown on the Dashboard and in your profile menu.

@@ -2,40 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\View\View;
+use App\Support\Help\HelpCenter;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class HelpController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $articles = [];
+        $help = HelpCenter::forCurrentLocale();
+        $term = trim((string) $request->query('q', ''));
 
-        foreach ($this->slugs() as $slug) {
-            $articles[$slug] = [
-                'title' => __("help.articles.{$slug}.title"),
-                'summary' => __("help.articles.{$slug}.summary"),
-            ];
-        }
-
-        return view('help.index', ['articles' => $articles]);
-    }
-
-    public function show(string $article): View
-    {
-        abort_unless(in_array($article, $this->slugs(), true) && Lang::has("help.articles.{$article}.title"), 404);
-
-        return view('help.show', [
-            'title' => __("help.articles.{$article}.title"),
-            'paragraphs' => trans("help.articles.{$article}.body"),
+        return view('help.index', [
+            'help' => $help,
+            'term' => $term,
+            'results' => mb_strlen($term) >= 2 ? $help->search($term) : null,
         ]);
     }
 
-    /**
-     * @return list<string>
-     */
-    private function slugs(): array
+    public function show(string $category, string $slug): View
     {
-        return array_values(array_filter((array) config('help.articles', []), 'is_string'));
+        $help = HelpCenter::forCurrentLocale();
+        $article = $help->find($category, $slug);
+        abort_if($article === null, 404);
+
+        $siblings = $help->inCategory($category);
+        $position = (int) array_search($article, $siblings, true);
+
+        return view('help.show', [
+            'help' => $help,
+            'article' => $article,
+            'rendered' => $help->render($article),
+            'siblings' => $siblings,
+            'previous' => $siblings[$position - 1] ?? null,
+            'next' => $siblings[$position + 1] ?? null,
+        ]);
     }
 }

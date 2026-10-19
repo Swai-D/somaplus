@@ -67,12 +67,13 @@ App\Models\User::factory()->superAdmin()->create(['name' => 'Root', 'email' => '
 7. The sidebar shows only "Dashboard" and "Help". Other items appear as the features that own them are built.
 8. "Log out" in the profile menu returns to `/login`.
 
-## Help
+## Help centre
 
-1. "Help" in the sidebar opens `/help` with the articles Getting started, Forgot your password, Roles and Subscription and plan.
-2. Opening an article shows its text; "All help articles" returns to the list.
-3. After switching to Kiswahili, the list and the articles are in Swahili.
-4. `/help/nothing-here` answers 404; without signing in, `/help` redirects to `/login`.
+1. "Help" in the sidebar opens `/help` with a search box, the topic cards (Getting started, Academics, Account and roles, Plans and subscription, Problems and answers) and the contact card.
+2. Opening an article shows its text with "On this page", the other articles of the topic and previous/next buttons; links to other articles work.
+3. Searching "stream" finds "Classes and streams"; after switching to Kiswahili, "mkondo" finds "Madarasa na mikondo"; nonsense shows "No guide found".
+4. After switching to Kiswahili, topics and articles are in Swahili.
+5. `/help/academics/nothing-here` answers 404; without signing in, `/help` redirects to `/login`.
 
 ## Password reset
 
@@ -89,7 +90,7 @@ Mail goes to Mailpit (`http://localhost:8025`) with the `MAIL_*` values of `.env
 
 Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, created in the sign-in section).
 
-1. The sidebar has Academics with three items: Academic years, Classes and streams, Subjects.
+1. The sidebar has a section Academics (Masomo) like the template: **Academic years**, and **Classes** which opens to **Class list** and **Subjects**. Streams are managed inside each class.
 2. Academic years: add `2026` from 2026-01-01 to 2026-12-31 and mark it current. Adding `2026-27` from 2026-12-31 is refused (overlap); `2027` from 2027-01-01 is accepted. Marking `2027` current removes the badge from `2026`.
 3. Open `2026`: add `Term 1` (2026-01-12 to 2026-04-03) and `Term 2` (2026-05-04 to 2026-08-14). A term dated 2025-12-01 to 2026-03-01 is refused (outside the year); one starting 2026-04-03 is refused (overlap). The dashboard shows the current year and, when today is inside a term, that term.
 4. Deleting `2026` while it has terms is refused with a message; after deleting both terms it works.

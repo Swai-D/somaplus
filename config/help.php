@@ -2,25 +2,25 @@
 
 /*
 |--------------------------------------------------------------------------
-| Help articles
+| Help centre
 |--------------------------------------------------------------------------
 |
-| The slugs of the help articles shown in the application, in order. The text
-| of each article is in the help file of lang/en and lang/sw, under
-| "articles.<slug>" (title, summary and a list of paragraphs). A feature adds
-| its article here and in both languages together with the feature itself; a
-| test refuses an article that is missing in either language.
+| The categories of the Help centre, in display order: key => tabler icon.
+| Articles are Markdown files in resources/docs/{locale}/{category}/{slug}.md
+| (English and Swahili), with a small front-matter block: title, summary,
+| keywords, order. A category without articles is not shown. Each category
+| also needs its title and description in lang/en/help.php and lang/sw/help.php.
 |
 */
 
 return [
 
-    'articles' => [
-        'getting-started',
-        'forgot-password',
-        'academic-structure',
-        'roles',
-        'subscription',
+    'categories' => [
+        'getting-started' => 'ti ti-rocket',
+        'academics' => 'ti ti-school',
+        'account' => 'ti ti-user-circle',
+        'plans' => 'ti ti-crown',
+        'troubleshooting' => 'ti ti-lifebuoy',
     ],
 
 ];

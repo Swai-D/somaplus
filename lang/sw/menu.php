@@ -3,13 +3,13 @@
 return [
     'sections' => [
         'main' => 'Kuu',
-        'school' => 'Shule',
+        'academics' => 'Masomo',
         'support' => 'Msaada',
     ],
     'dashboard' => 'Dashibodi',
-    'academics' => 'Muundo wa masomo',
-    'academic_years' => 'Miaka ya masomo',
-    'classes' => 'Madarasa na mikondo',
-    'subjects' => 'Masomo',
+    'academic_years' => 'Mwaka wa Masomo',
+    'classes' => 'Madarasa',
+    'class_list' => 'Orodha ya Madarasa',
+    'subjects' => 'Mada',
     'help' => 'Msaada',
 ];
