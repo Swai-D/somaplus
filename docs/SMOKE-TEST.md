@@ -99,3 +99,17 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 7. Sign in as a teacher: all pages can be opened, but there are no add, edit or delete buttons, and posting a change by hand answers 403. A parent / student sees no Academics menu and gets 403 on `/academics/years`.
 8. Set the school to `read_only`: pages open, changes answer 403.
 9. At Beta's address nothing of Acme's years, classes or subjects is visible, and Acme's record ids give 404.
+
+## Students and guardians
+
+1. Sign in as owner. The sidebar has Academics > Students > Student list and Add student. Create two classes, a stream and a current academic year first.
+2. Add a student with a class and stream. The student page shows the details and one line of class history.
+3. Place the same student in the next academic year (promotion) and in another class (move): each adds a line, earlier lines stay. Sending the same placement twice adds no line.
+4. Add a guardian with a phone number as main contact. Add the same phone to a second student: the parent is reused, not copied. Remove it from both: the guardian disappears.
+5. Search "ama" in the student list: the address stays `/students/search` and shows no name. The class filter works for the current year.
+6. Mark the student as left: gone from the list, found under "Left school"; placing is refused until "Bring back to school".
+7. Delete a class or stream that has students: refused with a message.
+8. Teacher and accountant can open the list and the pages but see no Add student, no forms, and posting answers 403. A parent/student gets 403 on `/students`.
+9. In Kiswahili all pages are in Swahili; Help has the topic "Wanafunzi" with four articles.
+10. `select action, subject_type, subject_id, user_id from audit_logs` shows the actions above and no names.
+

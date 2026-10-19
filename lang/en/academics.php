@@ -24,6 +24,7 @@ return [
         'overlap' => 'These dates overlap another academic year.',
         'terms_outside' => 'A term of this year would fall outside these dates. Change the term first.',
         'has_terms' => 'This academic year still has terms. Delete its terms first.',
+        'has_students' => 'This academic year still has students placed in it.',
     ],
     'terms' => [
         'empty' => 'No terms yet. Add the first term below.',
@@ -45,6 +46,7 @@ return [
         'add' => 'Add a class',
         'edit' => 'Edit class',
         'has_streams' => 'This class still has streams. Delete its streams first.',
+        'has_students' => 'This class still has students placed in it.',
     ],
     'streams' => [
         'empty' => 'No streams yet. A class without streams has one group of students.',
@@ -52,6 +54,7 @@ return [
         'name_hint' => 'For example A.',
         'add' => 'Add a stream',
         'edit' => 'Edit stream',
+        'has_students' => 'This stream still has students placed in it.',
     ],
     'subjects' => [
         'intro' => 'The subjects taught at your school.',
