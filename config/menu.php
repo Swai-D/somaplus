@@ -59,6 +59,24 @@ return [
                     ],
                 ],
                 [
+                    'label' => 'menu.attendance',
+                    'icon' => 'ti ti-checklist',
+                    'children' => [
+                        [
+                            'label' => 'menu.take_attendance',
+                            'route' => 'attendance.index',
+                            'permission' => 'attendance.manage',
+                            'active' => ['attendance.index', 'attendance.store'],
+                        ],
+                        [
+                            'label' => 'menu.attendance_summary',
+                            'route' => 'attendance.summary',
+                            'permission' => 'attendance.manage',
+                            'active' => ['attendance.summary'],
+                        ],
+                    ],
+                ],
+                [
                     'label' => 'menu.academic_years',
                     'icon' => 'ti ti-calendar-event',
                     'route' => 'academics.years.index',

@@ -16,6 +16,7 @@ Wadhifa unaamua mtu anaweza kuona na kufanya nini. Menyu ya pembeni inaonyesha t
 | Kuongeza, kubadilisha na kufuta | Ndiyo | Ndiyo | Hapana | Hapana | Hapana |
 | Kuangalia wanafunzi, wazazi na historia ya madarasa | Ndiyo | Ndiyo | Ndiyo | Ndiyo | Hapana |
 | Kuongeza na kubadilisha wanafunzi, wazazi na upangaji | Ndiyo | Ndiyo | Hapana | Hapana | Hapana |
+| Kuchukua na kuangalia mahudhurio | Ndiyo | Ndiyo | Ndiyo | Hapana | Hapana |
 
 Safu zaidi zinaongezwa hapa sehemu mpya za Somaplus zinapofika.
 
