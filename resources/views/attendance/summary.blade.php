@@ -48,11 +48,11 @@
                             <tbody>
                                 @foreach ($rows as $row)
                                     <tr>
-                                        <td class="fw-medium">{{ $row['student']->fullName() }}</td>
+                                        <td class="fw-medium">{{ $row->student->fullName() }}</td>
                                         @foreach (App\Models\AttendanceRecord::STATUSES as $status)
-                                            <td class="text-end">{{ $row[$status] }}</td>
+                                            <td class="text-end">{{ $row->{$status} }}</td>
                                         @endforeach
-                                        <td class="text-end">{{ $row['rate'] === null ? '–' : $row['rate'].'%' }}</td>
+                                        <td class="text-end">{{ $row->rate() === null ? '–' : $row->rate().'%' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
