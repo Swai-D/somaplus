@@ -11,7 +11,7 @@ Kila ukurasa una menyu upande wa kushoto na upau juu. Unachokiona kinategemea wa
 | Sehemu | Vipengele |
 |---|---|
 | Kuu | **Dashibodi** |
-| Masomo | **Mwaka wa Masomo**, **Madarasa** (**Orodha ya Madarasa**, **Mada**) |
+| Masomo | **Wanafunzi** (**Orodha ya Wanafunzi**, **Ongeza Mwanafunzi**), **Mwaka wa Masomo**, **Madarasa** (**Orodha ya Madarasa**, **Mada**) |
 | Msaada | **Msaada** |
 
 Menyu inaonyesha tu unachoruhusiwa kutumia. Ukikosa kipengele unachotegemea, angalia [Siwezi kuona kipengele cha menyu](help:troubleshooting/cannot-see-a-menu). Vipengele vipya vinaonekana hapa sehemu mpya za Somaplus zinapoongezwa.

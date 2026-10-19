@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Academics;
 
+use App\Domain\Academics\DeleteAcademicRecord;
 use App\Domain\Academics\SaveStream;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Academics\StreamRequest;
@@ -39,12 +40,12 @@ class StreamController extends Controller
         return redirect()->route('academics.classes.show', $class)->with('status', __('academics.saved'));
     }
 
-    public function destroy(Stream $stream): RedirectResponse
+    public function destroy(Stream $stream, DeleteAcademicRecord $delete): RedirectResponse
     {
         Gate::authorize('delete', $stream);
 
         $class = $stream->schoolClass;
-        $stream->delete();
+        $delete->handle($stream);
 
         return redirect()->route('academics.classes.show', $class)->with('status', __('academics.deleted'));
     }

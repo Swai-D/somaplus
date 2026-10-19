@@ -30,5 +30,6 @@ Route::middleware('auth')->group(function () {
         ->name('help.show');
 
     require __DIR__.'/academics.php';
+    require __DIR__.'/students.php';
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

@@ -24,6 +24,7 @@ return [
         'overlap' => 'Tarehe hizi zinaingiliana na mwaka mwingine wa masomo.',
         'terms_outside' => 'Muhula wa mwaka huu ungebaki nje ya tarehe hizi. Badilisha muhula kwanza.',
         'has_terms' => 'Mwaka huu wa masomo bado una mihula. Futa mihula yake kwanza.',
+        'has_students' => 'Mwaka huu wa masomo bado una wanafunzi waliopangwa ndani yake.',
     ],
     'terms' => [
         'empty' => 'Bado hakuna mihula. Ongeza muhula wa kwanza hapa chini.',
@@ -45,6 +46,7 @@ return [
         'add' => 'Ongeza darasa',
         'edit' => 'Hariri darasa',
         'has_streams' => 'Darasa hili bado lina mikondo. Futa mikondo yake kwanza.',
+        'has_students' => 'Darasa hili bado lina wanafunzi waliopangwa ndani yake.',
     ],
     'streams' => [
         'empty' => 'Bado hakuna mikondo. Darasa lisilo na mikondo lina kundi moja la wanafunzi.',
@@ -52,6 +54,7 @@ return [
         'name_hint' => 'Kwa mfano A.',
         'add' => 'Ongeza mkondo',
         'edit' => 'Hariri mkondo',
+        'has_students' => 'Mkondo huu bado una wanafunzi waliopangwa ndani yake.',
     ],
     'subjects' => [
         'intro' => 'Masomo yanayofundishwa shuleni kwako.',

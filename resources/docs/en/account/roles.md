@@ -14,6 +14,8 @@ A role decides what a person can see and do. The side menu shows only what the p
 |---|---|---|---|---|---|
 | Look at academic years, classes and subjects | Yes | Yes | Yes | Yes | No |
 | Add, change and delete them | Yes | Yes | No | No | No |
+| Look at students, parents and class history | Yes | Yes | Yes | Yes | No |
+| Add and change students, parents and placements | Yes | Yes | No | No | No |
 
 More rows are added here as new parts of Somaplus arrive.
 

@@ -41,6 +41,24 @@ return [
             'label' => 'menu.sections.academics',
             'items' => [
                 [
+                    'label' => 'menu.students',
+                    'icon' => 'ti ti-school',
+                    'children' => [
+                        [
+                            'label' => 'menu.student_list',
+                            'route' => 'students.index',
+                            'permission' => 'students.view',
+                            'active' => ['students.index', 'students.search', 'students.show', 'students.edit'],
+                        ],
+                        [
+                            'label' => 'menu.add_student',
+                            'route' => 'students.create',
+                            'permission' => 'students.manage',
+                            'active' => ['students.create'],
+                        ],
+                    ],
+                ],
+                [
                     'label' => 'menu.academic_years',
                     'icon' => 'ti ti-calendar-event',
                     'route' => 'academics.years.index',

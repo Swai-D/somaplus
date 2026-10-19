@@ -11,7 +11,7 @@ Every page has a side menu on the left and a bar along the top. What you see dep
 | Section | Items |
 |---|---|
 | Main | **Dashboard** |
-| Academics | **Academic years**, **Classes** (**Class list**, **Subjects**) |
+| Academics | **Students** (**Student list**, **Add student**), **Academic years**, **Classes** (**Class list**, **Subjects**) |
 | Support | **Help** |
 
 The menu shows only what your role may use. If an item you expect is missing, see [I cannot see a menu item](help:troubleshooting/cannot-see-a-menu). New items appear here as new parts of Somaplus are added.

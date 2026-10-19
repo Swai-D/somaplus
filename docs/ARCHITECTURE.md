@@ -60,7 +60,7 @@ One school is one tenant, in a single database. Tenant ids are ULIDs.
 
 - **Rules** (enforced in the `Save*` actions and by the database): names are unique within the school (terms within their year, streams within their class, subject codes within the school); years of one school never overlap, a term lies inside its year and terms of a year never overlap; a year's terms must stay inside its dates when the year is changed; a school has at most one current year (the action un-marks the previous one, and a partial unique index guards it). Classes are ordered by `sort_order`.
 - **Permissions**: `academics.view` (owner, head teacher, teacher, accountant) and `academics.manage` (owner, head teacher), declared in `config/roles.php` and granted to existing schools by a data migration (`SyncTenantRoles`). `AcademicsPolicy` maps the policy abilities to them. The writing routes also use `tenant.writable`. Nothing here is plan-gated, so it works on every plan.
-- **Routes and pages** under `/academics` (`routes/academics.php`): years (with their terms), classes (with their streams) and subjects; plain forms, no template JavaScript. The sidebar follows the template: section Academics with Academic years and Classes (Class list, Subjects). Route model binding goes through the tenant scope, so another school's record is a 404.
+- **Routes and pages** under `/academics` (`routes/academics.php`): years (with their terms), classes (with their streams) and subjects; plain forms, no template JavaScript. The sidebar follows the template: section Academics with Students (Student list, Add student), Academic years and Classes (Class list, Subjects). Route model binding goes through the tenant scope, so another school's record is a 404.
 - **Deleting**: `DeleteAcademicRecord` refuses a year that has terms and a class that has streams. History is never removed: features that later refer to these records (students, marks, fees) keep restrictive foreign keys and add their own check to that action.
 - The dashboard shows the current year and the term that today falls in.
 
@@ -87,3 +87,14 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - Local supporting services (PostgreSQL 16, Redis, Mailpit) run from `docker-compose.yml`. PHP and Node run on the host; Laravel Sail is not used.
 - Tests run on SQLite in memory.
 - CI (`.github/workflows/ci.yml`) is the source of truth for quality gates: Pint, PHPStan level 5, Pest, `composer audit` and `npm run build`.
+
+## Students and guardians
+
+`App\Domain\Students` holds the pupils of a school. Tables: `students`, `guardians`, `guardian_student` (pivot with relationship and main contact), `enrollments` and `audit_logs`; all models use `BelongsToTenant` and every foreign key is restrictive.
+
+- **Students** have a school-unique admission number, names, gender, date of birth, date admitted and a status (`active` or `left`, with the date and a reason). Students are never deleted: they are marked as left and can be brought back.
+- **Placements** (`enrollments`) are append-only: a promotion or a move adds a row for a year, class and optional stream, and the newest row of a student and year is the one that counts (`CurrentPlacements`). `EnrollStudent` is idempotent (the same placement as the newest one adds nothing) and refuses students who have left. `DeleteAcademicRecord` refuses a year, class or stream that has placements.
+- **Guardians** are one record per phone number in a school, so brothers and sisters share it (`AddGuardian`); a guardian left with no student is deleted (`RemoveGuardian`). Only name, phone and optional email are collected.
+- **Audit log**: `RecordAudit` writes who did what to which record (`student.viewed`, `created`, `updated`, `placed`, `left`, `reinstated`, `searched`, `guardian.linked`, `guardian.unlinked`). It stores ids only, never names or phone numbers. There is no page for it yet.
+- **Privacy**: searching is a `POST` so the typed name never reaches a URL or log; pages use numeric ids only.
+- **Permissions**: `students.view` (owner, head teacher, teacher, accountant) and `students.manage` (owner, head teacher), granted to existing schools by a data migration. Parent/student accounts have no access. `StudentPolicy` maps the abilities; writing routes use `tenant.writable`. Routes are in `routes/students.php`; nothing is plan-gated.

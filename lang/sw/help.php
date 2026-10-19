@@ -19,6 +19,7 @@ return [
     'contact_hours' => 'Saa za kazi: Jumatatu hadi Ijumaa, 8:00 asubuhi–6:00 jioni',
     'categories' => [
         'getting-started' => ['title' => 'Kuanza', 'description' => 'Ingia na ujue mahali pa kila kitu'],
+        'students' => ['title' => 'Wanafunzi', 'description' => 'Ongeza wanafunzi, walezi, historia ya madarasa na kuondoka shuleni'],
         'academics' => ['title' => 'Masomo', 'description' => 'Miaka ya masomo, mihula, madarasa, mikondo na mada'],
         'account' => ['title' => 'Akaunti na wadhifa', 'description' => 'Nenosiri lako na kila wadhifa unaweza kufanya nini'],
         'plans' => ['title' => 'Mipango na usajili', 'description' => 'Unatumika, muda wa neema na kusoma tu'],

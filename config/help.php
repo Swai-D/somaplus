@@ -17,6 +17,7 @@ return [
 
     'categories' => [
         'getting-started' => 'ti ti-rocket',
+        'students' => 'ti ti-users',
         'academics' => 'ti ti-school',
         'account' => 'ti ti-user-circle',
         'plans' => 'ti ti-crown',
