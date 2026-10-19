@@ -20,6 +20,7 @@ return [
     'categories' => [
         'getting-started' => ['title' => 'Getting started', 'description' => 'Sign in and learn your way around'],
         'students' => ['title' => 'Students', 'description' => 'Add students, guardians, class history and leaving school'],
+        'attendance' => ['title' => 'Attendance', 'description' => 'Take attendance and see how often students attend'],
         'academics' => ['title' => 'Academics', 'description' => 'Academic years, terms, classes, streams and subjects'],
         'account' => ['title' => 'Account and roles', 'description' => 'Your password and what each role can do'],
         'plans' => ['title' => 'Plans and subscription', 'description' => 'Active, grace period and read-only'],

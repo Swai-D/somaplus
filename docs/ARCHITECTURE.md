@@ -98,3 +98,12 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - **Audit log**: `RecordAudit` writes who did what to which record (`student.viewed`, `created`, `updated`, `placed`, `left`, `reinstated`, `searched`, `guardian.linked`, `guardian.unlinked`). It stores ids only, never names or phone numbers. There is no page for it yet.
 - **Privacy**: searching is a `POST` so the typed name never reaches a URL or log; pages use numeric ids only.
 - **Permissions**: `students.view` (owner, head teacher, teacher, accountant) and `students.manage` (owner, head teacher), granted to existing schools by a data migration. Parent/student accounts have no access. `StudentPolicy` maps the abilities; writing routes use `tenant.writable`. Routes are in `routes/students.php`; nothing is plan-gated.
+
+## Attendance
+
+`App\Domain\Attendance` holds the daily register. One table, `attendance_records`: one row per student and day (unique `student_id` + `attended_on`) with status `present`, `absent`, `late` or `excused`, an optional note and who recorded it. Each row also keeps the academic year, class and stream the student had that day, so moving a student later never changes old registers. All foreign keys are restrictive; because a row needs a placement, a year, class or stream with attendance is already protected by `DeleteAcademicRecord` through the placements.
+
+- **Roll**: `ClassRoll` lists the active students whose newest placement in the academic year containing the date is the chosen class (and stream). `RecordAttendance` refuses a date outside every academic year, a future date and any student who is not on that roll (so another school's student or a student in another class cannot be marked), and updates existing rows instead of adding duplicates, so a resend or a correction is idempotent. Every save is written to the audit log (`attendance.recorded`, with the class id).
+- **Summary**: `AttendanceSummary` counts the statuses per student between two dates. The rate is (present + late) / (present + late + absent); excused days are left out.
+- **Permission**: `attendance.manage` (owner, head teacher, teacher) for both looking and saving, granted to existing schools by a data migration; accountants and parent/student accounts have no access. `AttendanceRecordPolicy` maps it; saving uses `tenant.writable`. Routes are in `routes/attendance.php`; class, stream and dates travel in the query string (no personal data). Nothing is plan-gated.
+

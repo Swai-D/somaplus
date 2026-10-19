@@ -113,3 +113,15 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 9. In Kiswahili all pages are in Swahili; Help has the topic "Wanafunzi" with four articles.
 10. `select action, subject_type, subject_id, user_id from audit_logs` shows the actions above and no names.
 
+## Attendance
+
+1. Sign in as a teacher. The sidebar has Academics > Attendance > Take attendance and Summary. An accountant does not see Attendance and gets 403 on `/attendance`.
+2. Choose a class, a stream and today: the students placed in that class are listed, all as Present. A student who left school, or who is placed in another class, is not listed.
+3. Mark one Absent with the note "Sick" and save. Open the same class and day again: the marks are shown. Change one and save: the row is updated, no duplicate (`select count(*) from attendance_records` stays the same).
+4. A date in the future, or outside every academic year, is refused with a message.
+5. Summary: choose the class and dates; counts per status and the attendance rate (present + late out of present + late + absent) are shown.
+6. Move a marked student to another class on the student page: the old register still shows the old class.
+7. In a read-only school the pages open but saving answers 403.
+8. In Kiswahili all pages are in Swahili; Help has the topic "Mahudhurio" with two articles.
+9. `select action, subject_id from audit_logs` shows `attendance.recorded`.
+

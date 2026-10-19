@@ -34,6 +34,7 @@ return [
         'academics.manage' => ['owner', 'head_teacher'],
         'students.view' => ['owner', 'head_teacher', 'teacher', 'accountant'],
         'students.manage' => ['owner', 'head_teacher'],
+        'attendance.manage' => ['owner', 'head_teacher', 'teacher'],
     ],
 
 ];
