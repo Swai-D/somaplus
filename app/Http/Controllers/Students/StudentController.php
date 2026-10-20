@@ -11,9 +11,12 @@ use App\Http\Requests\Students\LeaveRequest;
 use App\Http\Requests\Students\StudentRequest;
 use App\Models\AcademicYear;
 use App\Models\Enrollment;
+use App\Models\Exam;
+use App\Models\ExamMark;
 use App\Models\SchoolClass;
 use App\Models\Stream;
 use App\Models\Student;
+use App\Models\Term;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -100,6 +103,11 @@ class StudentController extends Controller
             'student' => $student,
             'guardians' => $student->guardians()->get(),
             'history' => $student->enrollments()->with(['academicYear', 'schoolClass', 'stream'])->get(),
+            // Terms with at least one locked exam in which this student has marks (report cards).
+            'reportTerms' => Term::query()->with('academicYear')->orderByDesc('starts_on')
+                ->whereIn('id', Exam::query()->select('term_id')->whereNotNull('locked_at')
+                    ->whereIn('id', ExamMark::query()->select('exam_id')->where('student_id', $student->id)))
+                ->get(),
         ] + $this->choices());
     }
 

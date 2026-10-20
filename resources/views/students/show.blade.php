@@ -32,6 +32,19 @@
         </div>
     </div>
 
+    @can('viewReport', $student)
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-1">{{ __('students.show.reports') }}</h5>
+                @forelse ($reportTerms as $reportTerm)
+                    <a class="btn btn-sm btn-outline-secondary me-1 mt-2" href="{{ route('students.report', [$student, $reportTerm]) }}">{{ $reportTerm->academicYear->name }} – {{ $reportTerm->name }}</a>
+                @empty
+                    <p class="text-muted mb-0">{{ __('students.show.no_reports') }}</p>
+                @endforelse
+            </div>
+        </div>
+    @endcan
+
     <div class="card">
         <div class="card-body">
             <h5 class="mb-1">{{ __('students.show.history') }}</h5>

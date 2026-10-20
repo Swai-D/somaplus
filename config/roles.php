@@ -39,6 +39,7 @@ return [
         'exams.view' => ['owner', 'head_teacher', 'teacher'],
         'exams.manage' => ['owner', 'head_teacher'],
         'marks.enter' => ['owner', 'head_teacher', 'teacher'],
+        'results.view' => ['owner', 'head_teacher', 'teacher'],
     ],
 
 ];
