@@ -25,8 +25,10 @@ return [
         'terms_outside' => 'Muhula wa mwaka huu ungebaki nje ya tarehe hizi. Badilisha muhula kwanza.',
         'has_terms' => 'Mwaka huu wa masomo bado una mihula. Futa mihula yake kwanza.',
         'has_students' => 'Mwaka huu wa masomo bado una wanafunzi waliopangwa ndani yake.',
+        'has_exams' => 'Mwaka huu wa masomo bado una mitihani.',
     ],
     'terms' => [
+        'has_exams' => 'Muhula huu bado una mitihani.',
         'empty' => 'Bado hakuna mihula. Ongeza muhula wa kwanza hapa chini.',
         'name' => 'Jina la muhula',
         'name_hint' => 'Kwa mfano Muhula 1.',
@@ -57,6 +59,7 @@ return [
         'has_students' => 'Mkondo huu bado una wanafunzi waliopangwa ndani yake.',
     ],
     'subjects' => [
+        'has_marks' => 'Somo hili bado lina alama zilizoingizwa.',
         'intro' => 'Masomo yanayofundishwa shuleni kwako.',
         'empty' => 'Bado hakuna masomo. Ongeza la kwanza hapa chini.',
         'name' => 'Jina la somo',

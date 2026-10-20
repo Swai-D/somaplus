@@ -21,6 +21,7 @@ return [
         'getting-started' => ['title' => 'Kuanza', 'description' => 'Ingia na ujue mahali pa kila kitu'],
         'students' => ['title' => 'Wanafunzi', 'description' => 'Ongeza wanafunzi, walezi, historia ya madarasa na kuondoka shuleni'],
         'attendance' => ['title' => 'Mahudhurio', 'description' => 'Chukua mahudhurio na uone wanafunzi wanahudhuria mara ngapi'],
+        'exams' => ['title' => 'Mitihani na alama', 'description' => 'Mizani ya madaraja, mitihani, kuingiza alama na kufunga'],
         'academics' => ['title' => 'Masomo', 'description' => 'Miaka ya masomo, mihula, madarasa, mikondo na mada'],
         'account' => ['title' => 'Akaunti na wadhifa', 'description' => 'Nenosiri lako na kila wadhifa unaweza kufanya nini'],
         'plans' => ['title' => 'Mipango na usajili', 'description' => 'Unatumika, muda wa neema na kusoma tu'],

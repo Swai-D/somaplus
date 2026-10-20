@@ -125,3 +125,19 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 8. In Kiswahili all pages are in Swahili; Help has the topic "Mahudhurio" with two articles.
 9. `select action, subject_id from audit_logs` shows `attendance.recorded`.
 
+## Exams, marks and grades
+
+1. Sign in as owner. Academics > Exams has Exams and Grading scales. Add the scale "Standard": 0 = F, 50 = D, 60 = C, 70 = B, 80 = A. Saving without a line at 0, with two lines at the same percentage or the same grade is refused.
+2. Add an exam "Midterm" for a term, out of 100, with that scale. Add a second exam out of 50.
+3. Open the exam, choose a class and a subject: the students placed in that class are listed, not students who left or are in another class.
+4. Enter 85, 79.99, 80, 0, `45,5` and tick Absent for one student, then Save. Grades shown: 85 = A, 80 = A, 79.99 = B, 0 = F, 45.5 = F, absent shows "Absent". `abc`, `-1`, `1e2`, `45.555` and 100.01 are refused and nothing from that page is saved.
+5. In the exam out of 50, 40 is an A and 39.99 is a B.
+6. Save the same page again: no duplicate marks (`select count(*) from exam_marks`). Leave a score empty and save: the stored mark stays.
+7. Edit the exam: the term, maximum and scale are fixed once marks exist; the name can change. The exam with marks cannot be deleted. The scale cannot be edited or deleted; "Copy" makes an editable copy and the exam's grades do not change.
+8. Lock the exam: saving marks is refused for everyone, editing and deleting are refused, and a teacher sees no Lock/Unlock buttons and gets 403 on them. Unlock as owner: marks can be saved again.
+9. A teacher can open Exams and enter marks but cannot add scales or exams. An accountant and a parent/student get 403 on `/exams`.
+10. In a read-only school the sheet opens but has no Save button and posting answers 403.
+11. Delete a term with an exam, a subject with marks, or a year with exams: refused.
+12. In Kiswahili all pages are in Swahili; Help has the topic "Mitihani na alama" with three articles.
+13. `select action, subject_id from audit_logs` shows the exam and marks actions and no names or scores.
+

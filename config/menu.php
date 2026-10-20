@@ -77,6 +77,24 @@ return [
                     ],
                 ],
                 [
+                    'label' => 'menu.exams',
+                    'icon' => 'ti ti-file-certificate',
+                    'children' => [
+                        [
+                            'label' => 'menu.exam_list',
+                            'route' => 'exams.index',
+                            'permission' => 'exams.view',
+                            'active' => ['exams.*'],
+                        ],
+                        [
+                            'label' => 'menu.grading_scales',
+                            'route' => 'grading-scales.index',
+                            'permission' => 'exams.view',
+                            'active' => ['grading-scales.*'],
+                        ],
+                    ],
+                ],
+                [
                     'label' => 'menu.academic_years',
                     'icon' => 'ti ti-calendar-event',
                     'route' => 'academics.years.index',

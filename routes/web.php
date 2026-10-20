@@ -32,5 +32,6 @@ Route::middleware('auth')->group(function () {
     require __DIR__.'/academics.php';
     require __DIR__.'/students.php';
     require __DIR__.'/attendance.php';
+    require __DIR__.'/exams.php';
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

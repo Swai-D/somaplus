@@ -4,8 +4,12 @@ namespace App\Domain\Academics;
 
 use App\Models\AcademicYear;
 use App\Models\Enrollment;
+use App\Models\Exam;
+use App\Models\ExamMark;
 use App\Models\SchoolClass;
 use App\Models\Stream;
+use App\Models\Subject;
+use App\Models\Term;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 
@@ -23,6 +27,7 @@ final class DeleteAcademicRecord
             $record instanceof AcademicYear => match (true) {
                 $record->terms()->exists() => 'academics.years.has_terms',
                 Enrollment::query()->where('academic_year_id', $record->id)->exists() => 'academics.years.has_students',
+                Exam::query()->where('academic_year_id', $record->id)->exists() => 'academics.years.has_exams',
                 default => null,
             },
             $record instanceof SchoolClass => match (true) {
@@ -31,6 +36,8 @@ final class DeleteAcademicRecord
                 default => null,
             },
             $record instanceof Stream => Enrollment::query()->where('stream_id', $record->id)->exists() ? 'academics.streams.has_students' : null,
+            $record instanceof Term => Exam::query()->where('term_id', $record->id)->exists() ? 'academics.terms.has_exams' : null,
+            $record instanceof Subject => ExamMark::query()->where('subject_id', $record->id)->exists() ? 'academics.subjects.has_marks' : null,
             default => null,
         };
 

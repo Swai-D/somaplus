@@ -25,8 +25,10 @@ return [
         'terms_outside' => 'A term of this year would fall outside these dates. Change the term first.',
         'has_terms' => 'This academic year still has terms. Delete its terms first.',
         'has_students' => 'This academic year still has students placed in it.',
+        'has_exams' => 'This academic year still has exams.',
     ],
     'terms' => [
+        'has_exams' => 'This term still has exams.',
         'empty' => 'No terms yet. Add the first term below.',
         'name' => 'Term name',
         'name_hint' => 'For example Term 1.',
@@ -57,6 +59,7 @@ return [
         'has_students' => 'This stream still has students placed in it.',
     ],
     'subjects' => [
+        'has_marks' => 'This subject still has marks entered.',
         'intro' => 'The subjects taught at your school.',
         'empty' => 'No subjects yet. Add the first one below.',
         'name' => 'Subject name',

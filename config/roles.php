@@ -35,6 +35,10 @@ return [
         'students.view' => ['owner', 'head_teacher', 'teacher', 'accountant'],
         'students.manage' => ['owner', 'head_teacher'],
         'attendance.manage' => ['owner', 'head_teacher', 'teacher'],
+        'grades.manage' => ['owner', 'head_teacher'],
+        'exams.view' => ['owner', 'head_teacher', 'teacher'],
+        'exams.manage' => ['owner', 'head_teacher'],
+        'marks.enter' => ['owner', 'head_teacher', 'teacher'],
     ],
 
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Academics;
 
+use App\Domain\Academics\DeleteAcademicRecord;
 use App\Domain\Academics\SaveTerm;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Academics\TermRequest;
@@ -39,12 +40,12 @@ class TermController extends Controller
         return redirect()->route('academics.years.show', $year)->with('status', __('academics.saved'));
     }
 
-    public function destroy(Term $term): RedirectResponse
+    public function destroy(Term $term, DeleteAcademicRecord $delete): RedirectResponse
     {
         Gate::authorize('delete', $term);
 
         $year = $term->academicYear;
-        $term->delete();
+        $delete->handle($term);
 
         return redirect()->route('academics.years.show', $year)->with('status', __('academics.deleted'));
     }
