@@ -3,11 +3,12 @@
 use App\Http\Controllers\Exams\ExamController;
 use App\Http\Controllers\Exams\GradingScaleController;
 use App\Http\Controllers\Exams\MarkController;
+use App\Http\Controllers\Exams\ResultController;
 use Illuminate\Support\Facades\Route;
 
 // Loaded inside the `auth` group (routes/web.php). Permissions are checked by the policies:
 // looking needs `exams.view`, scales `grades.manage`, exams (and locking) `exams.manage`,
-// marks `marks.enter`. Routes that change data also use `tenant.writable`.
+// marks `marks.enter`, results and report cards `results.view`. Routes that change data also use `tenant.writable`.
 
 Route::get('grading-scales', [GradingScaleController::class, 'index'])->name('grading-scales.index');
 Route::get('grading-scales/create', [GradingScaleController::class, 'create'])->name('grading-scales.create');
@@ -18,6 +19,8 @@ Route::get('exams/create', [ExamController::class, 'create'])->name('exams.creat
 Route::get('exams/{exam}', [ExamController::class, 'show'])->name('exams.show')->whereNumber('exam');
 Route::get('exams/{exam}/edit', [ExamController::class, 'edit'])->name('exams.edit')->whereNumber('exam');
 Route::get('exams/{exam}/marks', [MarkController::class, 'index'])->name('exams.marks.index')->whereNumber('exam');
+Route::get('exams/{exam}/results', [ResultController::class, 'index'])->name('exams.results.index')->whereNumber('exam');
+Route::get('students/{student}/report/{term}', [ResultController::class, 'report'])->name('students.report')->whereNumber(['student', 'term']);
 
 Route::middleware('tenant.writable')->group(function () {
     Route::post('grading-scales', [GradingScaleController::class, 'store'])->name('grading-scales.store');

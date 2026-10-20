@@ -40,6 +40,19 @@
         </div>
     </div>
 
+    @can('viewResults', $exam)
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-2">{{ __('exams.results.heading') }}</h5>
+                @if ($exam->isLocked())
+                    <a href="{{ route('exams.results.index', $exam) }}" class="btn btn-primary">{{ __('exams.results.open') }}</a>
+                @else
+                    <p class="text-muted mb-0">{{ __('exams.results.not_locked') }}</p>
+                @endif
+            </div>
+        </div>
+    @endcan
+
     <div class="card">
         <div class="card-body">
             <h5 class="mb-3">{{ __('exams.exams.scale') }}: {{ $exam->gradingScale->name }}</h5>

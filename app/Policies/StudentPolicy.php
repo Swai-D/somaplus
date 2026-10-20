@@ -30,4 +30,10 @@ class StudentPolicy
     {
         return $user->can('students.manage');
     }
+
+    /** A student's report card holds marks, which are personal data: it needs `results.view`. */
+    public function viewReport(User $user, Student $student): bool
+    {
+        return $user->can('results.view');
+    }
 }

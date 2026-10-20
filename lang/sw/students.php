@@ -63,6 +63,8 @@ return [
     ],
     'edit_title' => 'Hariri mwanafunzi',
     'show' => [
+        'reports' => 'Ripoti za mwanafunzi',
+        'no_reports' => 'Bado hakuna mtihani uliofungwa wenye alama za mwanafunzi huyu.',
         'details' => 'Taarifa',
         'guardians' => 'Wazazi na walezi',
         'no_guardians' => 'Bado hakuna mzazi wala mlezi.',

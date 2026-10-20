@@ -109,7 +109,7 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 
 ## Exams, marks and grades
 
-`App\Domain\Exams` holds grading scales, exams and marks. Tables: `grading_scales`, `grading_bands`, `exams`, `exam_marks`; all models use `BelongsToTenant` and every foreign key is restrictive. Positions and report cards come in a later feature; they will be built on what is here.
+`App\Domain\Exams` holds grading scales, exams and marks. Tables: `grading_scales`, `grading_bands`, `exams`, `exam_marks`; all models use `BelongsToTenant` and every foreign key is restrictive. Results, positions and report cards are built on it (below).
 
 - **Marks are exact.** `Score` reads a typed mark (digits, one `.` or `,`, at most two decimals, nothing else) into whole hundredths, so 45.5 is 4550. Nothing is compared as a float. The database holds `decimal(6,2)`.
 - **Grades are never stored or typed.** `GradeCalculator` works out the grade from the exam's own grading scale each time it is shown. A scale is a list of bands; a band is the *lowest percentage* that earns its grade, so bands cannot leave gaps or overlap, and the lowest band must start at 0 so every valid score has a grade. The percentage is score / max x 100, compared in integers (`score * 10000 >= minimum * max * 100`), so a score exactly on a boundary gets the higher grade and 79.99 does not.
@@ -119,3 +119,12 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - **Permissions**: `exams.view` and `marks.enter` (owner, head teacher, teacher), `grades.manage` and `exams.manage` (owner, head teacher); accountants and parent/student accounts have no access. Granted to existing schools by a data migration. Writing routes use `tenant.writable`; a read-only school can look at marks but not save them. Routes are in `routes/exams.php`; class, stream and subject travel in the query string (no personal data). Teachers can currently enter marks for any class and subject; assigning teachers to subjects belongs to the staff feature.
 - **Audit log**: `grading_scale.created/updated/deleted`, `exam.created/updated/deleted/locked/unlocked`, `marks.recorded`, `marks.viewed` (ids only).
 
+### Results, positions and report cards
+
+- **Locked exams only.** `ResultSheet` (and `ReportCard`) work from stored marks and the exam's own scale, never store anything, and `ResultSheet` throws for an unlocked exam; the controller shows a notice instead.
+- **Totals and averages** are whole hundredths. Absent and empty scores are not counted; `0` is. The average is total / scored subjects, displayed cut (never rounded up) and graded exactly by `GradeCalculator::averageBandIndex` (`total * 100 >= minimum * max * count`), so 79.995 is not an A.
+- **Positions** (`Positions::rank`) compare averages by cross multiplication, so equal averages tie (1, 1, 3) and nothing is rounded. Students without a score get none. Class position is across the class; stream position within the stream; filtering by stream keeps class-wide positions.
+- **Reproducible.** The class and stream are the snapshot stored on each mark, so a later move or promotion does not change a past result; students who left keep their result. Students placed in the class without marks are listed last.
+- **Report card** (`students/{student}/report/{term}`): every locked exam of the term with marks for the student, subject lines with grades, total, average, overall grade, positions. No term-wide aggregate: weighting is a school policy not yet requested.
+- **Permission** `results.view` (owner, head teacher, teacher), checked by `ExamPolicy::viewResults` and `StudentPolicy::viewReport`; granted to existing schools by a data migration. GET only, so read-only schools can read. No guardian data is shown.
+- **Audit log**: `results.viewed` (exam id), `report.viewed` (student id).

@@ -141,3 +141,16 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 12. In Kiswahili all pages are in Swahili; Help has the topic "Mitihani na alama" with three articles.
 13. `select action, subject_id from audit_logs` shows the exam and marks actions and no names or scores.
 
+## Results, positions and report cards
+
+1. Add two students to a class and a third to another stream; enter marks in two subjects (for example 90/80, 80/90, 70/60) and one student with a single subject of 100. Open the exam: "Open the results" is not offered while it is unlocked and the results page says the exam must be locked.
+2. Lock the exam. Open the results for the class: totals, averages, grades and positions appear; equal averages share a position (1, 1, 3); the one-subject student is ranked by average.
+3. Enter 80 and 79.99 for one student: the average shows 79.99 and the grade is the lower one, not A.
+4. Mark a student absent in one subject: that subject is not counted. A student with no marks is listed last with no position.
+5. Choose one stream: only that stream is listed but positions are still class-wide, and "Position in stream" is inside the stream.
+6. Move a student to another class afterwards: the old results do not change.
+7. Open a student's page: "Report cards" lists the term; the report shows subjects, grades, total, average, overall grade and positions only for locked exams. Print works.
+8. Teacher, head teacher and owner can open results; an accountant and a parent/student get 403 on results and report, and the student page shows no report cards to the accountant.
+9. In a read-only school results and report cards still open. A student or exam of another school gives 404.
+10. In Kiswahili the pages are in Swahili; Help > Exams has "Matokeo, nafasi na ripoti".
+11. `select action, subject_id from audit_logs` shows `results.viewed` and `report.viewed` with ids only.

@@ -63,6 +63,8 @@ return [
     ],
     'edit_title' => 'Edit student',
     'show' => [
+        'reports' => 'Report cards',
+        'no_reports' => 'No locked exam has marks for this student yet.',
         'details' => 'Details',
         'guardians' => 'Parents and guardians',
         'no_guardians' => 'No parent or guardian yet.',
