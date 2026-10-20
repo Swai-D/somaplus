@@ -40,6 +40,7 @@ if (config('tenancy.allow_path_entry')) {
 
         Route::get('/t-exit', function (Request $request) {
             $request->session()->forget('tenant_slug');
+
             return redirect()->route('login');
         })->name('tenant.exit');
     });
