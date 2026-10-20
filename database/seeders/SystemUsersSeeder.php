@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\SubscriptionStatus;
 use App\Models\SubscriptionPlan;
 use App\Models\Tenant;
 use App\Models\User;
@@ -40,7 +41,7 @@ class SystemUsersSeeder extends Seeder
                 'name' => 'Acme Secondary',
                 'domain' => null,
                 'subscription_plan_id' => $plan->id,
-                'subscription_status' => \App\Enums\SubscriptionStatus::Active,
+                'subscription_status' => SubscriptionStatus::Active,
             ],
         );
 
@@ -48,11 +49,11 @@ class SystemUsersSeeder extends Seeder
         $roles = ['owner', 'head_teacher', 'teacher', 'accountant', 'parent_student'];
 
         $users = [
-            'owner'           => ['name' => 'Musa Mwakapi',    'email' => 'owner@acme.test'],
-            'head_teacher'    => ['name' => 'Asha Mwakapi',    'email' => 'asha@acme.test'],
-            'teacher'         => ['name' => 'John Kileo',      'email' => 'teacher@acme.test'],
-            'accountant'      => ['name' => 'Grace Salim',     'email' => 'accountant@acme.test'],
-            'parent_student'  => ['name' => 'Faith Mwakapi',   'email' => 'parent@acme.test'],
+            'owner' => ['name' => 'Musa Mwakapi',    'email' => 'owner@acme.test'],
+            'head_teacher' => ['name' => 'Asha Mwakapi',    'email' => 'asha@acme.test'],
+            'teacher' => ['name' => 'John Kileo',      'email' => 'teacher@acme.test'],
+            'accountant' => ['name' => 'Grace Salim',     'email' => 'accountant@acme.test'],
+            'parent_student' => ['name' => 'Faith Mwakapi',   'email' => 'parent@acme.test'],
         ];
 
         foreach ($roles as $role) {
@@ -68,7 +69,7 @@ class SystemUsersSeeder extends Seeder
                     ],
                 );
 
-                if (!$user->hasRole($role)) {
+                if (! $user->hasRole($role)) {
                     $user->assignRole($role);
                 }
             });
