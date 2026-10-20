@@ -128,3 +128,15 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - **Report card** (`students/{student}/report/{term}`): every locked exam of the term with marks for the student, subject lines with grades, total, average, overall grade, positions. No term-wide aggregate: weighting is a school policy not yet requested.
 - **Permission** `results.view` (owner, head teacher, teacher), checked by `ExamPolicy::viewResults` and `StudentPolicy::viewReport`; granted to existing schools by a data migration. GET only, so read-only schools can read. No guardian data is shown.
 - **Audit log**: `results.viewed` (exam id), `report.viewed` (student id).
+
+## Fees: structures and invoices
+
+`App\Domain\Fees`. Tables: `fee_structures` (a class in a term), `fee_items`, `invoices`, `invoice_lines`, `document_sequences`; every model uses `BelongsToTenant`, every foreign key is restrictive, and `tenants.currency` (default TZS) is the currency of a school's amounts. Payments, receipts and balances come in the next feature; balances will be derived from payments, never stored on an invoice.
+
+- **Money**: amounts are typed as text and read by `Money::parse` (digits, one `.` or `,`, at most the currency's decimals, at most ten whole digits) into integer minor units; nothing is a float. Display uses `Money::format`.
+- **Structures** (`SaveFeeStructure`): the year comes from the term; item names are unique within a structure, amounts above zero. A structure with invoices cannot be edited or deleted (checked under a row lock); `DeleteAcademicRecord` refuses a term or class that has a structure.
+- **Invoices** (`GenerateInvoices`): one per student per structure, for the active students on the `ClassRoll` of the structure's class (optionally one stream). Idempotent: students who already have one are skipped, and the DB has a unique key (tenant, student, structure). The generation locks the structure row, copies the lines and total (a snapshot) and records the class/stream at that time.
+- **Numbers** (`NextNumber`): a per-school, per-kind counter in `document_sequences`, taken with a row lock inside the transaction that saves the document, so a rollback gives the number back and there are no gaps. The same counter will give receipt numbers.
+- **Control number** (`SetControlNumber`): 8 to 20 digits, unique per school (DB unique key), settable and clearable by `fees.manage`. It is the reference a later payment will be matched on; no bank or mobile-money integration exists yet.
+- **Permissions**: `fees.view` (owner, head teacher, accountant), `fees.manage` (owner, accountant); granted to existing schools by a data migration. Writing routes use `tenant.writable`, so a read-only school can look but not change. Routes in `routes/fees.php`; filters travel in the query string (term and class ids only).
+- **Audit log**: `fee_structure.created/updated/deleted`, `invoices.generated` (only when something was made), `invoice.viewed`, `invoice.control_number_set` (ids only).

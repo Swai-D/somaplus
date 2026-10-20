@@ -19,6 +19,8 @@ A role decides what a person can see and do. The side menu shows only what the p
 | Take and look at attendance | Yes | Yes | Yes | No | No |
 | Look at exams, grading scales and marks, and enter marks | Yes | Yes | Yes | No | No |
 | Look at results, positions and report cards | Yes | Yes | Yes | No | No |
+| Look at fee structures and invoices | Yes | Yes | No | Yes | No |
+| Change fee structures, make invoices, set control numbers | Yes | No | No | Yes | No |
 | Add and change grading scales and exams, lock and unlock exams | Yes | Yes | No | No | No |
 
 More rows are added here as new parts of Somaplus arrive.

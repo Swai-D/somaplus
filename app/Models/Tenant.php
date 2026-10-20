@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Domain\Settings\SyncTenantRoles;
 use App\Enums\SubscriptionStatus;
+use App\Support\Money;
 use Database\Factories\TenantFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property int $subscription_plan_id
  * @property SubscriptionStatus $subscription_status
  * @property Carbon|null $grace_ends_at
+ * @property string $currency
  */
 class Tenant extends Model
 {
@@ -36,6 +38,9 @@ class Tenant extends Model
         'subscription_status',
         'grace_ends_at',
     ];
+
+    /** @var array<string, mixed> */
+    protected $attributes = ['currency' => Money::DEFAULT_CURRENCY];
 
     protected static function booted(): void
     {

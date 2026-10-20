@@ -40,6 +40,8 @@ return [
         'exams.manage' => ['owner', 'head_teacher'],
         'marks.enter' => ['owner', 'head_teacher', 'teacher'],
         'results.view' => ['owner', 'head_teacher', 'teacher'],
+        'fees.view' => ['owner', 'head_teacher', 'accountant'],
+        'fees.manage' => ['owner', 'accountant'],
     ],
 
 ];

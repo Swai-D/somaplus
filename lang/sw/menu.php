@@ -4,6 +4,7 @@ return [
     'sections' => [
         'main' => 'Kuu',
         'academics' => 'Masomo',
+        'finance' => 'Fedha',
         'support' => 'Msaada',
     ],
     'dashboard' => 'Dashibodi',
@@ -20,5 +21,8 @@ return [
     'classes' => 'Madarasa',
     'class_list' => 'Orodha ya Madarasa',
     'subjects' => 'Mada',
+    'fees' => 'Ada',
+    'invoices' => 'Ankara',
+    'fee_structures' => 'Miundo ya Ada',
     'help' => 'Msaada',
 ];

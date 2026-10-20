@@ -29,6 +29,7 @@ return [
     ],
     'terms' => [
         'has_exams' => 'Muhula huu bado una mitihani.',
+        'has_fees' => 'Muhula huu bado una miundo ya ada.',
         'empty' => 'Bado hakuna mihula. Ongeza muhula wa kwanza hapa chini.',
         'name' => 'Jina la muhula',
         'name_hint' => 'Kwa mfano Muhula 1.',
@@ -49,6 +50,7 @@ return [
         'edit' => 'Hariri darasa',
         'has_streams' => 'Darasa hili bado lina mikondo. Futa mikondo yake kwanza.',
         'has_students' => 'Darasa hili bado lina wanafunzi waliopangwa ndani yake.',
+        'has_fees' => 'Darasa hili bado lina miundo ya ada.',
     ],
     'streams' => [
         'empty' => 'Bado hakuna mikondo. Darasa lisilo na mikondo lina kundi moja la wanafunzi.',

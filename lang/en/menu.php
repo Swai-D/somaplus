@@ -4,6 +4,7 @@ return [
     'sections' => [
         'main' => 'Main',
         'academics' => 'Academics',
+        'finance' => 'Finance',
         'support' => 'Support',
     ],
     'dashboard' => 'Dashboard',
@@ -20,5 +21,8 @@ return [
     'classes' => 'Classes',
     'class_list' => 'Class list',
     'subjects' => 'Subjects',
+    'fees' => 'Fees',
+    'invoices' => 'Invoices',
+    'fee_structures' => 'Fee structures',
     'help' => 'Help',
 ];

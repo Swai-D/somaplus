@@ -122,6 +122,29 @@ return [
             ],
         ],
         [
+            'label' => 'menu.sections.finance',
+            'items' => [
+                [
+                    'label' => 'menu.fees',
+                    'icon' => 'ti ti-cash',
+                    'children' => [
+                        [
+                            'label' => 'menu.invoices',
+                            'route' => 'fees.invoices.index',
+                            'permission' => 'fees.view',
+                            'active' => ['fees.invoices.*'],
+                        ],
+                        [
+                            'label' => 'menu.fee_structures',
+                            'route' => 'fees.structures.index',
+                            'permission' => 'fees.view',
+                            'active' => ['fees.structures.*'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        [
             'label' => 'menu.sections.support',
             'items' => [
                 [

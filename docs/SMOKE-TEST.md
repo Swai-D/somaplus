@@ -154,3 +154,17 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 9. In a read-only school results and report cards still open. A student or exam of another school gives 404.
 10. In Kiswahili the pages are in Swahili; Help > Exams has "Matokeo, nafasi na ripoti".
 11. `select action, subject_id from audit_logs` shows `results.viewed` and `report.viewed` with ids only.
+
+## Fees: structures and invoices
+
+1. Sign in as accountant. Finance > Fee structures > Add: name "Day scholar", a term and class, lines Tuition 150000 and Uniform 25000.50. The total shows TZS 175,000.50. Amounts like `abc`, `-5`, `0`, `1e3`, `12.345` and `1 000` are refused and nothing is saved. Two lines with the same name are refused.
+2. Add the same name again for the same term and class: refused. The same name for another class or term is fine.
+3. Open the structure and choose Make invoices. One invoice per active student placed in that class (not students who left or are in another class). Numbers are INV-000001, INV-000002 ... Choose Make invoices again: no new invoice. Add a student to the class and run it again: only that student gets the next number. With a stream chosen only that stream is invoiced.
+4. Edit or delete the structure now: refused with a message; before any invoice it can be edited or deleted.
+5. Invoices: list, filter by term and class, open one, Print. The page shows no guardian data.
+6. On an invoice set a control number of 8 to 20 digits. Letters, spaces and 7 or 21 digits are refused. The same number on a second invoice is refused; empty the field to clear it.
+7. Head teacher can look at structures and invoices but gets 403 on add, edit, make invoices and control numbers. A teacher and a parent/student get 403 on every fee page and do not see the Finance menu.
+8. In a read-only school structures and invoices open but nothing can be changed (403). An invoice or structure of another school gives 404.
+9. Deleting a term or class that has a fee structure is refused.
+10. Kiswahili: Fedha > Ankara and Miundo ya Ada are in Swahili; Help has the topic "Ada na ankara".
+11. `select action, subject_id from audit_logs` shows the fee actions with ids only; `select number from invoices` has no gaps.

@@ -6,6 +6,7 @@ use App\Models\AcademicYear;
 use App\Models\Enrollment;
 use App\Models\Exam;
 use App\Models\ExamMark;
+use App\Models\FeeStructure;
 use App\Models\SchoolClass;
 use App\Models\Stream;
 use App\Models\Subject;
@@ -33,10 +34,15 @@ final class DeleteAcademicRecord
             $record instanceof SchoolClass => match (true) {
                 $record->streams()->exists() => 'academics.classes.has_streams',
                 Enrollment::query()->where('school_class_id', $record->id)->exists() => 'academics.classes.has_students',
+                FeeStructure::query()->where('school_class_id', $record->id)->exists() => 'academics.classes.has_fees',
                 default => null,
             },
             $record instanceof Stream => Enrollment::query()->where('stream_id', $record->id)->exists() ? 'academics.streams.has_students' : null,
-            $record instanceof Term => Exam::query()->where('term_id', $record->id)->exists() ? 'academics.terms.has_exams' : null,
+            $record instanceof Term => match (true) {
+                Exam::query()->where('term_id', $record->id)->exists() => 'academics.terms.has_exams',
+                FeeStructure::query()->where('term_id', $record->id)->exists() => 'academics.terms.has_fees',
+                default => null,
+            },
             $record instanceof Subject => ExamMark::query()->where('subject_id', $record->id)->exists() ? 'academics.subjects.has_marks' : null,
             default => null,
         };
