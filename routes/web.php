@@ -4,9 +4,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
+
+// Health check for Railway (and any uptime monitor).
+Route::get('/up', [HealthController::class, '__invoke']);
 
 // Sign-in, sign-out and the language switch never use `tenant.writable`:
 // a read-only school can still sign in and read.
