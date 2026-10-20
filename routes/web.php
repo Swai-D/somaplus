@@ -4,9 +4,46 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
+use App\Models\Tenant;
+use App\Tenancy\TenantContext;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+// Health check for Railway (and any uptime monitor).
+Route::get('/up', [HealthController::class, '__invoke']);
+
+// Temporary tenant entry for hosts behind a proxy without wildcard subdomains
+// (e.g. *.up.railway.app). Sets tenant in browser session, then redirects to login.
+// Only on the central domain; never trusts X-Forwarded-Host.
+if (config('tenancy.allow_path_entry')) {
+    Route::middleware('web')->group(function () {
+        Route::get('/t/{slug}', function (string $slug, Request $request) {
+            abort_unless(in_array($request->getHost(), config('tenancy.central_domains', [])), 404);
+
+            $tenant = TenantContext::runAsSystem(
+                fn () => Tenant::where('slug', $slug)->first()
+            );
+            abort_if(! $tenant, 404);
+
+            if (auth()->check() && auth()->user()->tenant_id !== $tenant->id) {
+                abort(403);
+            }
+
+            $request->session()->regenerate();
+            $request->session()->put('tenant_slug', $tenant->slug);
+
+            return redirect()->route('login');
+        })->where('slug', '[a-z0-9-]+')->middleware('throttle:20,1');
+
+        Route::get('/t-exit', function (Request $request) {
+            $request->session()->forget('tenant_slug');
+            return redirect()->route('login');
+        })->name('tenant.exit');
+    });
+}
 
 // Sign-in, sign-out and the language switch never use `tenant.writable`:
 // a read-only school can still sign in and read.

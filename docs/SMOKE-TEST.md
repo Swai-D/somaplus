@@ -181,3 +181,11 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 8. In a read-only school payments and receipts open but recording and reversing give 403. A receipt or payment of another school gives 404.
 9. Kiswahili: Fedha > Malipo is in Swahili; Help > Ada na ankara has "Malipo na risiti".
 10. `select action, subject_id from audit_logs` shows `payment.recorded`, `payment.reversed`, `receipt.viewed` with ids only; `select number from receipts` has no gaps.
+
+## Production on Railway (HTTPS styling)
+
+1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.
+2. In the browser's developer tools, Network tab: `/assets/css/style.css` and `/assets/css/somaplus.css` load from `https://` with status 200, and the Console shows no "Mixed Content" warnings.
+3. View the page source: every `href`/`src` that starts with the site address starts with `https://`.
+4. Request a password reset: the emailed link starts with `https://`.
+

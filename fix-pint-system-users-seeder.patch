@@ -1,0 +1,62 @@
+From f957fc969c770599aa52d92a0ec833e41d056c59 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 20 Oct 2026 15:39:50 +0000
+Subject: [PATCH] Fix Pint style issues in SystemUsersSeeder
+
+Imports the SubscriptionStatus enum instead of using its full name, aligns array arrows and spaces the not operator. No behaviour change. This file already failed Pint on main.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+---
+ database/seeders/SystemUsersSeeder.php | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/database/seeders/SystemUsersSeeder.php b/database/seeders/SystemUsersSeeder.php
+index 269e05f..c5e05b8 100644
+--- a/database/seeders/SystemUsersSeeder.php
++++ b/database/seeders/SystemUsersSeeder.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Database\Seeders;
+ 
++use App\Enums\SubscriptionStatus;
+ use App\Models\SubscriptionPlan;
+ use App\Models\Tenant;
+ use App\Models\User;
+@@ -40,7 +41,7 @@ public function run(): void
+                 'name' => 'Acme Secondary',
+                 'domain' => null,
+                 'subscription_plan_id' => $plan->id,
+-                'subscription_status' => \App\Enums\SubscriptionStatus::Active,
++                'subscription_status' => SubscriptionStatus::Active,
+             ],
+         );
+ 
+@@ -48,11 +49,11 @@ public function run(): void
+         $roles = ['owner', 'head_teacher', 'teacher', 'accountant', 'parent_student'];
+ 
+         $users = [
+-            'owner'           => ['name' => 'Musa Mwakapi',    'email' => 'owner@acme.test'],
+-            'head_teacher'    => ['name' => 'Asha Mwakapi',    'email' => 'asha@acme.test'],
+-            'teacher'         => ['name' => 'John Kileo',      'email' => 'teacher@acme.test'],
+-            'accountant'      => ['name' => 'Grace Salim',     'email' => 'accountant@acme.test'],
+-            'parent_student'  => ['name' => 'Faith Mwakapi',   'email' => 'parent@acme.test'],
++            'owner' => ['name' => 'Musa Mwakapi',    'email' => 'owner@acme.test'],
++            'head_teacher' => ['name' => 'Asha Mwakapi',    'email' => 'asha@acme.test'],
++            'teacher' => ['name' => 'John Kileo',      'email' => 'teacher@acme.test'],
++            'accountant' => ['name' => 'Grace Salim',     'email' => 'accountant@acme.test'],
++            'parent_student' => ['name' => 'Faith Mwakapi',   'email' => 'parent@acme.test'],
+         ];
+ 
+         foreach ($roles as $role) {
+@@ -68,7 +69,7 @@ public function run(): void
+                     ],
+                 );
+ 
+-                if (!$user->hasRole($role)) {
++                if (! $user->hasRole($role)) {
+                     $user->assignRole($role);
+                 }
+             });
+-- 
+2.43.0
+
