@@ -7,6 +7,7 @@ use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,6 +16,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Railway ends TLS at its proxy, so PHP sees plain http. Believe the proxy about the scheme
+        // (and client address, port) so asset() and route() build https:// links; otherwise the
+        // browser blocks the http:// stylesheets as mixed content. X-Forwarded-Host is deliberately
+        // NOT trusted: ResolveTenant picks the school from the host, and no header may override that.
+        $middleware->trustProxies(
+            at: '*',
+            headers: Request::HEADER_X_FORWARDED_FOR | Request::HEADER_X_FORWARDED_PORT | Request::HEADER_X_FORWARDED_PROTO,
+        );
+
         $middleware->web(prepend: [
             ResolveTenant::class,
         ]);

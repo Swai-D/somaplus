@@ -168,3 +168,11 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 9. Deleting a term or class that has a fee structure is refused.
 10. Kiswahili: Fedha > Ankara and Miundo ya Ada are in Swahili; Help has the topic "Ada na ankara".
 11. `select action, subject_id from audit_logs` shows the fee actions with ids only; `select number from invoices` has no gaps.
+
+## Production on Railway (HTTPS styling)
+
+1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.
+2. In the browser's developer tools, Network tab: `/assets/css/style.css` and `/assets/css/somaplus.css` load from `https://` with status 200, and the Console shows no "Mixed Content" warnings.
+3. View the page source: every `href`/`src` that starts with the site address starts with `https://`.
+4. Request a password reset: the emailed link starts with `https://`.
+

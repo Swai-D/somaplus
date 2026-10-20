@@ -140,3 +140,13 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - **Control number** (`SetControlNumber`): 8 to 20 digits, unique per school (DB unique key), settable and clearable by `fees.manage`. It is the reference a later payment will be matched on; no bank or mobile-money integration exists yet.
 - **Permissions**: `fees.view` (owner, head teacher, accountant), `fees.manage` (owner, accountant); granted to existing schools by a data migration. Writing routes use `tenant.writable`, so a read-only school can look but not change. Routes in `routes/fees.php`; filters travel in the query string (term and class ids only).
 - **Audit log**: `fee_structure.created/updated/deleted`, `invoices.generated` (only when something was made), `invoice.viewed`, `invoice.control_number_set` (ids only).
+
+## Deployment behind Railway's proxy (HTTPS)
+
+Railway ends TLS at its edge and forwards plain http to the container, so without help PHP believes every request is `http://`. `asset()` and `route()` then emit `http://` stylesheet and script links, and the browser blocks them on the `https://` page as mixed content: the page loads with no styling. The template's CSS is static (`public/assets/`, not built by Vite), so the files are fine; only the links were wrong.
+
+- **Trusted proxy** (`bootstrap/app.php`): `trustProxies(at: '*')` for `X-Forwarded-For`, `-Port` and `-Proto` only. The container is reachable only through Railway's proxy. `X-Forwarded-Host` is deliberately not trusted: `ResolveTenant` chooses the school from the request host, and no header may override that (see the tenancy rules in `CLAUDE.md`).
+- **Forced scheme** (`AppServiceProvider::boot`): in the `production` environment `URL::forceScheme('https')`, so links built without a request (queued emails such as password reset) are https too.
+- **Environment**: set `APP_ENV=production` and `APP_URL=https://<your-domain>` on Railway, and list the Railway/custom hosts in `TENANCY_CENTRAL_DOMAINS` and `TENANCY_BASE_DOMAIN`.
+- Tests: `tests/Feature/Shell/HttpsAssetsTest.php`.
+
