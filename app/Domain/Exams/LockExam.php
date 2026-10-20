@@ -4,6 +4,7 @@ namespace App\Domain\Exams;
 
 use App\Domain\Settings\RecordAudit;
 use App\Models\Exam;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +21,7 @@ final class LockExam
             $fresh = Exam::query()->whereKey($exam->id)->lockForUpdate()->firstOrFail();
 
             if (! $fresh->isLocked()) {
-                $fresh->locked_at = now();
+                $fresh->locked_at = CarbonImmutable::now();
                 $fresh->locked_by = Auth::id();
                 $fresh->save();
                 $this->audit->handle('exam.locked', $fresh);
