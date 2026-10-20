@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fees;
 
+use App\Domain\Fees\InvoiceBalance;
 use App\Domain\Fees\SetControlNumber;
 use App\Domain\Settings\RecordAudit;
 use App\Http\Controllers\Controller;
@@ -12,6 +13,7 @@ use App\Models\SchoolClass;
 use App\Models\Term;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class InvoiceController extends Controller
@@ -23,6 +25,7 @@ class InvoiceController extends Controller
 
         return view('fees.invoices.index', [
             'invoices' => Invoice::query()->with(['student', 'term', 'schoolClass'])
+                ->withSum(['payments as paid_sum' => fn ($q) => $q->whereDoesntHave('reversal')], 'amount')
                 ->when($termId !== null, fn ($q) => $q->where('term_id', $termId))
                 ->when($classId !== null, fn ($q) => $q->where('school_class_id', $classId))
                 ->orderByDesc('number')->limit(200)->get(),
@@ -40,7 +43,9 @@ class InvoiceController extends Controller
         $audit->handle('invoice.viewed', $invoice);
 
         return view('fees.invoices.show', [
-            'invoice' => $invoice->load(['student', 'term.academicYear', 'schoolClass', 'lines']),
+            'invoice' => $invoice->load(['student', 'term.academicYear', 'schoolClass', 'lines', 'payments.receipt', 'payments.reversal']),
+            'balance' => InvoiceBalance::of($invoice),
+            'key' => (string) Str::uuid(),
         ]);
     }
 

@@ -20,4 +20,4 @@ Fungua muundo wa ada na chini ya **Tengeneza ankara**, kama unataka chagua **Mko
 
 Kwenye ankara, **Control number** ni namba ya malipo iliyotolewa na benki au mtandao wa pesa za simu kwa kuilipia. Andika tarakimu 8 hadi 20 na uchague **Hifadhi**; iache tupu kuifuta. Control number inaweza kuwa ya ankara moja tu katika shule yako.
 
-Kurekodi malipo na risiti ni hatua inayofuata na bado haipo kwenye ukurasa huu.
+Inayofuata: [Malipo na risiti](help:fees/payments-and-receipts).

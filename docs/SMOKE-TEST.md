@@ -168,3 +168,16 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 9. Deleting a term or class that has a fee structure is refused.
 10. Kiswahili: Fedha > Ankara and Miundo ya Ada are in Swahili; Help has the topic "Ada na ankara".
 11. `select action, subject_id from audit_logs` shows the fee actions with ids only; `select number from invoices` has no gaps.
+
+## Fees: payments and receipts
+
+1. As accountant open an invoice of TZS 100,000. Record 40,000 cash with a reference: a receipt REC-000001 opens; the invoice shows paid 40,000, balance 60,000, status "Part paid". Print the receipt.
+2. Record 60,000.01: refused (more than the balance) and no receipt number is used. Record 60,000: the invoice is "Paid" and the payment form disappears.
+3. Try amounts `abc`, `-5`, `0`, `1e3`, `12.345`: refused. A future date and an unknown method are refused.
+4. Go back in the browser and send the same form again (or double click): no second payment, the message says it was already recorded.
+5. Finance > Payments > Record by control number: set a control number on another invoice first, then type it with an amount: the payment goes to that invoice. An unknown number is refused.
+6. As owner reverse a payment with a reason: it is struck out, the invoice balance recovers, the receipt stays (marked reversed) and receipt numbers continue without a gap. The accountant sees no Reverse button and gets 403 on it.
+7. Head teacher can look at payments and receipts but not record; a teacher and a parent/student get 403 and do not see Payments in the menu.
+8. In a read-only school payments and receipts open but recording and reversing give 403. A receipt or payment of another school gives 404.
+9. Kiswahili: Fedha > Malipo is in Swahili; Help > Ada na ankara has "Malipo na risiti".
+10. `select action, subject_id from audit_logs` shows `payment.recorded`, `payment.reversed`, `receipt.viewed` with ids only; `select number from receipts` has no gaps.

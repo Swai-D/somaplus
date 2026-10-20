@@ -23,6 +23,7 @@ return [
     'subjects' => 'Mada',
     'fees' => 'Ada',
     'invoices' => 'Ankara',
+    'payments' => 'Malipo',
     'fee_structures' => 'Miundo ya Ada',
     'help' => 'Msaada',
 ];

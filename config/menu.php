@@ -135,6 +135,12 @@ return [
                             'active' => ['fees.invoices.*'],
                         ],
                         [
+                            'label' => 'menu.payments',
+                            'route' => 'fees.payments.index',
+                            'permission' => 'fees.view',
+                            'active' => ['fees.payments.*', 'fees.receipts.*'],
+                        ],
+                        [
                             'label' => 'menu.fee_structures',
                             'route' => 'fees.structures.index',
                             'permission' => 'fees.view',

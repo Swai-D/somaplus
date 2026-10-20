@@ -140,3 +140,15 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - **Control number** (`SetControlNumber`): 8 to 20 digits, unique per school (DB unique key), settable and clearable by `fees.manage`. It is the reference a later payment will be matched on; no bank or mobile-money integration exists yet.
 - **Permissions**: `fees.view` (owner, head teacher, accountant), `fees.manage` (owner, accountant); granted to existing schools by a data migration. Writing routes use `tenant.writable`, so a read-only school can look but not change. Routes in `routes/fees.php`; filters travel in the query string (term and class ids only).
 - **Audit log**: `fee_structure.created/updated/deleted`, `invoices.generated` (only when something was made), `invoice.viewed`, `invoice.control_number_set` (ids only).
+
+## Fees: payments and receipts
+
+`payments`, `receipts`, `payment_reversals` (all `BelongsToTenant`, restrictive keys). A payment is never edited or deleted and never changes an invoice.
+
+- **Balance is derived** (`InvoiceBalance`): paid = sum of the invoice's payments that have no reversal; balance = total - paid; status unpaid / partial / paid / overpaid. Nothing is stored on the invoice.
+- **`RecordPayment`** is the one way money is recorded, for the cashier form and for integrations (a later feature will call it with `source = integration`). In one transaction it locks the invoice row, checks the balance, writes the payment and a receipt numbered by `NextNumber('receipt')`, and audits. A person typing a payment cannot exceed the balance; money reported by a provider is always recorded (the invoice may show overpaid).
+- **Idempotent**: `idempotency_key` (unique per school; the forms carry a fresh key) and `provider_reference` (unique per school) give back the existing payment; reusing a key or reference for another invoice or amount is refused. The DB unique keys back this up when two requests race.
+- **Receipts** are gapless per school (rolled back with the payment if anything fails; refused attempts take no number). **Reversal** (`ReversePayment`, `payments.reverse`, owner only) adds a record with a reason; the payment and receipt stay.
+- **Control number**: a payment can be recorded by typing an invoice's control number (looked up inside the school only); the payment keeps a copy of it.
+- **Permissions**: `payments.record` (owner, accountant), `payments.reverse` (owner); looking needs `fees.view`. Writing routes use `tenant.writable`.
+- **Audit log**: `payment.recorded`, `payment.reversed`, `receipt.viewed` (ids only).
