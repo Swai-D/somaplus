@@ -141,6 +141,8 @@ it('does not change a locked exam', function () {
 it('lets only owners and head teachers lock, unlock and manage exams', function (string $role, bool $manage) {
     $user = userWithRole($this->school, $role);
     $exam = ($this->exam)();
+    $this->actingAs($user)->get("{$this->url}/exams")->assertOk();
+    $this->actingAs($user)->get("{$this->url}/exams/{$exam->id}")->assertOk();
 
     $responses = [
         $this->actingAs($user)->get("{$this->url}/exams/create"),
@@ -154,9 +156,6 @@ it('lets only owners and head teachers lock, unlock and manage exams', function 
     foreach ($responses as $response) {
         $manage ? expect($response->status())->not->toBe(403) : $response->assertForbidden();
     }
-
-    $this->actingAs($user)->get("{$this->url}/exams")->assertOk();
-    $this->actingAs($user)->get("{$this->url}/exams/{$exam->id}")->assertOk();
 })->with([
     'owner' => ['owner', true],
     'head teacher' => ['head_teacher', true],
