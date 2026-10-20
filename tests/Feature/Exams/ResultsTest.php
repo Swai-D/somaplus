@@ -402,10 +402,12 @@ it('offers the results from the exam page only when the exam is locked', functio
 
 it('gives the new permission to the roles of every school', function () {
     foreach (['owner', 'head_teacher', 'teacher'] as $role) {
-        expect(userWithRole($this->school, $role)->can('results.view'))->toBeTrue();
+        $user = userWithRole($this->school, $role);
+        expect(($this->inSchool)(fn () => $user->can('results.view')))->toBeTrue();
     }
     foreach (['accountant', 'parent_student'] as $role) {
-        expect(userWithRole($this->school, $role)->can('results.view'))->toBeFalse();
+        $user = userWithRole($this->school, $role);
+        expect(($this->inSchool)(fn () => $user->can('results.view')))->toBeFalse();
     }
 });
 
