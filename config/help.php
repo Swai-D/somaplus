@@ -19,6 +19,7 @@ return [
         'getting-started' => 'ti ti-rocket',
         'students' => 'ti ti-users',
         'attendance' => 'ti ti-checklist',
+        'exams' => 'ti ti-file-certificate',
         'academics' => 'ti ti-school',
         'account' => 'ti ti-user-circle',
         'plans' => 'ti ti-crown',

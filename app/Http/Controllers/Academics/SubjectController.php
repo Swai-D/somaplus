@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Academics;
 
+use App\Domain\Academics\DeleteAcademicRecord;
 use App\Domain\Academics\SaveSubject;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Academics\SubjectRequest;
@@ -44,11 +45,11 @@ class SubjectController extends Controller
         return redirect()->route('academics.subjects.index')->with('status', __('academics.saved'));
     }
 
-    public function destroy(Subject $subject): RedirectResponse
+    public function destroy(Subject $subject, DeleteAcademicRecord $delete): RedirectResponse
     {
         Gate::authorize('delete', $subject);
 
-        $subject->delete();
+        $delete->handle($subject);
 
         return redirect()->route('academics.subjects.index')->with('status', __('academics.deleted'));
     }
