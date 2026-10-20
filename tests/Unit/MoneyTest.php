@@ -41,3 +41,43 @@ it('compares by amount and currency', function () {
         ->and(Money::of(100)->equals(Money::of(100, 'KES')))->toBeFalse()
         ->and(Money::zero()->equals(Money::of(0)))->toBeTrue();
 });
+
+it('reads typed amounts into minor units exactly', function (string $input, string $currency, ?int $minor) {
+    expect(Money::parse($input, $currency))->toBe($minor);
+})->with([
+    'whole TZS' => ['150000', 'TZS', 15000000],
+    'two decimals' => ['1500.50', 'TZS', 150050],
+    'one decimal' => ['1500.5', 'TZS', 150050],
+    'comma decimal' => ['1500,5', 'TZS', 150050],
+    'zero' => ['0', 'TZS', 0],
+    'surrounding spaces are trimmed' => [' 20 ', 'TZS', 2000],
+    'UGX has no decimals' => ['1500', 'UGX', 1500],
+    'UGX refuses a decimal' => ['1500.5', 'UGX', null],
+    'three decimals' => ['1.234', 'TZS', null],
+    'empty' => ['', 'TZS', null],
+    'letters' => ['abc', 'TZS', null],
+    'negative' => ['-5', 'TZS', null],
+    'plus sign' => ['+5', 'TZS', null],
+    'exponent' => ['1e3', 'TZS', null],
+    'space inside' => ['1 000', 'TZS', null],
+    'thousands separator' => ['1,000.00', 'TZS', null],
+    'more than ten whole digits' => ['12345678901', 'TZS', null],
+    'ten whole digits' => ['9999999999', 'TZS', 999999999900],
+    'unsupported currency' => ['10', 'XYZ', null],
+]);
+
+it('writes minor units back for an input field', function (int $minor, string $currency, string $expected) {
+    expect(Money::toInput($minor, $currency))->toBe($expected);
+})->with([
+    [15000000, 'TZS', '150000'],
+    [150050, 'TZS', '1500.5'],
+    [150005, 'TZS', '1500.05'],
+    [5, 'TZS', '0.05'],
+    [1500, 'UGX', '1500'],
+]);
+
+it('round trips every typed amount', function () {
+    foreach (['0', '0.01', '12.3', '99999.99', '1500'] as $typed) {
+        expect(Money::toInput(Money::parse($typed, 'TZS') ?? -1, 'TZS'))->toBe(rtrim(rtrim(number_format((float) $typed, 2, '.', ''), '0'), '.') ?: '0');
+    }
+});

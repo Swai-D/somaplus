@@ -29,6 +29,7 @@ return [
     ],
     'terms' => [
         'has_exams' => 'This term still has exams.',
+        'has_fees' => 'This term still has fee structures.',
         'empty' => 'No terms yet. Add the first term below.',
         'name' => 'Term name',
         'name_hint' => 'For example Term 1.',
@@ -49,6 +50,7 @@ return [
         'edit' => 'Edit class',
         'has_streams' => 'This class still has streams. Delete its streams first.',
         'has_students' => 'This class still has students placed in it.',
+        'has_fees' => 'This class still has fee structures.',
     ],
     'streams' => [
         'empty' => 'No streams yet. A class without streams has one group of students.',

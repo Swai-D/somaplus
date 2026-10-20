@@ -22,6 +22,7 @@ return [
         'students' => ['title' => 'Students', 'description' => 'Add students, guardians, class history and leaving school'],
         'attendance' => ['title' => 'Attendance', 'description' => 'Take attendance and see how often students attend'],
         'exams' => ['title' => 'Exams and marks', 'description' => 'Grading scales, exams, entering marks and locking'],
+        'fees' => ['title' => 'Fees and invoices', 'description' => 'Fee structures, invoices and control numbers'],
         'academics' => ['title' => 'Academics', 'description' => 'Academic years, terms, classes, streams and subjects'],
         'account' => ['title' => 'Account and roles', 'description' => 'Your password and what each role can do'],
         'plans' => ['title' => 'Plans and subscription', 'description' => 'Active, grace period and read-only'],

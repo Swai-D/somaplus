@@ -42,6 +42,42 @@ final class Money
         return new self($minor, $currency);
     }
 
+    /**
+     * Reads a typed amount into minor units: digits with an optional point or comma and no more decimals
+     * than the currency has (TZS 1500.50 is 150050 minor units; UGX takes none). Returns null for anything
+     * else (letters, signs, exponents, spaces, too many decimals, more than ten whole digits).
+     */
+    public static function parse(string $input, string $currency = self::DEFAULT_CURRENCY): ?int
+    {
+        $currency = strtoupper($currency);
+        if (! array_key_exists($currency, self::CURRENCIES)) {
+            return null;
+        }
+
+        $decimals = self::CURRENCIES[$currency];
+        $pattern = $decimals > 0
+            ? '/^(\d{1,10})(?:[.,](\d{1,'.$decimals.'}))?$/'
+            : '/^(\d{1,10})$/';
+
+        if (preg_match($pattern, trim($input), $m) !== 1) {
+            return null;
+        }
+
+        return ((int) $m[1]) * (int) (10 ** $decimals) + (int) str_pad($m[2] ?? '', $decimals, '0');
+    }
+
+    /** An amount for an input field: 150050 becomes "1500.5" (no thousands separators, no trailing zeros). */
+    public static function toInput(int $minor, string $currency = self::DEFAULT_CURRENCY): string
+    {
+        $decimals = self::CURRENCIES[strtoupper($currency)] ?? 2;
+        if ($decimals === 0) {
+            return (string) $minor;
+        }
+        $divisor = (int) (10 ** $decimals);
+
+        return rtrim(rtrim(intdiv($minor, $divisor).'.'.str_pad((string) ($minor % $divisor), $decimals, '0', STR_PAD_LEFT), '0'), '.');
+    }
+
     public static function zero(string $currency = self::DEFAULT_CURRENCY): self
     {
         return self::of(0, $currency);
