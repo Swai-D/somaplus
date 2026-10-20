@@ -23,6 +23,7 @@ return [
     'subjects' => 'Subjects',
     'fees' => 'Fees',
     'invoices' => 'Invoices',
+    'payments' => 'Payments',
     'fee_structures' => 'Fee structures',
     'help' => 'Help',
 ];

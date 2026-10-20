@@ -20,4 +20,4 @@ Open a fee structure and, under **Make invoices**, optionally choose a **Stream*
 
 On an invoice, the **Control number** is the reference given by the bank or mobile-money channel for paying it. Type 8 to 20 digits and choose **Save**; empty it to clear it. A control number can belong to only one invoice in your school.
 
-Recording payments and receipts is the next step and is not part of this page yet.
+Next: [Payments and receipts](help:fees/payments-and-receipts).

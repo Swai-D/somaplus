@@ -42,6 +42,8 @@ return [
         'results.view' => ['owner', 'head_teacher', 'teacher'],
         'fees.view' => ['owner', 'head_teacher', 'accountant'],
         'fees.manage' => ['owner', 'accountant'],
+        'payments.record' => ['owner', 'accountant'],
+        'payments.reverse' => ['owner'],
     ],
 
 ];

@@ -46,7 +46,7 @@
                 <div class="table-responsive">
                     <table class="table align-middle mb-0">
                         <thead><tr>
-                            <th>{{ __('fees.invoices.number') }}</th><th>{{ __('fees.invoices.student') }}</th><th>{{ __('fees.structures.term') }}</th><th>{{ __('fees.structures.class') }}</th><th class="text-end">{{ __('fees.structures.total') }}</th><th></th>
+                            <th>{{ __('fees.invoices.number') }}</th><th>{{ __('fees.invoices.student') }}</th><th>{{ __('fees.structures.term') }}</th><th>{{ __('fees.structures.class') }}</th><th class="text-end">{{ __('fees.structures.total') }}</th><th class="text-end">{{ __('fees.payments.balance') }}</th><th>{{ __('fees.payments.status') }}</th><th></th>
                         </tr></thead>
                         <tbody>
                             @foreach ($invoices as $invoice)
@@ -55,7 +55,10 @@
                                     <td>{{ $invoice->student->fullName() }}<div class="text-muted fs-13">{{ $invoice->student->admission_number }}</div></td>
                                     <td>{{ $invoice->term->name }}</td>
                                     <td>{{ $invoice->schoolClass->name }}</td>
+                                    @php($b = App\Domain\Fees\InvoiceBalance::fromLoaded($invoice))
                                     <td class="text-end">{{ $invoice->totalMoney()->format() }}</td>
+                                    <td class="text-end">{{ $b->balanceMoney()->format() }}</td>
+                                    <td>{{ __('fees.payments.statuses.'.$b->status()) }}</td>
                                     <td class="text-end"><a href="{{ route('fees.invoices.show', $invoice) }}" class="btn btn-sm btn-outline-secondary">{{ __('academics.open') }}</a></td>
                                 </tr>
                             @endforeach
