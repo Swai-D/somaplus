@@ -46,7 +46,7 @@ final class RecordPayment
             throw ValidationException::withMessages(['method' => __('fees.payments.errors.method')]);
         }
         $paidOn = CarbonImmutable::createFromFormat('!Y-m-d', $data['paid_on']);
-        if ($paidOn === false || $paidOn->isFuture()) {
+        if ($paidOn === null || $paidOn->isFuture()) {
             throw ValidationException::withMessages(['paid_on' => __('fees.payments.errors.date')]);
         }
 
