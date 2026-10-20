@@ -25,4 +25,9 @@ return [
 
     'base_domain' => env('TENANCY_BASE_DOMAIN', 'localhost'),
 
+    // Kwenye production (Railway) ambapo *.up.railway.app haitoi wildcard,
+    // /t/{slug} huweka tenant kwenye session ya browser ili school iweze kuingia
+    // bila custom domain. Ipo kwenye host kuu (APP_DOMAIN) pekee.
+    'allow_path_entry' => (bool) filter_var(env('TENANCY_ALLOW_PATH_ENTRY', false), FILTER_VALIDATE_BOOLEAN),
+
 ];
