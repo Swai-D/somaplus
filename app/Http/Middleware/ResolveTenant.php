@@ -20,8 +20,11 @@ class ResolveTenant
         $host = strtolower($request->getHost());
 
         if (in_array($host, config('tenancy.central_domains', []), true)) {
-            // Central domain: super-admin area, au /t/{slug} session entry (Railway).
-            if (config('tenancy.allow_path_entry') && $slug = $request->session()->get('tenant_slug')) {
+            // Central domain: nothing carries over from an earlier request. Only when the Railway path entry
+            // is switched on (TENANCY_ALLOW_PATH_ENTRY) does a school chosen with /t/{slug} apply here.
+            $this->context->clear();
+
+            if (config('tenancy.allow_path_entry') && $request->hasSession() && $slug = $request->session()->get('tenant_slug')) {
                 $tenant = Tenant::query()->where('slug', $slug)->first();
                 if ($tenant !== null) {
                     $this->context->set($tenant);
