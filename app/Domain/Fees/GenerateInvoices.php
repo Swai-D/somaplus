@@ -39,7 +39,7 @@ final class GenerateInvoices
             $structure = FeeStructure::query()->whereKey($structure->id)->lockForUpdate()->firstOrFail();
             $items = $structure->items()->get();
             $total = (int) $items->sum('amount');
-            $currency = $this->tenant->current()?->currency ?? Money::DEFAULT_CURRENCY;
+            $currency = $this->tenant->current()->currency ?? Money::DEFAULT_CURRENCY;
 
             $year = $structure->academicYear()->firstOrFail();
             $class = $structure->schoolClass()->firstOrFail();

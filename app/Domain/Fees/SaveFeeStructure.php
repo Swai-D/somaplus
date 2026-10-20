@@ -69,7 +69,7 @@ final class SaveFeeStructure
      */
     private function normalise(array $items): array
     {
-        $currency = $this->tenant->current()?->currency ?? Money::DEFAULT_CURRENCY;
+        $currency = $this->tenant->current()->currency ?? Money::DEFAULT_CURRENCY;
         $rows = [];
         $names = [];
         $total = 0;
