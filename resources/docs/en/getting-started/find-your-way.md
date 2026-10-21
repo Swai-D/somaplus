@@ -28,4 +28,6 @@ The **Dashboard** opens with coloured tiles for the numbers you are allowed to s
 
 The **Dashboard** menu has two pages, as in the template: **School** (the page above) and **Teacher**, for people who enter marks. The Teacher page shows how many students and classes the school has, how many marks you entered, how many exams are still open, today's attendance, and the exams of the current year with a button to **Enter marks** (open exams) or see the **Results** (locked exams).
 
+The **Dashboard** menu has two pages, as in the template: **School** (the page above) and **Teacher**, for people who enter marks. The Teacher page shows how many students and classes the school has, how many marks you entered, how many exams are still open, today's attendance, and the exams of the current year with a button to **Enter marks** (open exams) or see the **Results** (locked exams).
+
 The **Your school** card shows the school's name, its **Plan**, the state of its **Subscription**, the **Academic year** that is current (and the term that today falls in) and **Your role**. A yellow notice at the top of every page means the school is read-only, see [Read-only mode](help:troubleshooting/read-only-mode).
