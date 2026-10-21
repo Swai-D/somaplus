@@ -24,4 +24,6 @@ Menyu inaonyesha tu unachoruhusiwa kutumia. Ukikosa kipengele unachotegemea, ang
 
 ## Dashibodi
 
-**Dashibodi** inaonyesha jina la shule yako, **Mpango** wake, hali ya **Usajili**, **Mwaka wa masomo** wa sasa (na muhula ambao leo iko ndani yake) na **Wadhifa wako**. Tahadhari ya njano juu ya kila ukurasa inamaanisha shule iko kwenye hali ya kusoma tu, angalia [Hali ya kusoma tu](help:troubleshooting/read-only-mode).
+**Dashibodi** inafunguka na vigae vya rangi vyenye namba unazoruhusiwa kuona: **Wanafunzi** (wanaoendelea, na wangapi wamejiunga mwezi huu), **Walezi**, **Madarasa**, na kwa mwaka wa masomo wa sasa ada **zilizotolewa ankara**, **zilizokusanywa** na **zinazodaiwa**. Chini yake, **Ada kwa mwezi** inalinganisha kilichotolewa ankara na kilichokusanywa, **Mahudhurio ya leo** inaonyesha asilimia ya waliohudhuria, waliokosa, waliochelewa na waliosamehewa, na **Waliojiunga hivi karibuni** na **Malipo ya hivi karibuni** zinaorodhesha watano wa mwisho. Kila sehemu inaonekana tu pale wadhifa wako unaporuhusiwa kufungua ukurasa wake (wanafunzi, masomo, ada au mahudhurio), kwa hiyo mwalimu haoni fedha na mhasibu haoni daftari la mahudhurio. Malipo yaliyobatilishwa hayahesabiwi kamwe.
+
+Kadi ya **Shule yako** inaonyesha jina la shule, **Mpango** wake, hali ya **Usajili**, **Mwaka wa masomo** wa sasa (na muhula ambao leo iko ndani yake) na **Wadhifa wako**. Tahadhari ya njano juu ya kila ukurasa inamaanisha shule iko kwenye hali ya kusoma tu, angalia [Hali ya kusoma tu](help:troubleshooting/read-only-mode).

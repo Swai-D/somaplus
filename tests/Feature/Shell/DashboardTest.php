@@ -1,10 +1,19 @@
 <?php
 
+use App\Domain\Fees\GenerateInvoices;
 use App\Enums\SubscriptionStatus;
+use App\Models\AttendanceRecord;
+use App\Models\Enrollment;
+use App\Models\FeeItem;
+use App\Models\FeeStructure;
+use App\Models\Guardian;
+use App\Models\Invoice;
+use App\Models\Student;
 use App\Models\SubscriptionPlan;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Tenancy\TenantContext;
+use Illuminate\Support\Str;
 
 beforeEach(function () {
     useTestHosts();
@@ -83,5 +92,143 @@ it('shows the platform administrator the number of schools', function () {
         ->assertSee(__('dashboard.platform'))
         ->assertSee(__('dashboard.schools'))
         ->assertSee(__('layout.platform_admin'))
-        ->assertSeeInOrder(['<h3 class="mb-0">', '3', '</h3>'], false);
+        ->assertSeeInOrder(['<h3 class="mb-0 text-white">', '3', '</h3>'], false);
+});
+
+it('shows a head teacher the real student, guardian, class and attendance figures', function () {
+    $world = makeExamWorld($this->school);
+
+    TenantContext::run($this->school, function () use ($world) {
+        $present = Student::factory()->create(['first_name' => 'Zuhura', 'last_name' => 'Mwakyusa', 'admitted_on' => now()->toDateString()]);
+        $absent = Student::factory()->create(['first_name' => 'Baraka', 'last_name' => 'Massawe', 'admitted_on' => '2024-02-01']);
+        Student::factory()->create(['first_name' => 'Neema', 'last_name' => 'Kimaro', 'admitted_on' => '2024-01-01']);
+        Student::factory()->left()->create(['first_name' => 'Gone', 'last_name' => 'Away']);
+        Guardian::factory()->create();
+
+        foreach ([[$present, AttendanceRecord::PRESENT], [$absent, AttendanceRecord::ABSENT]] as [$student, $status]) {
+            AttendanceRecord::factory()->create([
+                'student_id' => $student->id,
+                'academic_year_id' => $world['year']->id,
+                'school_class_id' => $world['form1']->id,
+                'status' => $status,
+            ]);
+        }
+    });
+
+    $this->actingAs(($this->freshHead)())
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertSee('<h4 class="text-white mb-1">3</h4>', false) // three active students (the one who left is not counted)
+        ->assertSee(__('dashboard.new_this_month', ['count' => 1]))
+        ->assertSee(__('dashboard.attendance_today'))
+        ->assertSee('1 (50%)')
+        ->assertSee('Zuhura Mwakyusa')
+        ->assertSee('Baraka Massawe')
+        ->assertDontSee('Gone Away')
+        ->assertDontSee(__('dashboard.fees_collected'))
+        ->assertDontSee('feesChart');
+});
+
+it('says so when no attendance was recorded today', function () {
+    $this->actingAs(($this->freshHead)())
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertSee(__('dashboard.attendance_none'));
+});
+
+it('shows only the blocks the person may see anywhere else in the application', function () {
+    $teacher = userWithRole($this->school, 'teacher');
+    $accountant = userWithRole($this->school, 'accountant');
+    $parent = userWithRole($this->school, 'parent_student');
+    makeExamWorld($this->school);
+
+    // A teacher: students, classes and attendance, but no money.
+    $this->actingAs($teacher)->get('http://acme.somaplus.test/')->assertOk()
+        ->assertSee(__('dashboard.attendance_today'))
+        ->assertSee(__('dashboard.new_admissions'))
+        ->assertDontSee(__('dashboard.fees_chart'))
+        ->assertDontSee(__('dashboard.recent_payments'));
+
+    // An accountant: money and students, but no attendance register.
+    $this->actingAs($accountant)->get('http://acme.somaplus.test/')->assertOk()
+        ->assertSee(__('dashboard.fees_chart'))
+        ->assertSee(__('dashboard.recent_payments'))
+        ->assertSee('feesChart')
+        ->assertDontSee(__('dashboard.attendance_today'));
+
+    // A parent or student role holds none of those permissions: only the school card.
+    $this->actingAs($parent)->get('http://acme.somaplus.test/')->assertOk()
+        ->assertSee(__('dashboard.your_school'))
+        ->assertDontSee(__('dashboard.new_admissions'))
+        ->assertDontSee(__('dashboard.recent_payments'))
+        ->assertDontSee(__('dashboard.fees_chart'))
+        ->assertDontSee(__('dashboard.attendance_today'));
+});
+
+it('never shows the figures or names of another school', function () {
+    $beta = Tenant::factory()->create(['slug' => 'beta']);
+    TenantContext::run($beta, function () {
+        Student::factory()->create(['first_name' => 'Hidden', 'last_name' => 'Betastudent']);
+        Student::factory()->create();
+    });
+    TenantContext::run($this->school, fn () => Student::factory()->create(['first_name' => 'Visible', 'last_name' => 'Acmestudent']));
+
+    $this->actingAs(($this->freshHead)())
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertSee('<h4 class="text-white mb-1">1</h4>', false)
+        ->assertSee('Visible Acmestudent')
+        ->assertDontSee('Betastudent');
+});
+
+it('works out invoiced, collected and outstanding fees and leaves reversed payments out', function () {
+    $world = makeExamWorld($this->school);
+    $accountant = userWithRole($this->school, 'accountant');
+    $owner = userWithRole($this->school, 'owner');
+
+    // One invoice of TZS 100,000.00 for a student placed in Form 1.
+    $invoice = TenantContext::run($this->school, function () use ($world) {
+        $structure = FeeStructure::factory()->create([
+            'academic_year_id' => $world['year']->id, 'term_id' => $world['term']->id, 'school_class_id' => $world['form1']->id,
+        ]);
+        $item = new FeeItem(['name' => 'Tuition', 'amount' => 10000000]);
+        $item->fee_structure_id = $structure->id;
+        $item->save();
+        $student = Student::factory()->create(['first_name' => 'Payer']);
+        Enrollment::factory()->create(['student_id' => $student->id, 'academic_year_id' => $world['year']->id, 'school_class_id' => $world['form1']->id]);
+        app(GenerateInvoices::class)->handle($structure);
+
+        return Invoice::query()->where('student_id', $student->id)->firstOrFail();
+    });
+
+    $this->actingAs($accountant)->post("http://acme.somaplus.test/fees/invoices/{$invoice->id}/payments", [
+        'amount' => '40000', 'method' => 'cash', 'paid_on' => now()->toDateString(), 'idempotency_key' => (string) Str::uuid(),
+    ])->assertSessionHasNoErrors();
+
+    $this->actingAs($accountant)->get('http://acme.somaplus.test/')->assertOk()
+        ->assertSee('<h4 class="text-white mb-1">TZS 100,000.00</h4>', false)
+        ->assertSee('<h4 class="text-white mb-1">TZS 40,000.00</h4>', false)
+        ->assertSee('<h4 class="text-white mb-1">TZS 60,000.00</h4>', false)
+        ->assertSee('Payer');
+
+    $payment = TenantContext::run($this->school, fn () => $invoice->payments()->firstOrFail());
+    $this->actingAs($owner)->post("http://acme.somaplus.test/fees/payments/{$payment->id}/reverse", ['reason' => 'Entered twice'])
+        ->assertSessionHasNoErrors();
+
+    $this->actingAs($accountant)->get('http://acme.somaplus.test/')->assertOk()
+        ->assertSee('<h4 class="text-white mb-1">TZS 0.00</h4>', false)
+        ->assertSee('<h4 class="text-white mb-1">TZS 100,000.00</h4>', false)
+        ->assertDontSee('<h4 class="text-white mb-1">TZS 40,000.00</h4>', false);
+});
+
+it('shows the fee labels in Swahili when that language is chosen', function () {
+    makeExamWorld($this->school);
+    $accountant = userWithRole($this->school, 'accountant');
+
+    $this->actingAs($accountant)
+        ->withSession(['locale' => 'sw'])
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertSee(__('dashboard.fees_chart', [], 'sw'))
+        ->assertSee(__('dashboard.recent_payments', [], 'sw'));
 });
