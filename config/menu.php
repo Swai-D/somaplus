@@ -73,6 +73,12 @@ return [
                             'permission' => 'students.manage',
                             'active' => ['students.import', 'students.import.store', 'students.import.template'],
                         ],
+                        [
+                            'label' => 'menu.id_cards',
+                            'route' => 'students.id-cards',
+                            'permission' => 'students.manage',
+                            'active' => ['students.id-cards', 'students.id-cards.print', 'students.id-card'],
+                        ],
                     ],
                 ],
                 [
