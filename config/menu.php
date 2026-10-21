@@ -151,6 +151,23 @@ return [
             ],
         ],
         [
+            'label' => 'menu.sections.settings',
+            'items' => [
+                [
+                    'label' => 'menu.settings',
+                    'icon' => 'ti ti-settings',
+                    'children' => [
+                        [
+                            'label' => 'menu.integrations',
+                            'route' => 'settings.integrations.index',
+                            'permission' => 'settings.manage',
+                            'active' => ['settings.integrations.*'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        [
             'label' => 'menu.sections.support',
             'items' => [
                 [

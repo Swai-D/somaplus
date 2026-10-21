@@ -182,6 +182,18 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 9. Kiswahili: Fedha > Malipo is in Swahili; Help > Ada na ankara has "Malipo na risiti".
 10. `select action, subject_id from audit_logs` shows `payment.recorded`, `payment.reversed`, `receipt.viewed` with ids only; `select number from receipts` has no gaps.
 
+## Settings > Integrations and payment notices
+
+1. As owner open Settings > Integrations: payments is switched off and has no provider. Head teacher, accountant and teacher get 403 and do not see the menu entry.
+2. Choose "Signed web notice", leave the secret empty, switch on, Save: a yellow box shows the new secret once. Reload: the secret is not shown, the field says it is saved.
+3. Save again with the field empty: the secret stays the same. Type a secret shorter than 16 characters: refused. Switch on without a provider: refused.
+4. Give an invoice control number 991234567890. Send a signed notice (HMAC-SHA256 of `timestamp.body`, headers `X-Somaplus-Timestamp` and `X-Somaplus-Signature`) to the address shown: 200 `applied`; the invoice shows the payment and a receipt exists, method Bank. Send it again: 200 and still one payment.
+5. Change one digit of the amount without re-signing: 401. Wrong secret or a timestamp older than 5 minutes: 401. Unknown school id or switched-off integration: 404.
+6. Send a notice for a control number no invoice has: "No invoice found"; set the number on an invoice, send again: it is recorded. Currency other than the school's: "Rejected".
+7. In a read-only school the notice is still recorded; saving integrations gives 403.
+8. Kiswahili: Mipangilio > Miunganisho is in Swahili; Help > Ada na ankara has "Taarifa za malipo kutoka benki au mtoa huduma".
+9. `select secrets from tenant_integrations` shows encrypted text, never the secret; `select action, subject_id from audit_logs where action='integration.saved'` has ids only.
+
 ## Production on Railway (HTTPS styling)
 
 1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.
