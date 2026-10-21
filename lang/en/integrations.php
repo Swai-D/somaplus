@@ -19,6 +19,7 @@ return [
     ],
     'drivers' => [
         'gepg' => 'GePG (Government e-Payment Gateway)',
+        'selcom' => 'Selcom (mobile wallets, banks, agents)',
         'signed_webhook' => 'Signed web notice',
     ],
     'fields' => [
@@ -26,6 +27,7 @@ return [
         'sp_sys_id' => 'System ID (SpSysId)',
         'gepg_certificate' => 'GePG public certificate (PEM)',
         'signing_key' => 'Your private key for signing replies (PEM)',
+        'bearer_token' => 'Bearer token for Selcom',
         'webhook_secret' => 'Shared secret',
     ],
     'webhook' => [
@@ -36,6 +38,10 @@ return [
     'gepg' => [
         'title' => 'Callback address to give GePG',
         'how' => 'Give GePG this address as the payment notification callback, together with your public certificate, and paste here the GePG public certificate and the private key that belongs to your certificate. Somaplus checks every notice with the GePG certificate and answers with a signed acknowledgement. Control numbers are issued by GePG; type each one on its invoice (Finance > Invoices) so notices find it.',
+    ],
+    'selcom' => [
+        'title' => 'Addresses to give Selcom',
+        'how' => 'Give Selcom these three addresses (lookup, validation, notification) and the bearer token above. A parent pays the invoice control number as the payment reference; Somaplus shows Selcom the student name, accepts the amount and records the payment with a receipt. Selcom pays in TZS, so the school currency must be TZS. Type each control number on its invoice (Finance > Invoices).',
     ],
     'notices' => [
         'title' => 'Latest payment notices',

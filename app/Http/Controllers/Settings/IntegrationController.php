@@ -68,6 +68,7 @@ class IntegrationController extends Controller
             'generated' => $generated,
             'webhookUrl' => $tenantId === null ? null : rtrim((string) config('app.url'), '/').route('webhooks.payments', [$tenantId], false),
             'gepgUrl' => $tenantId === null ? null : rtrim((string) config('app.url'), '/').route('webhooks.gepg', [$tenantId], false),
+            'selcomUrl' => $tenantId === null ? null : rtrim((string) config('app.url'), '/').route('webhooks.selcom', [$tenantId, 'STEP'], false),
             'notifications' => PaymentNotification::query()->orderByDesc('id')->limit(20)->get(),
         ]);
     }
