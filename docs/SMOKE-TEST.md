@@ -194,6 +194,14 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 8. Kiswahili: Mipangilio > Miunganisho is in Swahili; Help > Ada na ankara has "Taarifa za malipo kutoka benki au mtoa huduma".
 9. `select secrets from tenant_integrations` shows encrypted text, never the secret; `select action, subject_id from audit_logs where action='integration.saved'` has ids only.
 
+## GePG payment callback
+
+1. As owner open Settings > Integrations > Provider "GePG": fill SpCode, SpSysId, paste GePG's public certificate and your private key, switch on, Save. The page shows the callback address `/webhooks/gepg/<school id>`. Reload: the private key box is empty and says it is saved; saving again with it empty keeps it.
+2. With a test key pair (the certificate saved above), post a signed `gepgPmtSpInfo` for an invoice's control number: 200 with a signed `gepgPmtSpInfoAck` code 7101, a payment (source integration) and a receipt exist. Post it again: 7101 again and still one payment.
+3. Altered amount, wrong signing key or no `gepgSignature`: 401. A different `SpCode`: 422. Unknown school, switched-off or another provider chosen, or a school host instead of the central address: 404.
+4. An unknown control number is acknowledged and listed in the notices table as "No invoice found".
+5. Kiswahili: the GePG labels and callback note are in Swahili.
+
 ## Production on Railway (HTTPS styling)
 
 1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.

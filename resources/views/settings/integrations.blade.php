@@ -59,6 +59,9 @@
                                                 <option value="{{ $optionValue }}" @selected((string) old("config.{$name}", $value) === (string) $optionValue)>{{ __($optionLabel) }}</option>
                                             @endforeach
                                         </select>
+                                    @elseif ($field['type'] === 'textarea')
+                                        <textarea class="form-control font-monospace fs-13 @error("config.{$name}") is-invalid @enderror" name="config[{{ $name }}]" rows="5" disabled autocomplete="off"
+                                            @if ($isSecret) placeholder="{{ in_array($name, $driver['savedSecrets'], true) ? __('integrations.secret_saved') : '' }}">@else>{{ old("config.{$name}", $value) }}@endif</textarea>
                                     @else
                                         <input class="form-control @error("config.{$name}") is-invalid @enderror" name="config[{{ $name }}]" disabled autocomplete="off"
                                             type="{{ $isSecret || $field['type'] === 'password' ? 'password' : 'text' }}"
@@ -77,6 +80,14 @@
                             <code class="user-select-all">{{ $webhookUrl }}</code>
                             <div class="small mt-2">{{ __('integrations.webhook.how') }}</div>
                             <pre class="small mb-0 mt-2">{{ __('integrations.webhook.example') }}</pre>
+                        </div>
+                    @endif
+
+                    @if ($channel === 'payments' && $gepgUrl)
+                        <div class="alert alert-info js-driver-note" data-driver="gepg" style="display: none;">
+                            <div class="fw-medium mb-1">{{ __('integrations.gepg.title') }}</div>
+                            <code class="user-select-all">{{ $gepgUrl }}</code>
+                            <div class="small mt-2">{{ __('integrations.gepg.how') }}</div>
                         </div>
                     @endif
 

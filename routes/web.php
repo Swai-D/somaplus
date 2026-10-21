@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\Webhooks\GepgWebhookController;
 use App\Http\Controllers\Webhooks\PaymentWebhookController;
 use App\Models\Tenant;
 use App\Tenancy\TenantContext;
@@ -20,6 +21,9 @@ Route::get('/up', [HealthController::class, '__invoke']);
 // signed: the controller refuses anything whose HMAC signature does not check out. Not CSRF protected.
 Route::post('/webhooks/payments/{tenant}', PaymentWebhookController::class)
     ->where('tenant', '[0-9A-Za-z]{26}')->middleware('throttle:120,1')->name('webhooks.payments');
+
+Route::post('/webhooks/gepg/{tenant}', GepgWebhookController::class)
+    ->where('tenant', '[0-9A-Za-z]{26}')->middleware('throttle:120,1')->name('webhooks.gepg');
 
 // Temporary tenant entry for hosts behind a proxy without wildcard subdomains
 // (e.g. *.up.railway.app). Sets tenant in browser session, then redirects to login.
