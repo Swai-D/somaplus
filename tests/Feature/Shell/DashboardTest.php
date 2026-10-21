@@ -4,6 +4,8 @@ use App\Domain\Fees\GenerateInvoices;
 use App\Enums\SubscriptionStatus;
 use App\Models\AttendanceRecord;
 use App\Models\Enrollment;
+use App\Models\Exam;
+use App\Models\ExamMark;
 use App\Models\FeeItem;
 use App\Models\FeeStructure;
 use App\Models\Guardian;
@@ -232,4 +234,79 @@ it('shows the fee labels in Swahili when that language is chosen', function () {
         ->assertOk()
         ->assertSee(__('dashboard.fees_chart', [], 'sw'))
         ->assertSee(__('dashboard.recent_payments', [], 'sw'));
+});
+
+it('shows the people of the school and how many pupils each class holds', function () {
+    $world = makeExamWorld($this->school);
+    $head = userWithRole($this->school, 'head_teacher');
+
+    TenantContext::run($this->school, function () use ($world) {
+        $student = Student::factory()->create();
+        Enrollment::factory()->create([
+            'student_id' => $student->id,
+            'academic_year_id' => $world['year']->id,
+            'school_class_id' => $world['form1']->id,
+        ]);
+    });
+
+    $this->actingAs($head)
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertSee(__('dashboard.people'))
+        ->assertSee(__('dashboard.teachers'))
+        ->assertSee(__('dashboard.students_by_class'))
+        ->assertSee(__('dashboard.attendance_trend'))
+        ->assertSee($world['form1']->name);
+});
+
+it('shows the best pupils of the last locked exam', function () {
+    $world = makeExamWorld($this->school);
+    $head = userWithRole($this->school, 'head_teacher');
+
+    TenantContext::run($this->school, function () use ($world) {
+        $best = Student::factory()->create(['first_name' => 'Zuhura', 'last_name' => 'Mwakyusa']);
+        $other = Student::factory()->create(['first_name' => 'Baraka', 'last_name' => 'Massawe']);
+
+        $exam = Exam::factory()->create([
+            'academic_year_id' => $world['year']->id,
+            'term_id' => $world['term']->id,
+            'grading_scale_id' => $world['scale']->id,
+            'name' => 'Midterm',
+            'locked_at' => now(),
+        ]);
+
+        foreach ([[$best, 91], [$other, 55]] as [$student, $score]) {
+            $mark = new ExamMark;
+            $mark->forceFill([
+                'tenant_id' => $this->school->id,
+                'exam_id' => $exam->id,
+                'subject_id' => $world['math']->id,
+                'student_id' => $student->id,
+                'school_class_id' => $world['form1']->id,
+                'score' => $score,
+            ])->save();
+        }
+    });
+
+    $this->actingAs($head)
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertSee(__('dashboard.top_students'))
+        ->assertSee('Midterm')
+        ->assertSee('Zuhura Mwakyusa')
+        ->assertSee(__('dashboard.position', ['position' => 1]));
+});
+
+it('does not show the people, the results or the register to a person who may not see them', function () {
+    makeExamWorld($this->school);
+    $parent = userWithRole($this->school, 'parent_student');
+
+    $this->actingAs($parent)
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertDontSee(__('dashboard.people'))
+        ->assertDontSee(__('dashboard.top_students'))
+        ->assertDontSee(__('dashboard.students_by_class'))
+        ->assertDontSee(__('dashboard.attendance_today'))
+        ->assertDontSee(__('dashboard.attendance_trend'));
 });

@@ -9,6 +9,8 @@ return [
         'support' => 'Msaada',
     ],
     'dashboard' => 'Dashibodi',
+    'dashboard_school' => 'Shule',
+    'dashboard_teacher' => 'Mwalimu',
     'students' => 'Wanafunzi',
     'student_list' => 'Orodha ya Wanafunzi',
     'add_student' => 'Ongeza Mwanafunzi',

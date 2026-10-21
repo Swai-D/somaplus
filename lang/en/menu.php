@@ -9,6 +9,8 @@ return [
         'support' => 'Support',
     ],
     'dashboard' => 'Dashboard',
+    'dashboard_school' => 'School',
+    'dashboard_teacher' => 'Teacher',
     'students' => 'Students',
     'student_list' => 'Student list',
     'add_student' => 'Add student',
