@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\TeacherDashboardController;
 use App\Http\Controllers\Webhooks\GepgWebhookController;
 use App\Http\Controllers\Webhooks\PaymentWebhookController;
 use App\Http\Controllers\Webhooks\SelcomWebhookController;
@@ -76,6 +77,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
+    Route::get('/dashboard/teacher', TeacherDashboardController::class)->middleware('can:marks.enter')->name('teacher.dashboard');
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
     Route::get('/help/{category}/{slug}', [HelpController::class, 'show'])
         ->where(['category' => '[a-z0-9-]+', 'slug' => '[a-z0-9-]+'])

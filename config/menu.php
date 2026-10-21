@@ -32,8 +32,19 @@ return [
                 [
                     'label' => 'menu.dashboard',
                     'icon' => 'ti ti-layout-grid',
-                    'route' => 'dashboard',
                     'scope' => 'both',
+                    'children' => [
+                        [
+                            'label' => 'menu.dashboard_school',
+                            'route' => 'dashboard',
+                            'scope' => 'both',
+                        ],
+                        [
+                            'label' => 'menu.dashboard_teacher',
+                            'route' => 'teacher.dashboard',
+                            'permission' => 'marks.enter',
+                        ],
+                    ],
                 ],
             ],
         ],
