@@ -70,6 +70,8 @@ it('is only for people who may enter marks', function () {
 
     $this->actingAs($accountant)->get("{$this->url}/dashboard/teacher")->assertForbidden();
     $this->actingAs($parent)->get("{$this->url}/dashboard/teacher")->assertForbidden();
+    // actingAs keeps the last user signed in for the rest of the test; a guest is someone nobody is signed in as.
+    $this->app['auth']->forgetGuards();
     $this->get("{$this->url}/dashboard/teacher")->assertRedirect();
 });
 
@@ -89,7 +91,7 @@ it('shows the Dashboard submenu with School for everybody and Teacher only to th
 
     $this->actingAs($accountant)->get("{$this->url}/")->assertOk()
         ->assertSee(__('menu.dashboard_school'))
-        ->assertDontSee(__('menu.dashboard_teacher'));
+        ->assertDontSee("{$this->url}/dashboard/teacher", false);
 });
 
 it('shows the teacher dashboard in Swahili when that language is chosen', function () {
