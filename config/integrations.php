@@ -1,6 +1,7 @@
 <?php
 
 use App\Domain\Integrations\Drivers\Payments\GepgDriver;
+use App\Domain\Integrations\Drivers\Payments\SelcomDriver;
 use App\Domain\Integrations\Drivers\Payments\SignedWebhookDriver;
 
 /*
@@ -20,7 +21,7 @@ return [
 
     'channels' => [
         'payments' => [
-            'drivers' => [SignedWebhookDriver::class, GepgDriver::class],
+            'drivers' => [SignedWebhookDriver::class, GepgDriver::class, SelcomDriver::class],
         ],
     ],
 

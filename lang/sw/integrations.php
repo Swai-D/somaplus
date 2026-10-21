@@ -19,6 +19,7 @@ return [
     ],
     'drivers' => [
         'gepg' => 'GePG (Lango la Malipo ya Kielektroniki la Serikali)',
+        'selcom' => 'Selcom (pochi za simu, benki, mawakala)',
         'signed_webhook' => 'Taarifa ya mtandao iliyosainiwa',
     ],
     'fields' => [
@@ -26,6 +27,7 @@ return [
         'sp_sys_id' => 'Kitambulisho cha mfumo (SpSysId)',
         'gepg_certificate' => 'Cheti cha umma cha GePG (PEM)',
         'signing_key' => 'Ufunguo wako binafsi wa kusaini majibu (PEM)',
+        'bearer_token' => 'Tokeni ya Bearer kwa Selcom',
         'webhook_secret' => 'Siri ya pamoja',
     ],
     'webhook' => [
@@ -36,6 +38,10 @@ return [
     'gepg' => [
         'title' => 'Anwani ya kumpa GePG',
         'how' => 'Mpe GePG anwani hii kama anwani ya kupokea taarifa za malipo, pamoja na cheti chako cha umma, kisha bandika hapa cheti cha umma cha GePG na ufunguo binafsi wa cheti chako. Somaplus huthibitisha kila taarifa kwa cheti cha GePG na kujibu kwa uthibitisho uliosainiwa. Control number hutolewa na GePG; ziandike kwenye ankara husika (Fedha > Ankara) ili taarifa ziipate.',
+    ],
+    'selcom' => [
+        'title' => 'Anwani za kumpa Selcom',
+        'how' => 'Mpe Selcom anwani hizi tatu (lookup, validation, notification) na tokeni ya bearer iliyo juu. Mzazi analipa control number ya ankara kama rejea ya malipo; Somaplus inamwonyesha Selcom jina la mwanafunzi, inapokea kiasi na kurekodi malipo pamoja na risiti. Selcom hulipa kwa TZS, kwa hiyo sarafu ya shule lazima iwe TZS. Andika kila control number kwenye ankara yake (Fedha > Ankara).',
     ],
     'notices' => [
         'title' => 'Taarifa za malipo za karibuni',
