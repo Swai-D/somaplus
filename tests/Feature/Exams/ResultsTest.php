@@ -206,14 +206,15 @@ it('tells the person the exam must be locked and shows no results before that', 
     expect(($this->inSchool)(fn () => AuditLog::where('action', 'results.viewed')->count()))->toBe(0);
 });
 
+// Names are distinctive on purpose: a short name such as "Sa" also turns up in random sample text on the page.
 it('shows only the stream asked for but with class-wide positions', function () {
-    $a = ($this->place)('Sa', null, $this->w['streamA']);
-    $b = ($this->place)('Sb', null, $this->w['streamB']);
+    $a = ($this->place)('Zxqalpha', null, $this->w['streamA']);
+    $b = ($this->place)('Zxqbeta', null, $this->w['streamB']);
     ($this->mark)($a, 'math', '90', false, null, null, $this->w['streamA']);
     ($this->mark)($b, 'math', '50', false, null, null, $this->w['streamB']);
 
     $this->actingAs($this->teacher)->get(($this->page)(null, ['stream_id' => $this->w['streamB']->id]))
-        ->assertOk()->assertSee('Sb')->assertDontSee('Sa')->assertSee('2 / 2');
+        ->assertOk()->assertSee('Zxqbeta')->assertDontSee('Zxqalpha')->assertSee('2 / 2');
 });
 
 it('refuses a class or stream of another school or a stream of another class', function () {
