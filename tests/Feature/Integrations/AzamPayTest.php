@@ -14,6 +14,7 @@ use App\Models\Student;
 use App\Models\Tenant;
 use App\Models\TenantIntegration;
 use App\Tenancy\TenantContext;
+use Illuminate\Http\Client\Factory as HttpFactory;
 use Illuminate\Http\Client\Request as HttpRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -52,11 +53,15 @@ beforeEach(function () {
         return Invoice::query()->where('student_id', $student->id)->firstOrFail();
     });
 
-    $this->fakeAzam = fn (array $checkout = ['success' => true, 'transactionId' => 'TX1', 'message' => 'ok']) => Http::fake([
-        AZAM_AUTH => Http::response(['data' => ['accessToken' => 'tok']]),
-        AZAM_CHECKOUT => Http::response($checkout),
-        'https://sandbox.azampay.co.tz/azampay/v1/public-key*' => Http::response(['publicKey' => $this->azamPublic]),
-    ]);
+    // Starts from a fresh HTTP client each time, so a later fake is not shadowed by the first.
+    $this->fakeAzam = function (array $checkout = ['success' => true, 'transactionId' => 'TX1', 'message' => 'ok']) {
+        Http::swap(new HttpFactory);
+        Http::fake([
+            AZAM_AUTH => Http::response(['data' => ['accessToken' => 'tok']]),
+            AZAM_CHECKOUT => Http::response($checkout),
+            'https://sandbox.azampay.co.tz/azampay/v1/public-key*' => Http::response(['publicKey' => $this->azamPublic]),
+        ]);
+    };
     ($this->fakeAzam)();
 
     $this->ask = fn (array $data = [], ?object $user = null, ?Invoice $invoice = null) => $this->actingAs($user ?? $this->accountant)
