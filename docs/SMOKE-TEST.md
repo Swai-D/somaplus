@@ -202,6 +202,13 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 4. An unknown control number is acknowledged and listed in the notices table as "No invoice found".
 5. Kiswahili: the GePG labels and callback note are in Swahili.
 
+## Railway path entry (no custom domain)
+
+1. Set `TENANCY_ALLOW_PATH_ENTRY=true` on Railway and redeploy. Open `https://<app>.up.railway.app/t/<school slug>`: you land on the sign-in page showing the school's name.
+2. Sign in as that school's owner: the dashboard opens, and Students, Fees and Settings pages work (they load that school's data).
+3. Sign out: the sign-in page still shows the school. Open `/t-exit` to go back to the platform sign-in; the super-admin signs in there.
+4. A user of another school cannot sign in through this school's address. With the setting off, `/t/<slug>` gives 404 and the central sign-in only accepts super-admins.
+
 ## Production on Railway (HTTPS styling)
 
 1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.

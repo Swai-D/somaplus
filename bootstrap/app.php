@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ApplyPathEntryTenant;
 use App\Http\Middleware\EnsurePlanAllows;
 use App\Http\Middleware\EnsureTenantWritable;
 use App\Http\Middleware\ResolveTenant;
@@ -8,6 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -29,10 +31,16 @@ return Application::configure(basePath: dirname(__DIR__))
             ResolveTenant::class,
         ]);
 
-        // After the session has started, so the chosen language can be read.
+        // After the session has started, so the chosen language (and the Railway path-entry school) can be read.
         $middleware->web(append: [
+            ApplyPathEntryTenant::class,
             SetLocale::class,
         ]);
+
+        // The path-entry school must be known before the session user is loaded (Authenticate) and before route
+        // model binding (SubstituteBindings): both query tenant-scoped models. Laravel sorts those two by
+        // priority, so an unlisted middleware appended to the group would run after them.
+        $middleware->appendToPriorityList(after: ShareErrorsFromSession::class, append: ApplyPathEntryTenant::class);
 
         // Webhooks are signed by the provider (HMAC), so they carry no CSRF token.
         $middleware->validateCsrfTokens(except: ['webhooks/*']);
