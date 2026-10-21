@@ -9,6 +9,7 @@ use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\Webhooks\GepgWebhookController;
 use App\Http\Controllers\Webhooks\PaymentWebhookController;
+use App\Http\Controllers\Webhooks\SelcomWebhookController;
 use App\Models\Tenant;
 use App\Tenancy\TenantContext;
 use Illuminate\Http\Request;
@@ -24,6 +25,9 @@ Route::post('/webhooks/payments/{tenant}', PaymentWebhookController::class)
 
 Route::post('/webhooks/gepg/{tenant}', GepgWebhookController::class)
     ->where('tenant', '[0-9A-Za-z]{26}')->middleware('throttle:120,1')->name('webhooks.gepg');
+
+Route::post('/webhooks/selcom/{tenant}/{step}', SelcomWebhookController::class)
+    ->where(['tenant' => '[0-9A-Za-z]{26}', 'step' => 'lookup|validation|notification'])->middleware('throttle:240,1')->name('webhooks.selcom');
 
 // Temporary tenant entry for hosts behind a proxy without wildcard subdomains
 // (e.g. *.up.railway.app). Sets tenant in browser session, then redirects to login.

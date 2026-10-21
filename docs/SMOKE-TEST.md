@@ -209,6 +209,14 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 3. Sign out: the sign-in page still shows the school. Open `/t-exit` to go back to the platform sign-in; the super-admin signs in there.
 4. A user of another school cannot sign in through this school's address. With the setting off, `/t/<slug>` gives 404 and the central sign-in only accepts super-admins.
 
+## Selcom collections
+
+1. As owner choose Provider "Selcom", leave the token empty, switch on, Save: the token is shown once; the page lists three addresses (lookup, validation, notification). Reload: the token is not shown.
+2. With the token as `Authorization: Bearer <token>`, `POST` the lookup address with `utilityref` = an invoice's control number: result 000 and the student's name. An unknown number: 010.
+3. Validation with `amount` 40000: 000; `0`, `abc`: 012. Notification with `reference` SELREF1: 000, a mobile money payment (source integration) and a receipt exist; send it again: still one payment.
+4. No token or a wrong token: 401. Unknown school, switched-off integration, another provider or a school host instead of the central address: 404.
+5. Kiswahili: the Selcom labels and note are in Swahili; Help > Ada na ankara has "Pokea malipo ya Selcom kiotomatiki".
+
 ## Production on Railway (HTTPS styling)
 
 1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.

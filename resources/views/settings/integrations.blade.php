@@ -91,6 +91,16 @@
                         </div>
                     @endif
 
+                    @if ($channel === 'payments' && $selcomUrl)
+                        <div class="alert alert-info js-driver-note" data-driver="selcom" style="display: none;">
+                            <div class="fw-medium mb-1">{{ __('integrations.selcom.title') }}</div>
+                            @foreach (['lookup', 'validation', 'notification'] as $step)
+                                <div><code class="user-select-all">{{ str_replace('STEP', $step, $selcomUrl) }}</code></div>
+                            @endforeach
+                            <div class="small mt-2">{{ __('integrations.selcom.how') }}</div>
+                        </div>
+                    @endif
+
                     <button type="submit" class="btn btn-primary">{{ __('integrations.save') }}</button>
                 </form>
             </div>
