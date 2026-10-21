@@ -87,11 +87,13 @@ it('leaves reversed payments out of the total and lists them apart', function ()
 
 it('shows what is still owed on invoices today, counting only unreversed payments', function () {
     $invoice = ($this->invoiceFor)();
-    ($this->invoiceFor)();
     ($this->pay)($invoice, '40000');
+    $undo = ($this->pay)($invoice, '5000');
+    $this->actingAs($this->accountant);
+    ($this->inSchool)(fn () => app(ReversePayment::class)->handle($undo, 'Entered by mistake'));
 
-    // Two invoices of 100,000: one part paid, one unpaid.
-    ($this->report)()->assertOk()->assertSee('TZS 160,000.00');
+    // One invoice of 100,000 with 40,000 paid (the reversed 5,000 does not count): 60,000 is still owed.
+    ($this->report)()->assertOk()->assertSee('TZS 60,000.00')->assertSee('TZS 40,000.00');
 });
 
 it('never counts an overpaid invoice as negative debt', function () {
@@ -156,7 +158,7 @@ it('refuses bad dates, a reversed range and more than a year', function (array $
 it('shows in the menu and in Swahili', function () {
     ($this->report)()->assertSee(route('fees.reports.collections'));
     $this->actingAs($this->accountant)->withSession(['locale' => 'sw'])->get($this->url.'/fees/reports/collections')->assertOk()
-        ->assertSee(__('menu.collections_report', [], 'sw'))->assertSee(__('fees.report.collected', [], 'sw'));
+        ->assertSee(__('menu.collections_report', [], 'sw'))->assertSee(__('fees.report.intro', [], 'sw'));
 });
 
 it('does not write anything to the audit log or change any payment', function () {
