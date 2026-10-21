@@ -30,6 +30,7 @@ return [
     'fees' => 'Fees',
     'invoices' => 'Invoices',
     'payments' => 'Payments',
+    'collections_report' => 'Collections report',
     'fee_structures' => 'Fee structures',
     'help' => 'Help',
 ];

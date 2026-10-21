@@ -186,6 +186,15 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 9. Kiswahili: Fedha > Malipo is in Swahili; Help > Ada na ankara has "Malipo na risiti".
 10. `select action, subject_id from audit_logs` shows `payment.recorded`, `payment.reversed`, `receipt.viewed` with ids only; `select number from receipts` has no gaps.
 
+## Collections report
+
+1. As accountant open Finance > Fees > Collections report: it opens on today and shows Collected, Still owed on invoices today and Reversed. Record a cash payment of 10,000 and a mobile money payment of 20,000 (as source integration if you have a test notice): Collected is 30,000, by method and by source add up to it.
+2. Choose a From/To range of several days: only payments with a date paid inside it count, both end dates included; By day lists each day.
+3. Reverse a payment: it leaves Collected and appears under Reversed.
+4. Send a provider notice for a control number no invoice has: it is listed under "Notices that were not recorded"; set the number on an invoice and resend: it is recorded and leaves the list.
+5. A range over a year, a reversed range or a bad date is refused. Head teacher and owner can open the report; a teacher and a parent/student get 403 and do not see the menu entry.
+6. Kiswahili: Fedha > Ada > Ripoti ya mapato and Help > Ada na ankara > "Ripoti ya mapato" are in Swahili.
+
 ## Settings > Integrations and payment notices
 
 1. As owner open Settings > Integrations: payments is switched off and has no provider. Head teacher, accountant and teacher get 403 and do not see the menu entry.

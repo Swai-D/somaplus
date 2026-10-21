@@ -30,6 +30,7 @@ return [
     'fees' => 'Ada',
     'invoices' => 'Ankara',
     'payments' => 'Malipo',
+    'collections_report' => 'Ripoti ya mapato',
     'fee_structures' => 'Miundo ya Ada',
     'help' => 'Msaada',
 ];

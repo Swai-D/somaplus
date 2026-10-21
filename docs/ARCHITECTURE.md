@@ -156,6 +156,10 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - **Permissions**: `payments.record` (owner, accountant), `payments.reverse` (owner); looking needs `fees.view`. Writing routes use `tenant.writable`.
 - **Audit log**: `payment.recorded`, `payment.reversed`, `receipt.viewed` (ids only).
 
+## Fees: collections report
+
+`GET /fees/reports/collections?from=&to=` (`fees.view`: owner, head teacher, accountant; menu Finance > Fees > Collections report). `App\Domain\Fees\CollectionsReport` works everything out from the payments, nothing is stored: collected = payments with `paid_on` between the two dates (both included, at most 366 days) that have no reversal, grouped by currency, method and source and by day; reversed payments in the period are listed apart; "still owed today" = invoice total minus unreversed payments, counted only when positive (so an overpaid invoice never offsets another); and the provider notices of the period that were `unmatched` or `rejected` (newest 50, with counts) so money a provider reports but that is on no invoice can be followed up. Money stays in minor units per currency. It holds no student or guardian data, so it is not audit-logged.
+
 ## Settings > Integrations (plug-and-play)
 
 `tenant_integrations` (one row per school and channel: `driver`, `enabled` default false, `settings` json, `secrets` as `encrypted:array`, hidden) and `payment_notifications` (one row per provider reference, `BelongsToTenant`).
