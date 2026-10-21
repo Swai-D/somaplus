@@ -7,6 +7,7 @@ use App\Domain\Fees\InvoiceBalance;
 use App\Models\AcademicYear;
 use App\Models\AttendanceRecord;
 use App\Models\Enrollment;
+use App\Models\Exam;
 use App\Models\Guardian;
 use App\Models\Invoice;
 use App\Models\Payment;
@@ -53,7 +54,7 @@ final class SchoolDashboardFigures
      *     attendance_trend: array{labels: list<string>, present: list<int>, absent: list<int>}|null,
      *     recent_students: list<Student>|null,
      *     recent_payments: list<Payment>|null,
-     *     top_students: array{exam: \App\Models\Exam|null, rows: list<array{student: Student, class: string, average: int, position: int|null}>}|null,
+     *     top_students: array{exam: Exam|null, rows: list<array{student: Student, class: string, average: int, position: int|null}>}|null,
      * }
      */
     public function handle(User $user, Tenant $school, ?AcademicYear $year): array

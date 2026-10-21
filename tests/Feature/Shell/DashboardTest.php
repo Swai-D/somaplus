@@ -276,7 +276,7 @@ it('shows the best pupils of the last locked exam', function () {
         ]);
 
         foreach ([[$best, 91], [$other, 55]] as [$student, $score]) {
-            $mark = new ExamMark();
+            $mark = new ExamMark;
             $mark->forceFill([
                 'tenant_id' => $this->school->id,
                 'exam_id' => $exam->id,
