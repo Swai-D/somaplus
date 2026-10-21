@@ -125,8 +125,9 @@ it('shows a head teacher the real student, guardian, class and attendance figure
         ->assertSee('Zuhura Mwakyusa')
         ->assertSee('Baraka Massawe')
         ->assertDontSee('Gone Away')
-        ->assertDontSee(__('dashboard.fees_collected'))
-        ->assertDontSee('feesChart');
+        // A head teacher holds fees.view, so the money blocks are on the page as well.
+        ->assertSee(__('dashboard.fees_collected'))
+        ->assertSee('feesChart');
 });
 
 it('says so when no attendance was recorded today', function () {
