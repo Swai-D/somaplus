@@ -8,6 +8,7 @@ use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\TeacherDashboardController;
+use App\Http\Controllers\Webhooks\AzamPayCallbackController;
 use App\Http\Controllers\Webhooks\GepgWebhookController;
 use App\Http\Controllers\Webhooks\PaymentWebhookController;
 use App\Http\Controllers\Webhooks\SelcomWebhookController;
@@ -29,6 +30,9 @@ Route::post('/webhooks/gepg/{tenant}', GepgWebhookController::class)
 
 Route::post('/webhooks/selcom/{tenant}/{step}', SelcomWebhookController::class)
     ->where(['tenant' => '[0-9A-Za-z]{26}', 'step' => 'lookup|validation|notification'])->middleware('throttle:240,1')->name('webhooks.selcom');
+
+Route::post('/webhooks/azampay/{tenant}', AzamPayCallbackController::class)
+    ->where('tenant', '[0-9A-Za-z]{26}')->middleware('throttle:120,1')->name('webhooks.azampay');
 
 // Temporary tenant entry for hosts behind a proxy without wildcard subdomains
 // (e.g. *.up.railway.app). Sets tenant in browser session, then redirects to login.

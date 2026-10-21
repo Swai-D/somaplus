@@ -1,5 +1,6 @@
 <?php
 
+use App\Domain\Integrations\Drivers\Payments\AzamPayDriver;
 use App\Domain\Integrations\Drivers\Payments\GepgDriver;
 use App\Domain\Integrations\Drivers\Payments\SelcomDriver;
 use App\Domain\Integrations\Drivers\Payments\SignedWebhookDriver;
@@ -21,7 +22,7 @@ return [
 
     'channels' => [
         'payments' => [
-            'drivers' => [SignedWebhookDriver::class, GepgDriver::class, SelcomDriver::class],
+            'drivers' => [SignedWebhookDriver::class, GepgDriver::class, SelcomDriver::class, AzamPayDriver::class],
         ],
     ],
 

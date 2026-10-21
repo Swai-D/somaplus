@@ -20,6 +20,7 @@ return [
     'drivers' => [
         'gepg' => 'GePG (Government e-Payment Gateway)',
         'selcom' => 'Selcom (mobile wallets, banks, agents)',
+        'azampay' => 'AzamPay (mobile money)',
         'signed_webhook' => 'Signed web notice',
     ],
     'fields' => [
@@ -28,6 +29,11 @@ return [
         'gepg_certificate' => 'GePG public certificate (PEM)',
         'signing_key' => 'Your private key for signing replies (PEM)',
         'bearer_token' => 'Bearer token for Selcom',
+        'environment' => 'Environment',
+        'app_name' => 'App name',
+        'client_id' => 'Client ID',
+        'client_secret' => 'Client secret',
+        'api_key' => 'API key',
         'webhook_secret' => 'Shared secret',
     ],
     'webhook' => [
@@ -42,6 +48,25 @@ return [
     'selcom' => [
         'title' => 'Addresses to give Selcom',
         'how' => 'Give Selcom these three addresses (lookup, validation, notification) and the bearer token above. A parent pays the invoice control number as the payment reference; Somaplus shows Selcom the student name, accepts the amount and records the payment with a receipt. Selcom pays in TZS, so the school currency must be TZS. Type each control number on its invoice (Finance > Invoices).',
+    ],
+    'options' => ['sandbox' => 'Sandbox (testing)', 'production' => 'Production (real money)'],
+    'azampay' => [
+        'title' => 'Callback address to give AzamPay',
+        'how' => 'Register this address as the callback of your AzamPay app. From an invoice, an owner or accountant then sends a prompt to the payer\'s phone; when the payer approves, AzamPay confirms and Somaplus records the payment and issues the receipt. Test in Sandbox first and switch to Production when AzamPay has approved your app. AzamPay takes whole shillings and TZS only.',
+        'request' => 'Ask for payment on the phone (mobile money)',
+        'request_hint' => 'The payer gets a prompt on their phone and approves it with their PIN. The phone number is used only to send the prompt and is not kept.',
+        'phone' => 'Payer phone',
+        'network' => 'Network',
+        'send' => 'Send prompt',
+        'sent' => 'Prompt sent. The payment is recorded when the payer approves it.',
+        'not_sent' => 'The prompt could not be sent. Nothing was charged; check the details and try again.',
+        'statuses' => ['pending' => 'Waiting for the payer', 'succeeded' => 'Paid', 'failed' => 'Failed', 'expired' => 'Not answered in time'],
+        'errors' => [
+            'not_available' => 'Mobile money is not switched on for this school, or the invoice is not in TZS.',
+            'phone' => 'Type a Tanzanian mobile number, for example 0712345678.',
+            'provider' => 'Choose one of the listed networks.',
+            'amount' => 'The amount must be whole shillings, at least 1 and at most :max.',
+        ],
     ],
     'notices' => [
         'title' => 'Latest payment notices',

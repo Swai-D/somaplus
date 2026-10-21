@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Fees\FeeStructureController;
 use App\Http\Controllers\Fees\InvoiceController;
+use App\Http\Controllers\Fees\MobileMoneyController;
 use App\Http\Controllers\Fees\PaymentController;
 use App\Http\Controllers\Fees\ReceiptController;
 use Illuminate\Support\Facades\Route;
@@ -28,5 +29,6 @@ Route::middleware('tenant.writable')->group(function () {
     Route::put('fees/invoices/{invoice}/control-number', [InvoiceController::class, 'controlNumber'])->name('fees.invoices.control-number')->whereNumber('invoice');
     Route::post('fees/payments', [PaymentController::class, 'store'])->name('fees.payments.store');
     Route::post('fees/invoices/{invoice}/payments', [PaymentController::class, 'storeForInvoice'])->name('fees.invoices.payments.store')->whereNumber('invoice');
+    Route::post('fees/invoices/{invoice}/mobile-money', [MobileMoneyController::class, 'store'])->middleware('throttle:20,1')->name('fees.invoices.mobile-money')->whereNumber('invoice');
     Route::post('fees/payments/{payment}/reverse', [PaymentController::class, 'reverse'])->name('fees.payments.reverse')->whereNumber('payment');
 });

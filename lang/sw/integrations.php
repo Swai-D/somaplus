@@ -20,6 +20,7 @@ return [
     'drivers' => [
         'gepg' => 'GePG (Lango la Malipo ya Kielektroniki la Serikali)',
         'selcom' => 'Selcom (pochi za simu, benki, mawakala)',
+        'azampay' => 'AzamPay (pesa za simu)',
         'signed_webhook' => 'Taarifa ya mtandao iliyosainiwa',
     ],
     'fields' => [
@@ -28,6 +29,11 @@ return [
         'gepg_certificate' => 'Cheti cha umma cha GePG (PEM)',
         'signing_key' => 'Ufunguo wako binafsi wa kusaini majibu (PEM)',
         'bearer_token' => 'Tokeni ya Bearer kwa Selcom',
+        'environment' => 'Mazingira',
+        'app_name' => 'Jina la app',
+        'client_id' => 'Client ID',
+        'client_secret' => 'Client secret',
+        'api_key' => 'API key',
         'webhook_secret' => 'Siri ya pamoja',
     ],
     'webhook' => [
@@ -42,6 +48,25 @@ return [
     'selcom' => [
         'title' => 'Anwani za kumpa Selcom',
         'how' => 'Mpe Selcom anwani hizi tatu (lookup, validation, notification) na tokeni ya bearer iliyo juu. Mzazi analipa control number ya ankara kama rejea ya malipo; Somaplus inamwonyesha Selcom jina la mwanafunzi, inapokea kiasi na kurekodi malipo pamoja na risiti. Selcom hulipa kwa TZS, kwa hiyo sarafu ya shule lazima iwe TZS. Andika kila control number kwenye ankara yake (Fedha > Ankara).',
+    ],
+    'options' => ['sandbox' => 'Sandbox (majaribio)', 'production' => 'Production (pesa halisi)'],
+    'azampay' => [
+        'title' => 'Anwani ya callback ya kumpa AzamPay',
+        'how' => 'Sajili anwani hii kama callback ya app yako ya AzamPay. Kutoka kwenye ankara, mmiliki au mhasibu hutuma ombi kwenye simu ya mlipaji; mlipaji akikubali, AzamPay huthibitisha na Somaplus hurekodi malipo na kutoa risiti. Jaribu kwanza kwenye Sandbox, kisha ubadilishe kuwa Production AzamPay ikishaidhinisha app yako. AzamPay hupokea shilingi nzima na TZS pekee.',
+        'request' => 'Omba malipo kwenye simu (pesa za simu)',
+        'request_hint' => 'Mlipaji hupata ombi kwenye simu yake na kulikubali kwa PIN. Namba ya simu hutumika kutuma ombi tu na haihifadhiwi.',
+        'phone' => 'Simu ya mlipaji',
+        'network' => 'Mtandao',
+        'send' => 'Tuma ombi',
+        'sent' => 'Ombi limetumwa. Malipo yatarekodiwa mlipaji akikubali.',
+        'not_sent' => 'Ombi halikuweza kutumwa. Hakuna kilichokatwa; angalia maelezo na ujaribu tena.',
+        'statuses' => ['pending' => 'Anasubiriwa mlipaji', 'succeeded' => 'Imelipwa', 'failed' => 'Imeshindwa', 'expired' => 'Halikujibiwa kwa wakati'],
+        'errors' => [
+            'not_available' => 'Pesa za simu hazijawashwa kwa shule hii, au ankara si ya TZS.',
+            'phone' => 'Andika namba ya simu ya Tanzania, kwa mfano 0712345678.',
+            'provider' => 'Chagua mojawapo ya mitandao iliyoorodheshwa.',
+            'amount' => 'Kiasi lazima kiwe shilingi nzima, angalau 1 na kisichozidi :max.',
+        ],
     ],
     'notices' => [
         'title' => 'Taarifa za malipo za karibuni',

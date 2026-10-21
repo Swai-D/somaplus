@@ -101,6 +101,14 @@
                         </div>
                     @endif
 
+                    @if ($channel === 'payments' && $azampayUrl)
+                        <div class="alert alert-info js-driver-note" data-driver="azampay" style="display: none;">
+                            <div class="fw-medium mb-1">{{ __('integrations.azampay.title') }}</div>
+                            <code class="user-select-all">{{ $azampayUrl }}</code>
+                            <div class="small mt-2">{{ __('integrations.azampay.how') }}</div>
+                        </div>
+                    @endif
+
                     <button type="submit" class="btn btn-primary">{{ __('integrations.save') }}</button>
                 </form>
             </div>
