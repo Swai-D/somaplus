@@ -32,7 +32,8 @@ final class CollectionsReport
      */
     public function handle(CarbonImmutable $from, CarbonImmutable $to): array
     {
-        $inRange = fn () => Payment::query()->whereBetween('paid_on', [$from->toDateString(), $to->toDateString()]);
+        // whereDate, not whereBetween on the raw value: the column may hold a time part, and both end days must be counted.
+        $inRange = fn () => Payment::query()->whereDate('paid_on', '>=', $from->toDateString())->whereDate('paid_on', '<=', $to->toDateString());
 
         $collected = [];
         $days = [];

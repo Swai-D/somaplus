@@ -96,7 +96,7 @@ it('shows what is still owed on invoices today, counting only unreversed payment
 
 it('never counts an overpaid invoice as negative debt', function () {
     $invoice = ($this->invoiceFor)();
-    ($this->pay)($invoice, '150000');
+    ($this->pay)($invoice, '150000', '0', 'bank', 'integration');
 
     ($this->report)()->assertOk()->assertSee('TZS 150,000.00');
     expect(($this->report)()->getContent())->not->toContain('TZS -');
@@ -122,7 +122,7 @@ it('does not mix in another school', function () {
     $mine = ($this->invoiceFor)();
     $theirs = ($this->invoiceFor)($this->other);
     ($this->pay)($mine, '1000');
-    ($this->pay)($theirs, '777777', '0', 'cash', 'manual', $this->other);
+    ($this->pay)($theirs, '777777', '0', 'bank', 'integration', $this->other);
     ($this->inSchool)(fn () => (new PaymentNotification)->forceFill(['provider_reference' => 'THEIR-1', 'status' => 'unmatched', 'received_at' => now()])->save(), $this->other);
 
     $page = ($this->report)()->assertOk()->assertSee('TZS 1,000.00')->assertDontSee('THEIR-1');
