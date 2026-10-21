@@ -104,6 +104,61 @@
         @endif
     @endcan
 
+    @can('create', App\Models\Payment::class)
+        @if ($mobileMoney && $invoice->currency === 'TZS' && $balance->balance() >= 100)
+            <div class="card d-print-none">
+                <div class="card-body">
+                    <h5 class="mb-1">{{ __('integrations.azampay.request') }}</h5>
+                    <p class="text-muted">{{ __('integrations.azampay.request_hint') }}</p>
+                    <form action="{{ route('fees.invoices.mobile-money', $invoice) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="idempotency_key" value="{{ $key }}">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">{{ __('integrations.azampay.phone') }}</label>
+                                <input class="form-control @error('phone') is-invalid @enderror" type="text" inputmode="tel" name="phone" maxlength="20" autocomplete="off" placeholder="07XXXXXXXX" value="{{ old('phone') }}" required>
+                                @error('phone')<div class="text-danger fs-13 mt-1">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">{{ __('integrations.azampay.network') }}</label>
+                                <select class="form-select @error('provider') is-invalid @enderror" name="provider" required>
+                                    @foreach (config('azampay.providers') as $network)
+                                        <option value="{{ $network }}" @selected(old('provider') === $network)>{{ $network }}</option>
+                                    @endforeach
+                                </select>
+                                @error('provider')<div class="text-danger fs-13 mt-1">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">{{ __('fees.structures.amount') }}</label>
+                                <input class="form-control @error('amount') is-invalid @enderror" type="text" inputmode="numeric" name="amount" maxlength="14" autocomplete="off" value="{{ old('amount', intdiv($balance->balance(), 100)) }}" required>
+                                @error('amount')<div class="text-danger fs-13 mt-1">{{ $message }}</div>@enderror
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">{{ __('integrations.azampay.send') }}</button>
+                    </form>
+
+                    @if ($requests->isNotEmpty())
+                        <div class="table-responsive mt-3">
+                            <table class="table align-middle mb-0">
+                                <thead><tr><th>{{ __('integrations.notices.received') }}</th><th>{{ __('integrations.azampay.network') }}</th><th class="text-end">{{ __('fees.structures.amount') }}</th><th>{{ __('fees.payments.status') }}</th></tr></thead>
+                                <tbody>
+                                    @foreach ($requests as $row)
+                                        <tr>
+                                            <td>{{ $row->created_at->format('Y-m-d H:i') }}</td>
+                                            <td>{{ $row->provider }}</td>
+                                            <td class="text-end">{{ App\Support\Money::of($row->amount, $row->currency)->format() }}</td>
+                                            <td>{{ __('integrations.azampay.statuses.'.$row->displayStatus()) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endif
+    @endcan
+
     @can('update', $invoice)
         <div class="card d-print-none">
             <div class="card-body">

@@ -220,6 +220,15 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 4. No token or a wrong token: 401. Unknown school, switched-off integration, another provider or a school host instead of the central address: 404.
 5. Kiswahili: the Selcom labels and note are in Swahili; Help > Ada na ankara has "Pokea malipo ya Selcom kiotomatiki".
 
+## AzamPay mobile money
+
+1. As owner choose Provider "AzamPay", Environment Sandbox, fill app name, client ID, client secret and API key, switch on, Save. The callback address `/webhooks/azampay/<school id>` is shown; reload: the two secrets are not shown.
+2. As accountant open an invoice of TZS 100,000: the "Ask for payment on the phone" card is there. Send 07XXXXXXXX, network Airtel, amount 40000: "Prompt sent", a row "Waiting for the payer" appears; approve on the test phone.
+3. When AzamPay calls back, the row becomes "Paid", the invoice shows a payment (method mobile money) and a receipt exists. A repeated callback changes nothing.
+4. A bad phone, an amount above the balance, `40000.50` or `abc` are refused. Sending the same form twice sends one prompt. A teacher or head teacher gets 403; a read-only school gets 403.
+5. A callback with a wrong signature gets 401; with another amount than asked the request is "Failed" and nothing is recorded.
+6. With another provider chosen the card is gone from invoices. Kiswahili: card, statuses and Help > Ada na ankara > "Omba malipo kwenye simu kwa AzamPay" are in Swahili.
+
 ## Production on Railway (HTTPS styling)
 
 1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.

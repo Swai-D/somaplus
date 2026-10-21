@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Fees;
 
 use App\Domain\Fees\InvoiceBalance;
 use App\Domain\Fees\SetControlNumber;
+use App\Domain\Integrations\Drivers\Payments\AzamPayDriver;
+use App\Domain\Integrations\Services\IntegrationManager;
 use App\Domain\Settings\RecordAudit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fees\ControlNumberRequest;
 use App\Http\Requests\Fees\InvoiceFilterRequest;
 use App\Models\Invoice;
+use App\Models\PaymentRequest;
 use App\Models\SchoolClass;
 use App\Models\Term;
 use Illuminate\Http\RedirectResponse;
@@ -46,6 +49,8 @@ class InvoiceController extends Controller
             'invoice' => $invoice->load(['student', 'term.academicYear', 'schoolClass', 'lines', 'payments.receipt', 'payments.reversal']),
             'balance' => InvoiceBalance::of($invoice),
             'key' => (string) Str::uuid(),
+            'mobileMoney' => app(IntegrationManager::class)->isActive('payments', AzamPayDriver::KEY),
+            'requests' => PaymentRequest::query()->where('invoice_id', $invoice->id)->latest('id')->limit(10)->get(),
         ]);
     }
 
