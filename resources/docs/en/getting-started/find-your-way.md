@@ -24,4 +24,6 @@ The menu shows only what your role may use. If an item you expect is missing, se
 
 ## The Dashboard
 
-The **Dashboard** shows your school's name, its **Plan**, the state of its **Subscription**, the **Academic year** that is current (and the term that today falls in) and **Your role**. A yellow notice at the top of every page means the school is read-only, see [Read-only mode](help:troubleshooting/read-only-mode).
+The **Dashboard** opens with coloured tiles for the numbers you are allowed to see: **Students** (those who are active, and how many joined this month), **Guardians**, **Classes**, and for the current academic year the fees **invoiced**, **collected** and **outstanding**. Below them, **Fees by month** compares what was invoiced with what was collected, **Attendance today** shows the share of present, absent, late and excused students, and **New admissions** and **Recent payments** list the latest five. A block only shows when your role may open its page (students, academics, fees or attendance), so a teacher does not see money and an accountant does not see the attendance register. Payments that were reversed are never counted.
+
+The **Your school** card shows the school's name, its **Plan**, the state of its **Subscription**, the **Academic year** that is current (and the term that today falls in) and **Your role**. A yellow notice at the top of every page means the school is read-only, see [Read-only mode](help:troubleshooting/read-only-mode).

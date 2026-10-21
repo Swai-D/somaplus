@@ -9,10 +9,13 @@ use App\Tenancy\TenantContext;
 
 /**
  * The facts shown on the dashboard. Only real data: a school sees its own
- * name, plan, subscription state, current academic year and term; the platform sees how many schools exist.
+ * name, plan, subscription state, current academic year and term, and the figures its person may see
+ * (`SchoolDashboardFigures`); the platform sees how many schools exist.
  */
 final class BuildDashboardSummary
 {
+    public function __construct(private readonly SchoolDashboardFigures $figures) {}
+
     /**
      * @return array<string, mixed>
      */
@@ -42,6 +45,7 @@ final class BuildDashboardSummary
             'status' => $school->subscription_status->value,
             'grace_ends_at' => $school->grace_ends_at,
             'roles' => $user->getRoleNames()->map(fn ($role) => __('roles.'.$role))->values()->all(),
+            'figures' => $this->figures->handle($user, $school, $year),
         ];
     }
 }
