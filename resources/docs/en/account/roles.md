@@ -23,6 +23,7 @@ A role decides what a person can see and do. The side menu shows only what the p
 | Change fee structures, make invoices, set control numbers | Yes | No | No | Yes | No |
 | Record payments and issue receipts | Yes | No | No | Yes | No |
 | Reverse a payment | Yes | No | No | No | No |
+| Set up integrations (Settings > Integrations) | Yes | No | No | No | No |
 | Add and change grading scales and exams, lock and unlock exams | Yes | Yes | No | No | No |
 
 More rows are added here as new parts of Somaplus arrive.

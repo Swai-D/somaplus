@@ -23,6 +23,7 @@ Wadhifa unaamua mtu anaweza kuona na kufanya nini. Menyu ya pembeni inaonyesha t
 | Kubadilisha miundo ya ada, kutengeneza ankara, kuweka control number | Ndiyo | Hapana | Hapana | Ndiyo | Hapana |
 | Kurekodi malipo na kutoa risiti | Ndiyo | Hapana | Hapana | Ndiyo | Hapana |
 | Kubatilisha malipo | Ndiyo | Hapana | Hapana | Hapana | Hapana |
+| Kuweka miunganisho (Mipangilio > Miunganisho) | Ndiyo | Hapana | Hapana | Hapana | Hapana |
 | Kuongeza na kubadilisha mizani ya madaraja na mitihani, kufunga na kufungua mitihani | Ndiyo | Ndiyo | Hapana | Hapana | Hapana |
 
 Safu zaidi zinaongezwa hapa sehemu mpya za Somaplus zinapofika.

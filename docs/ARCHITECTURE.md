@@ -153,6 +153,16 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - **Permissions**: `payments.record` (owner, accountant), `payments.reverse` (owner); looking needs `fees.view`. Writing routes use `tenant.writable`.
 - **Audit log**: `payment.recorded`, `payment.reversed`, `receipt.viewed` (ids only).
 
+## Settings > Integrations (plug-and-play)
+
+`tenant_integrations` (one row per school and channel: `driver`, `enabled` default false, `settings` json, `secrets` as `encrypted:array`, hidden) and `payment_notifications` (one row per provider reference, `BelongsToTenant`).
+
+- **Pattern (from Odessa-POS)**: `config/integrations.php` lists channels and their driver classes; a driver implements `Driver` (`key()`, `label()`, `fields()` with `secret`, `required`, `generate`, `min`, `options`, `default`). `IntegrationRegistry` lists only channels that have a driver; `IntegrationManager::active($channel)` returns a driver and its decrypted config only when the school's row is enabled and the driver is still offered. Adding a provider = one driver class plus a line in the config; the Settings form is generated from `fields()`.
+- **`SaveIntegration`**: needs `settings.manage` (owner). Switching on needs a provider and every required field (a saved secret counts); a blank secret keeps the saved one; changing provider drops the old secrets; a blank `generate` secret is made server-side and shown once in the update response (never in session, DB plain text, audit or logs). Audit `integration.saved` carries the row id only.
+- **Payments channel, `signed_webhook` driver**: `POST /webhooks/payments/{tenant}` on the central host only, throttled, no CSRF (`webhooks/*`). The school is named in the path; the body is believed only after `WebhookSignature` (hex HMAC-SHA256 of `"<timestamp>.<raw body>"` with the school's secret, timestamp within 5 minutes, `hash_equals`). Unknown school, switched-off integration or wrong host all answer 404; bad signature 401; malformed signed body 422; otherwise 200 with `{"status": applied|duplicate|unmatched|rejected}`.
+- **`ReceivePaymentNotification`** maps a notice to an invoice by control number inside the school and calls `RecordPayment` with `source = integration`, `idempotency_key = provider:<reference>` and `provider_reference`. Every valid-reference notice is kept in `payment_notifications`; an unknown control number is stored as unmatched and re-processed when resent; a currency mismatch or bad amount is rejected; an overpayment is recorded. It runs even for read-only schools (money that moved is never dropped).
+- **Real GePG/bank protocols** are separate drivers to be added when the provider's documentation is available; they call the same `ReceivePaymentNotification`/`RecordPayment`.
+
 ## Deployment behind Railway's proxy (HTTPS)
 
 Railway ends TLS at its edge and forwards plain http to the container, so without help PHP believes every request is `http://`. `asset()` and `route()` then emit `http://` stylesheet and script links, and the browser blocks them on the `https://` page as mixed content: the page loads with no styling. The template's CSS is static (`public/assets/`, not built by Vite), so the files are fine; only the links were wrong.

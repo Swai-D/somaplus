@@ -34,6 +34,9 @@ return Application::configure(basePath: dirname(__DIR__))
             SetLocale::class,
         ]);
 
+        // Webhooks are signed by the provider (HMAC), so they carry no CSRF token.
+        $middleware->validateCsrfTokens(except: ['webhooks/*']);
+
         $middleware->redirectGuestsTo(fn () => route('login'));
         $middleware->redirectUsersTo(fn () => route('dashboard'));
 

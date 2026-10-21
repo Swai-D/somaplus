@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\Webhooks\PaymentWebhookController;
 use App\Models\Tenant;
 use App\Tenancy\TenantContext;
 use Illuminate\Http\Request;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 // Health check for Railway (and any uptime monitor).
 Route::get('/up', [HealthController::class, '__invoke']);
+
+// Payment notices from a provider (central address only; the school is named in the path). Public and
+// signed: the controller refuses anything whose HMAC signature does not check out. Not CSRF protected.
+Route::post('/webhooks/payments/{tenant}', PaymentWebhookController::class)
+    ->where('tenant', '[0-9A-Za-z]{26}')->middleware('throttle:120,1')->name('webhooks.payments');
 
 // Temporary tenant entry for hosts behind a proxy without wildcard subdomains
 // (e.g. *.up.railway.app). Sets tenant in browser session, then redirects to login.
@@ -72,5 +78,6 @@ Route::middleware('auth')->group(function () {
     require __DIR__.'/attendance.php';
     require __DIR__.'/exams.php';
     require __DIR__.'/fees.php';
+    require __DIR__.'/settings.php';
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });
