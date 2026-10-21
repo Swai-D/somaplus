@@ -1,8 +1,8 @@
 <div class="header">
     <div class="main-header">
         <div class="header-left active">
-            <a class="logo logo-normal" href="{{ route('dashboard') }}"><img alt="{{ config('app.name') }}" src="{{ asset('assets/img/logo.svg') }}"></a>
-            <a class="logo logo-white" href="{{ route('dashboard') }}"><img alt="{{ config('app.name') }}" src="{{ asset('assets/img/logo-white.svg') }}"></a>
+            <a class="logo logo-normal" href="{{ route('dashboard') }}"><img alt="{{ config('app.name') }}" src="{{ asset('img/somaplus-logo.svg') }}"></a>
+            <a class="logo logo-white" href="{{ route('dashboard') }}"><img alt="{{ config('app.name') }}" src="{{ asset('img/somaplus-logo-white.svg') }}"></a>
             <a class="logo-small" href="{{ route('dashboard') }}"><img alt="{{ config('app.name') }}" src="{{ asset('assets/img/logo-small.svg') }}"></a>
             <a class="logo-small-white" href="{{ route('dashboard') }}"><img alt="{{ config('app.name') }}" src="{{ asset('assets/img/logo-small-white.svg') }}"></a>
         </div>
