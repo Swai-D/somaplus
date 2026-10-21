@@ -2,6 +2,17 @@
 
 @section('title', __('admission.title'))
 
+@php
+    // The values the page was saved with, for the live preview. The array is built here because
+    // @json() splits its argument on commas, so an array literal inside it would not compile.
+    $saved = [
+        'prefix' => $setting->prefix,
+        'year_format' => $setting->year_format,
+        'separator' => $setting->separator === '' ? 'none' : $setting->separator,
+        'digits' => $setting->digits,
+    ];
+@endphp
+
 @push('styles')
     <style>
         .adm-mode{display:block;border:2px solid #E6EAED;border-radius:12px;padding:1rem 1.25rem;cursor:pointer;height:100%;transition:border-color .15s,box-shadow .15s}
@@ -102,7 +113,7 @@
             var form = document.getElementById('admission-form');
             var year = {{ $year }};
             var peek = @json($next);
-            var saved = @json(['prefix' => $setting->prefix, 'year_format' => $setting->year_format, 'separator' => $setting->separator === '' ? 'none' : $setting->separator, 'digits' => $setting->digits]);
+            var saved = @json($saved);
 
             function value(name) { return form.elements[name].value; }
             function render(seq) {
