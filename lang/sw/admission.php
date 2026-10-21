@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'saved' => 'Mipangilio ya namba za usajili imehifadhiwa.',
+    'exhausted' => 'Somaplus haikupata namba ya usajili iliyo huru. Badilisha muundo au namba ya kuanzia chini ya Mipangilio.',
+    'title' => 'Namba za usajili',
+    'intro' => 'Chagua jinsi shule yako inavyotoa namba za usajili: uziandike mwenyewe, au Somaplus iziunde kwa muundo unaoupenda.',
+    'mode' => [
+        'manual' => 'Nitaziandika mwenyewe',
+        'manual_hint' => 'Unaandika namba ya usajili kwa kila mwanafunzi, kama ilivyo sasa.',
+        'auto' => 'Niundie',
+        'auto_hint' => 'Somaplus humpa kila mwanafunzi mpya namba inayofuata kwa muundo wako. Hakuna wanafunzi wawili wanaopata namba moja.',
+    ],
+    'format' => 'Muundo',
+    'prefix' => 'Kianzio',
+    'prefix_hint' => 'Herufi au tarakimu, hadi 10 (kwa mfano jina fupi la shule yako). Acha wazi kama hutaki.',
+    'separator' => 'Kitenganishi',
+    'separators' => ['none' => 'Hakuna', '/' => 'Mkato ( / )', '-' => 'Kistari ( - )', '.' => 'Nukta ( . )', '_' => 'Mstari wa chini ( _ )'],
+    'year' => 'Mwaka',
+    'years' => ['none' => 'Bila mwaka', 'YYYY' => 'Mwaka kamili (2026)', 'YY' => 'Mwaka mfupi (26)'],
+    'digits' => 'Tarakimu za namba inayoendelea',
+    'digits_hint' => 'Kwa tarakimu 4 namba ni 0001, 0002 na kuendelea.',
+    'start_at' => 'Anza kuhesabu kutoka',
+    'start_at_hint' => 'Si lazima. Itumie shule ikiwa tayari na namba hadi sehemu fulani. Inaweza kusogeza hesabu mbele tu.',
+    'preview' => 'Mfano',
+    'preview_next' => 'Mwanafunzi anayefuata atapata',
+    'preview_examples' => 'Mifano',
+    'year_note' => 'Muundo wenye mwaka huanza tena kutoka 1 kila mwaka.',
+    'save' => 'Hifadhi',
+    'auto_notice' => 'Namba ya usajili itaundwa na Somaplus ukihifadhi.',
+    'auto_next' => 'Namba inayofuata itakuwa',
+    'auto_locked' => 'Namba zilizoundwa na Somaplus haziwezi kuhaririwa hapa.',
+];

@@ -186,6 +186,12 @@ return [
                             'permission' => 'settings.manage',
                             'active' => ['settings.integrations.*'],
                         ],
+                        [
+                            'label' => 'menu.admission_numbers',
+                            'route' => 'settings.admission.index',
+                            'permission' => 'settings.manage',
+                            'active' => ['settings.admission.*'],
+                        ],
                     ],
                 ],
             ],

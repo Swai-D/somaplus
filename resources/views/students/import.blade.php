@@ -69,7 +69,7 @@
                         @foreach ($columns as $column)
                             <tr>
                                 <td class="fw-semibold"><code>{{ $column }}</code>@if (in_array($column, $required, true))<span class="text-danger ms-1">*</span>@endif</td>
-                                <td>{{ __('students.import.col.'.$column) }}</td>
+                                <td>{{ __('students.import.col.'.($column === 'admission_number' && $auto ? 'admission_number_auto' : $column)) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -115,6 +115,7 @@ return [
         'stream_without_class' => 'Mkondo unahitaji darasa.',
         'col' => [
             'admission_number' => 'Namba ya kipekee ya mwanafunzi katika shule yako.',
+            'admission_number_auto' => 'Acha wazi: Somaplus itaunda namba kwa muundo wako. Namba iliyoandikwa hapa (kutoka daftari la zamani) hubaki na lazima isitumike.',
             'first_name' => 'Jina la kwanza.',
             'middle_name' => 'Jina la kati (si lazima).',
             'last_name' => 'Jina la mwisho.',

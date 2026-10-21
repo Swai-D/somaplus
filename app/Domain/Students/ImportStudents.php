@@ -5,6 +5,7 @@ namespace App\Domain\Students;
 use App\Domain\Settings\RecordAudit;
 use App\Http\Requests\Students\GuardianRequest;
 use App\Models\AcademicYear;
+use App\Models\AdmissionSetting;
 use App\Models\SchoolClass;
 use App\Models\Stream;
 use App\Models\Student;
@@ -35,7 +36,23 @@ final class ImportStudents
 
     private const MAX_PROBLEMS = 50;
 
-    public function __construct(private readonly SaveStudent $save, private readonly AddGuardian $addGuardian, private readonly RecordAudit $audit) {}
+    public function __construct(
+        private readonly SaveStudent $save,
+        private readonly AddGuardian $addGuardian,
+        private readonly RecordAudit $audit,
+        private readonly AdmissionNumbers $numbers,
+    ) {}
+
+    /**
+     * The columns every row must fill. When Somaplus makes the admission numbers the column may stay empty:
+     * a number typed in a row (from an old register) is kept, an empty one is made.
+     *
+     * @return list<string>
+     */
+    public static function required(): array
+    {
+        return AdmissionSetting::current()->isAuto() ? array_values(array_diff(self::REQUIRED, ['admission_number'])) : self::REQUIRED;
+    }
 
     /** @return array{created: int, guardians: int, placed: int} */
     public function handle(string $path): array
@@ -104,7 +121,7 @@ final class ImportStudents
             throw new StudentImportException([__('students.import.unknown_columns', ['columns' => implode(', ', $unknown)])], 1);
         }
 
-        $missing = array_values(array_diff(self::REQUIRED, $header));
+        $missing = array_values(array_diff(self::required(), $header));
         if ($missing !== []) {
             throw new StudentImportException([__('students.import.missing_columns', ['columns' => implode(', ', $missing)])], 1);
         }
@@ -124,6 +141,7 @@ final class ImportStudents
         $problems = [];
         $clean = [];
         $seen = [];
+        $auto = AdmissionSetting::current()->isAuto();
 
         $classes = SchoolClass::query()->get()->keyBy(fn (SchoolClass $c): string => mb_strtolower($c->name));
         $streams = Stream::query()->get()->groupBy('school_class_id');
@@ -144,7 +162,7 @@ final class ImportStudents
             }
 
             $validator = Validator::make($row, [
-                'admission_number' => ['required', 'string', 'max:30'],
+                'admission_number' => [$auto ? 'nullable' : 'required', 'string', 'max:30'],
                 'first_name' => ['required', 'string', 'max:100'],
                 'middle_name' => ['nullable', 'string', 'max:100'],
                 'last_name' => ['required', 'string', 'max:100'],
@@ -248,19 +266,22 @@ final class ImportStudents
     private function apply(array $rows, ?AcademicYear $year): array
     {
         $created = $guardians = $placed = 0;
+        $reserved = array_values(array_filter(array_map(fn (array $row): string => (string) ($row['admission_number'] ?? ''), $rows)));
 
         foreach ($rows as $row) {
             $yearId = $year?->id;
             $withClass = $yearId !== null && isset($row['school_class_id']);
 
+            $admittedOn = (string) ($row['admitted_on'] ?? now()->toDateString());
+
             $student = $this->save->handle([
-                'admission_number' => $row['admission_number'],
+                'admission_number' => $row['admission_number'] ?? $this->numbers->generate(CarbonImmutable::parse($admittedOn), $reserved),
                 'first_name' => $row['first_name'],
                 'middle_name' => $row['middle_name'] ?? null,
                 'last_name' => $row['last_name'],
                 'gender' => $row['gender'],
                 'date_of_birth' => $row['date_of_birth'],
-                'admitted_on' => $row['admitted_on'] ?? now()->toDateString(),
+                'admitted_on' => $admittedOn,
                 'academic_year_id' => $withClass ? $yearId : null,
                 'school_class_id' => $withClass ? $row['school_class_id'] : null,
                 'stream_id' => $withClass ? ($row['stream_id'] ?? null) : null,

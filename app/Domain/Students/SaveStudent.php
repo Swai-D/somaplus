@@ -4,14 +4,15 @@ namespace App\Domain\Students;
 
 use App\Domain\Settings\RecordAudit;
 use App\Models\Student;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 
 final class SaveStudent
 {
-    public function __construct(private readonly EnrollStudent $enroll, private readonly RecordAudit $audit) {}
+    public function __construct(private readonly EnrollStudent $enroll, private readonly RecordAudit $audit, private readonly AdmissionNumbers $numbers) {}
 
     /**
-     * @param  array<string, mixed>  $data  student fields, plus optional academic_year_id, school_class_id, stream_id
+     * @param  array<string, mixed>  $data  student fields, plus optional academic_year_id, school_class_id, stream_id. Without an admission_number a new student gets the next one in the school's format; a student being changed keeps the one it has.
      */
     public function handle(array $data, ?Student $student = null): Student
     {
@@ -19,9 +20,12 @@ final class SaveStudent
             $creating = $student === null;
             $student ??= new Student;
 
+            $given = trim((string) ($data['admission_number'] ?? ''));
+            $number = $given !== '' ? $given : ($creating ? $this->numbers->generate(CarbonImmutable::parse((string) $data['admitted_on'])) : $student->admission_number);
+
             $middle = trim((string) ($data['middle_name'] ?? ''));
             $student->fill([
-                'admission_number' => $data['admission_number'],
+                'admission_number' => $number,
                 'first_name' => $data['first_name'],
                 'middle_name' => $middle === '' ? null : $middle,
                 'last_name' => $data['last_name'],

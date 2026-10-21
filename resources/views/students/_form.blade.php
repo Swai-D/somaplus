@@ -4,7 +4,17 @@
     @csrf
     @if ($editing) @method('PUT') @endif
     <div class="row">
-        <div class="col-md-4">@include('academics._field', ['name' => 'admission_number', 'label' => __('students.fields.admission_number'), 'value' => $student->admission_number ?? ''])</div>
+        <div class="col-md-4">
+            @if ($admissionAuto ?? false)
+                <div class="mb-3">
+                    <label class="form-label" for="admission_number_shown">{{ __('students.fields.admission_number') }}</label>
+                    <input class="form-control" id="admission_number_shown" value="{{ $editing ? $student->admission_number : $admissionNext }}" readonly>
+                    <div class="form-text">{{ $editing ? __('admission.auto_locked') : __('admission.auto_notice') }}</div>
+                </div>
+            @else
+                @include('academics._field', ['name' => 'admission_number', 'label' => __('students.fields.admission_number'), 'value' => $student->admission_number ?? ''])
+            @endif
+        </div>
         <div class="col-md-4">@include('academics._field', ['name' => 'first_name', 'label' => __('students.fields.first_name'), 'value' => $student->first_name ?? ''])</div>
         <div class="col-md-4">@include('academics._field', ['name' => 'middle_name', 'label' => __('students.fields.middle_name'), 'value' => $student->middle_name ?? '', 'required' => false])</div>
         <div class="col-md-4">@include('academics._field', ['name' => 'last_name', 'label' => __('students.fields.last_name'), 'value' => $student->last_name ?? ''])</div>

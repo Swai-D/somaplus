@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'saved' => 'Admission number settings saved.',
+    'exhausted' => 'Somaplus could not find a free admission number. Change the format or the starting number under Settings.',
+    'title' => 'Admission numbers',
+    'intro' => 'Choose how your school gives admission numbers: type them yourself, or let Somaplus make them in the format you like.',
+    'mode' => [
+        'manual' => 'I type them myself',
+        'manual_hint' => 'You write the admission number for every student, as today.',
+        'auto' => 'Make them for me',
+        'auto_hint' => 'Somaplus gives each new student the next number in your format. No two students ever get the same number.',
+    ],
+    'format' => 'Format',
+    'prefix' => 'Prefix',
+    'prefix_hint' => 'Letters or digits, up to 10 (for example the short name of your school). Leave empty for none.',
+    'separator' => 'Separator',
+    'separators' => ['none' => 'None', '/' => 'Slash ( / )', '-' => 'Dash ( - )', '.' => 'Dot ( . )', '_' => 'Underscore ( _ )'],
+    'year' => 'Year',
+    'years' => ['none' => 'No year', 'YYYY' => 'Full year (2026)', 'YY' => 'Short year (26)'],
+    'digits' => 'Digits in the running number',
+    'digits_hint' => 'With 4 digits the numbers are 0001, 0002 and so on.',
+    'start_at' => 'Start counting at',
+    'start_at_hint' => 'Optional. Use it when the school already has numbers up to a point. It can only move the count forward.',
+    'preview' => 'Preview',
+    'preview_next' => 'The next student will get',
+    'preview_examples' => 'Examples',
+    'year_note' => 'A format with a year starts again from 1 every year.',
+    'save' => 'Save',
+    'auto_notice' => 'The admission number is made by Somaplus when you save.',
+    'auto_next' => 'The next number will be',
+    'auto_locked' => 'Numbers made by Somaplus cannot be edited here.',
+];
