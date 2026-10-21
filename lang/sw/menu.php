@@ -15,6 +15,7 @@ return [
     'student_list' => 'Orodha ya Wanafunzi',
     'add_student' => 'Ongeza Mwanafunzi',
     'import_students' => 'Pakia Wanafunzi',
+    'id_cards' => 'Chapa vitambulisho',
     'admission_numbers' => 'Namba za usajili',
     'attendance' => 'Mahudhurio',
     'take_attendance' => 'Chukua Mahudhurio',

@@ -7,9 +7,16 @@
         <a href="{{ route('students.index') }}" class="text-muted"><i class="ti ti-arrow-left me-1"></i>{{ __('menu.student_list') }}</a>
         <div class="d-flex justify-content-between align-items-start mt-2">
             <h3 class="page-title mb-0">{{ $student->fullName() }}</h3>
-            @can('update', $student)
-                <a href="{{ route('students.edit', $student) }}" class="btn btn-sm btn-outline-secondary">{{ __('students.edit') }}</a>
-            @endcan
+            <div class="d-flex gap-2">
+                @if ($student->isActive())
+                    @can('printIdCard', App\Models\Student::class)
+                        <a href="{{ route('students.id-card', $student) }}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="ti ti-id-badge-2 me-1"></i>{{ __('idcard.button') }}</a>
+                    @endcan
+                @endif
+                @can('update', $student)
+                    <a href="{{ route('students.edit', $student) }}" class="btn btn-sm btn-outline-secondary">{{ __('students.edit') }}</a>
+                @endcan
+            </div>
         </div>
     </div>
 
