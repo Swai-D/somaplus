@@ -31,7 +31,7 @@ final class BuildIdCards
         foreach ($students as $student) {
             $placement = $placements[$student->id] ?? null;
             $class = $placement?->schoolClass->name;
-            if ($class !== null && $placement?->stream !== null) {
+            if ($class !== null && $placement->stream !== null) {
                 $class .= ' '.$placement->stream->name;
             }
 
