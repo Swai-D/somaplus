@@ -28,6 +28,4 @@ Menyu inaonyesha tu unachoruhusiwa kutumia. Ukikosa kipengele unachotegemea, ang
 
 Menyu ya **Dashibodi** ina kurasa mbili, kama kwenye template: **Shule** (ukurasa ulio juu) na **Mwalimu**, kwa wanaoingiza alama. Ukurasa wa Mwalimu unaonyesha wanafunzi na madarasa ya shule, alama ulizoingiza, mitihani iliyo wazi, mahudhurio ya leo, na mitihani ya mwaka wa sasa yenye kitufe cha **Ingiza alama** (mitihani iliyo wazi) au **Matokeo** (mitihani iliyofungwa).
 
-Menyu ya **Dashibodi** ina kurasa mbili, kama kwenye template: **Shule** (ukurasa ulio juu) na **Mwalimu**, kwa wanaoingiza alama. Ukurasa wa Mwalimu unaonyesha wanafunzi na madarasa ya shule, alama ulizoingiza, mitihani iliyo wazi, mahudhurio ya leo, na mitihani ya mwaka wa sasa yenye kitufe cha **Ingiza alama** (mitihani iliyo wazi) au **Matokeo** (mitihani iliyofungwa).
-
 Kadi ya **Shule yako** inaonyesha jina la shule, **Mpango** wake, hali ya **Usajili**, **Mwaka wa masomo** wa sasa (na muhula ambao leo iko ndani yake) na **Wadhifa wako**. Tahadhari ya njano juu ya kila ukurasa inamaanisha shule iko kwenye hali ya kusoma tu, angalia [Hali ya kusoma tu](help:troubleshooting/read-only-mode).
