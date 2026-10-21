@@ -113,7 +113,8 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 6. Mark the student as left: gone from the list, found under "Left school"; placing is refused until "Bring back to school".
 7. Delete a class or stream that has students: refused with a message.
 8. Teacher and accountant can open the list and the pages but see no Add student, no forms, and posting answers 403. A parent/student gets 403 on `/students`.
-9. In Kiswahili all pages are in Swahili; Help has the topic "Wanafunzi" with four articles.
+9. In Kiswahili all pages are in Swahili; Help has the topic "Wanafunzi" with five articles.
+10. Bulk import: as owner open Academics > Students > Import students. Download the template and open it in Excel: the header row and two example rows (using your first class) show. Upload it unchanged: two students are added, placed in the current year, each with a main contact. Upload it again: refused, "admission number already used", nothing added. Put a wrong class name, a bad date and a missing last name in three rows: nothing is added and each line number is listed. Day-first dates (06/05/2012) and a phone that lost its zero (755123456) are accepted. As a teacher the menu entry and page are absent (403), and in a read-only school the page opens but uploading answers 403.
 10. `select action, subject_type, subject_id, user_id from audit_logs` shows the actions above and no names.
 
 ## Attendance

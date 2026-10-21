@@ -6,6 +6,9 @@ use App\Models\Student;
 
 class GuardianRequest extends StudentsRequest
 {
+    /** A phone number as the guardian form and the bulk import accept it. */
+    public const PHONE_PATTERN = '/^\+?[0-9 ]{7,20}$/';
+
     public function authorize(): bool
     {
         $student = $this->route('student');
@@ -20,7 +23,7 @@ class GuardianRequest extends StudentsRequest
     {
         return [
             'name' => ['required', 'string', 'max:150'],
-            'phone' => ['required', 'string', 'max:30', 'regex:/^\+?[0-9 ]{7,20}$/'],
+            'phone' => ['required', 'string', 'max:30', 'regex:'.self::PHONE_PATTERN],
             'email' => ['nullable', 'email', 'max:150'],
             'relationship' => ['required', 'in:father,mother,guardian,other'],
             'is_primary' => ['nullable', 'boolean'],
