@@ -16,9 +16,9 @@ class Csv
         return response()->streamDownload(function () use ($header, $rows): void {
             $out = fopen('php://output', 'w');
             fwrite($out, "\xEF\xBB\xBF"); // UTF-8 BOM so Excel reads Swahili text correctly.
-            fputcsv($out, array_map(self::cell(...), $header));
+            fputcsv($out, array_map(self::cell(...), $header), ',', '"', '');
             foreach ($rows as $row) {
-                fputcsv($out, array_map(self::cell(...), $row));
+                fputcsv($out, array_map(self::cell(...), $row), ',', '"', '');
             }
             fclose($out);
         }, $filename, ['Content-Type' => 'text/csv; charset=UTF-8']);
