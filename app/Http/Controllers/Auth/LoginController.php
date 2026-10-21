@@ -34,6 +34,7 @@ class LoginController extends Controller
     {
         // The chosen language is not private; keep it across the sign-out.
         $locale = $request->session()->get('locale');
+        $pathEntry = config('tenancy.allow_path_entry') ? $request->session()->get('tenant_slug') : null;
 
         Auth::guard('web')->logout();
 
@@ -42,6 +43,11 @@ class LoginController extends Controller
 
         if ($locale !== null) {
             $request->session()->put('locale', $locale);
+        }
+
+        // The school chosen with /t/{slug} stays chosen, so the sign-in page is still that school's.
+        if (is_string($pathEntry)) {
+            $request->session()->put('tenant_slug', $pathEntry);
         }
 
         return redirect()->route('login');
