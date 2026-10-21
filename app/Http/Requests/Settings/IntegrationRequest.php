@@ -46,7 +46,7 @@ class IntegrationRequest extends FormRequest
                 'nullable',
                 ...match ($field['type']) {
                     'select' => ['string', Rule::in(array_keys($field['options'] ?? []))],
-                    default => ['string', 'min:'.($field['min'] ?? 1), 'max:255'],
+                    default => ['string', 'min:'.($field['min'] ?? 1), 'max:'.($field['max'] ?? 255)],
                 },
             ];
         }

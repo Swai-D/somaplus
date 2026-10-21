@@ -19,7 +19,7 @@ interface Driver
      * field keeps what is saved. A secret field with `generate` is filled in by Somaplus when left blank the
      * first time, and shown once.
      *
-     * @return list<array{name: string, label: string, type: 'text'|'password'|'select', required?: bool, secret?: bool, generate?: bool, options?: array<string, string>, default?: string, min?: int}>
+     * @return list<array{name: string, label: string, type: 'text'|'password'|'textarea'|'select', required?: bool, secret?: bool, generate?: bool, options?: array<string, string>, default?: string, min?: int, max?: int}>
      */
     public static function fields(): array;
 }

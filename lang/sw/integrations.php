@@ -18,15 +18,24 @@ return [
         ],
     ],
     'drivers' => [
+        'gepg' => 'GePG (Lango la Malipo ya Kielektroniki la Serikali)',
         'signed_webhook' => 'Taarifa ya mtandao iliyosainiwa',
     ],
     'fields' => [
+        'sp_code' => 'Msimbo wa mtoa huduma (SpCode)',
+        'sp_sys_id' => 'Kitambulisho cha mfumo (SpSysId)',
+        'gepg_certificate' => 'Cheti cha umma cha GePG (PEM)',
+        'signing_key' => 'Ufunguo wako binafsi wa kusaini majibu (PEM)',
         'webhook_secret' => 'Siri ya pamoja',
     ],
     'webhook' => [
         'title' => 'Anwani ya kumpa benki au mtoa huduma wako',
         'how' => 'Tuma ombi la POST lenye mwili wa JSON na vichwa viwili: X-Somaplus-Timestamp (sekunde za Unix) na X-Somaplus-Signature (HMAC-SHA256 ya hex ya "timestamp.body" kwa siri ya pamoja). Taarifa za zaidi ya dakika tano zinakataliwa.',
         'example' => '{"control_number":"991234567890","amount":"50000","currency":"TZS","reference":"BANK-0001","paid_on":"2026-10-21","method":"bank"}',
+    ],
+    'gepg' => [
+        'title' => 'Anwani ya kumpa GePG',
+        'how' => 'Mpe GePG anwani hii kama anwani ya kupokea taarifa za malipo, pamoja na cheti chako cha umma, kisha bandika hapa cheti cha umma cha GePG na ufunguo binafsi wa cheti chako. Somaplus huthibitisha kila taarifa kwa cheti cha GePG na kujibu kwa uthibitisho uliosainiwa. Control number hutolewa na GePG; ziandike kwenye ankara husika (Fedha > Ankara) ili taarifa ziipate.',
     ],
     'notices' => [
         'title' => 'Taarifa za malipo za karibuni',

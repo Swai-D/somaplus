@@ -18,15 +18,24 @@ return [
         ],
     ],
     'drivers' => [
+        'gepg' => 'GePG (Government e-Payment Gateway)',
         'signed_webhook' => 'Signed web notice',
     ],
     'fields' => [
+        'sp_code' => 'Service provider code (SpCode)',
+        'sp_sys_id' => 'System ID (SpSysId)',
+        'gepg_certificate' => 'GePG public certificate (PEM)',
+        'signing_key' => 'Your private key for signing replies (PEM)',
         'webhook_secret' => 'Shared secret',
     ],
     'webhook' => [
         'title' => 'Address to give your bank or provider',
         'how' => 'Send a POST request with a JSON body and two headers: X-Somaplus-Timestamp (Unix seconds) and X-Somaplus-Signature (hex HMAC-SHA256 of "timestamp.body" using the shared secret). Notices older than five minutes are refused.',
         'example' => '{"control_number":"991234567890","amount":"50000","currency":"TZS","reference":"BANK-0001","paid_on":"2026-10-21","method":"bank"}',
+    ],
+    'gepg' => [
+        'title' => 'Callback address to give GePG',
+        'how' => 'Give GePG this address as the payment notification callback, together with your public certificate, and paste here the GePG public certificate and the private key that belongs to your certificate. Somaplus checks every notice with the GePG certificate and answers with a signed acknowledgement. Control numbers are issued by GePG; type each one on its invoice (Finance > Invoices) so notices find it.',
     ],
     'notices' => [
         'title' => 'Latest payment notices',
