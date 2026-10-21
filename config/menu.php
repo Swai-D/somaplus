@@ -67,6 +67,12 @@ return [
                             'permission' => 'students.manage',
                             'active' => ['students.create'],
                         ],
+                        [
+                            'label' => 'menu.import_students',
+                            'route' => 'students.import',
+                            'permission' => 'students.manage',
+                            'active' => ['students.import', 'students.import.store', 'students.import.template'],
+                        ],
                     ],
                 ],
                 [

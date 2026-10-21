@@ -14,6 +14,7 @@ return [
     'students' => 'Wanafunzi',
     'student_list' => 'Orodha ya Wanafunzi',
     'add_student' => 'Ongeza Mwanafunzi',
+    'import_students' => 'Pakia Wanafunzi',
     'attendance' => 'Mahudhurio',
     'take_attendance' => 'Chukua Mahudhurio',
     'attendance_summary' => 'Muhtasari',

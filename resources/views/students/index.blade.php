@@ -9,7 +9,10 @@
             <p class="text-muted mb-0">{{ __('students.list.intro') }}</p>
         </div>
         @can('create', App\Models\Student::class)
-            <a href="{{ route('students.create') }}" class="btn btn-primary mt-2 mt-md-0"><i class="ti ti-plus me-1"></i>{{ __('students.list.add') }}</a>
+            <div class="mt-2 mt-md-0 d-flex gap-2">
+                <a href="{{ route('students.import') }}" class="btn btn-outline-primary"><i class="ti ti-upload me-1"></i>{{ __('students.list.import') }}</a>
+                <a href="{{ route('students.create') }}" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('students.list.add') }}</a>
+            </div>
         @endcan
     </div>
 
