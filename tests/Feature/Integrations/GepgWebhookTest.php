@@ -150,7 +150,7 @@ it('saves the GePG settings from the page, keeps the private key hidden and show
     $this->actingAs($owner)->put("{$url}/settings/integrations/payments", ['config' => ['signing_key' => ''] + $data['config']] + $data)->assertSessionHasNoErrors();
 
     $row = ($this->inSchool)(fn () => TenantIntegration::query()->sole());
-    expect($row->secrets['signing_key'])->toBe($this->ourPrivate)->and($row->settings)->not->toHaveKey('signing_key');
+    expect($row->secrets['signing_key'])->toBe(trim($this->ourPrivate))->and($row->settings)->not->toHaveKey('signing_key');
 
     $page = $this->actingAs($owner)->get("{$url}/settings/integrations")->assertOk()->assertSee('/webhooks/gepg/'.$this->school->id);
     expect($page->getContent())->not->toContain('PRIVATE KEY');
