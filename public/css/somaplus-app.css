@@ -1,0 +1,23 @@
+/*
+|--------------------------------------------------------------------------
+| Somaplus application styles
+|--------------------------------------------------------------------------
+|
+| The few rules the application needs on top of the purchased template. The
+| template's own files are never edited, so everything that is ours lives
+| here and is loaded after the template's stylesheets.
+|
+*/
+
+/* The school (or the application) under the logo in the sidebar: one line,
+   cut with an ellipsis instead of breaking in the middle of the word. */
+.sidebar-profile-info {
+    min-width: 0;
+}
+
+.sidebar-profile-info h6,
+.sidebar-profile-info p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

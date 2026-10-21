@@ -8,8 +8,9 @@ Manual checks to run after a deploy or a significant merge. Each PR that adds a 
 2. `php artisan migrate --seed` completes without errors.
 3. `php artisan serve` starts, and the central address `http://localhost:8000` sends you to the sign-in page showing the Somaplus logo, with no broken styles.
 4. A template asset loads, for example `/assets/css/somaplus.css` returns 200.
-5. `vendor/bin/pest`, `vendor/bin/pint --test`, `vendor/bin/phpstan analyse --level=5`, `composer audit` and `npm run build` all pass.
-6. The template is unchanged. Clone `https://github.com/Swai-D/merge-temp`, check out `b716aa1`, then from the repository root both `diff -r <clone>/somaplus/assets public/assets` and `diff -r <clone>/somaplus resources/template-original -x assets` print nothing.
+5. The logo of the application loads and shows the whole name: `/img/somaplus-logo.svg` returns 200, and the sidebar and the header show "SomaPlus" with the last letter of "Plus" cut off. The application's own stylesheet `/css/somaplus-app.css` returns 200.
+6. `vendor/bin/pest`, `vendor/bin/pint --test`, `vendor/bin/phpstan analyse --level=5`, `composer audit` and `npm run build` all pass.
+7. The template is unchanged. Clone `https://github.com/Swai-D/merge-temp`, check out `b716aa1`, then from the repository root both `diff -r <clone>/somaplus/assets public/assets` and `diff -r <clone>/somaplus resources/template-original -x assets` print nothing.
 
 ## Tenancy and plans
 

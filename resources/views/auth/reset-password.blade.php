@@ -14,8 +14,8 @@
                         @csrf
                         <input type="hidden" name="token" value="{{ $token }}">
                         <div class="login-userset">
-                            <div class="login-logo logo-normal"><img alt="{{ config('app.name') }}" src="{{ asset('assets/img/logo.svg') }}"></div>
-                            <a class="login-logo logo-white" href="{{ route('login') }}"><img alt="{{ config('app.name') }}" src="{{ asset('assets/img/logo-white.svg') }}"></a>
+                            <div class="login-logo logo-normal"><img alt="{{ config('app.name') }}" src="{{ asset('img/somaplus-logo.svg') }}"></div>
+                            <a class="login-logo logo-white" href="{{ route('login') }}"><img alt="{{ config('app.name') }}" src="{{ asset('img/somaplus-logo-white.svg') }}"></a>
 
                             <div class="login-userheading">
                                 <h3>{{ __('passwords.reset_title') }}</h3>

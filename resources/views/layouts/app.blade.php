@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/edu-widgets.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/flatpickr/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/somaplus-app.css') }}">
 @endpush
 
 @section('content')

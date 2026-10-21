@@ -1,7 +1,7 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-        <a href="{{ route('dashboard') }}" class="logo logo-normal"><img src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}"></a>
-        <a href="{{ route('dashboard') }}" class="logo logo-white"><img src="{{ asset('assets/img/logo-white.svg') }}" alt="{{ config('app.name') }}"></a>
+        <a href="{{ route('dashboard') }}" class="logo logo-normal"><img src="{{ asset('img/somaplus-logo.svg') }}" alt="{{ config('app.name') }}"></a>
+        <a href="{{ route('dashboard') }}" class="logo logo-white"><img src="{{ asset('img/somaplus-logo-white.svg') }}" alt="{{ config('app.name') }}"></a>
         <a href="{{ route('dashboard') }}" class="logo-small"><img src="{{ asset('assets/img/logo-small.svg') }}" alt="{{ config('app.name') }}"></a>
         <a href="{{ route('dashboard') }}" class="logo-small-white"><img src="{{ asset('assets/img/logo-small-white.svg') }}" alt="{{ config('app.name') }}"></a>
         <a id="toggle_btn" href="javascript:void(0);"><i data-feather="chevrons-left" class="feather-16"></i></a>

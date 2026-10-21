@@ -49,3 +49,15 @@ it('carries a csrf token on its forms', function () {
 it('keeps the template stylesheet in public/assets', function () {
     expect(file_exists(public_path('assets/css/somaplus.css')))->toBeTrue();
 });
+
+it('shows the logo of the application, whose name always fits', function () {
+    $this->actingAs(($this->fresh)())
+        ->get('http://acme.somaplus.test/')
+        ->assertOk()
+        ->assertSee('img/somaplus-logo.svg', false)
+        ->assertSee('img/somaplus-logo-white.svg', false)
+        ->assertSee('css/somaplus-app.css', false)
+        // The wordmark of the template's own logo is cut off when the browser picks a
+        // wider font, so the application uses a logo of its own.
+        ->assertDontSee('assets/img/logo.svg', false);
+});
