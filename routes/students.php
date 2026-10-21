@@ -3,11 +3,13 @@
 use App\Http\Controllers\Students\EnrollmentController;
 use App\Http\Controllers\Students\GuardianController;
 use App\Http\Controllers\Students\StudentController;
+use App\Http\Controllers\Students\StudentIdCardController;
 use App\Http\Controllers\Students\StudentImportController;
 use Illuminate\Support\Facades\Route;
 
 // Loaded inside the `auth` group (routes/web.php). Reading needs `students.view`,
-// changing needs `students.manage` (policy) and a school that is not read-only.
+// changing needs `students.manage` (policy) and a school that is not read-only. Printing ID cards needs
+// `students.manage` too but changes nothing, so it also works in a read-only school.
 
 Route::prefix('students')->name('students.')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
@@ -15,6 +17,9 @@ Route::prefix('students')->name('students.')->group(function () {
     Route::get('create', [StudentController::class, 'create'])->name('create');
     Route::get('import', [StudentImportController::class, 'create'])->name('import');
     Route::get('import/template', [StudentImportController::class, 'template'])->name('import.template');
+    Route::get('id-cards', [StudentIdCardController::class, 'index'])->name('id-cards');
+    Route::post('id-cards', [StudentIdCardController::class, 'print'])->name('id-cards.print');
+    Route::get('{student}/id-card', [StudentIdCardController::class, 'show'])->name('id-card')->whereNumber('student');
     Route::get('{student}', [StudentController::class, 'show'])->name('show')->whereNumber('student');
     Route::get('{student}/edit', [StudentController::class, 'edit'])->name('edit')->whereNumber('student');
 
