@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Fees\CollectionsReportController;
 use App\Http\Controllers\Fees\FeeStructureController;
 use App\Http\Controllers\Fees\InvoiceController;
 use App\Http\Controllers\Fees\MobileMoneyController;
@@ -18,6 +19,7 @@ Route::get('fees/structures/{structure}/edit', [FeeStructureController::class, '
 Route::get('fees/invoices', [InvoiceController::class, 'index'])->name('fees.invoices.index');
 Route::get('fees/invoices/{invoice}', [InvoiceController::class, 'show'])->name('fees.invoices.show')->whereNumber('invoice');
 Route::get('fees/payments', [PaymentController::class, 'index'])->name('fees.payments.index');
+Route::get('fees/reports/collections', CollectionsReportController::class)->name('fees.reports.collections');
 Route::get('fees/payments/create', [PaymentController::class, 'create'])->name('fees.payments.create');
 Route::get('fees/receipts/{receipt}', [ReceiptController::class, 'show'])->name('fees.receipts.show')->whereNumber('receipt');
 
