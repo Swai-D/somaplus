@@ -65,6 +65,7 @@ App\Models\User::factory()->superAdmin()->create(['name' => 'Root', 'email' => '
 5. The flag menu in the header switches between English and Kiswahili; menu, dashboard and error messages change, and the choice survives signing out.
 6. Set Acme to `read_only`: a yellow notice shows on every page, and signing in, signing out and reading still work.
 7. Dashboard figures: as the head teacher, the tiles show active students (not those who left), guardians and classes, `+N this month` for students admitted this month, and "Attendance today" splits today's register by status (or says none was recorded). As the accountant, the fee tiles, "Fees by month" chart and "Recent payments" show; reversing a payment on the Payments page lowers "Fees collected" and raises "Fees outstanding" by its amount. A teacher sees no fee blocks, an accountant no attendance block. Switch to Kiswahili: every dashboard label changes.
+8. Dashboard submenu: the sidebar's Dashboard opens School and, for owner, head teacher and teacher, Teacher. The Teacher page shows school-wide student and class counts, the marks that person entered, open exams, and a table of this year's exams with Enter marks (open) or Results (locked). An accountant opening `/dashboard/teacher` gets a 403. Switch to Kiswahili: the page changes.
 7. The sidebar shows only "Dashboard" and "Help". Other items appear as the features that own them are built.
 8. "Log out" in the profile menu returns to `/login`.
 

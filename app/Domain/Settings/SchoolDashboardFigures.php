@@ -60,7 +60,7 @@ final class SchoolDashboardFigures
     /**
      * @return array{active: int, new_this_month: int}
      */
-    private function students(): array
+    public function students(): array
     {
         $active = Student::query()->where('status', Student::ACTIVE);
 
@@ -161,7 +161,7 @@ final class SchoolDashboardFigures
      *
      * @return array{total: int, rows: list<array{status: string, count: int, percent: int}>}
      */
-    private function attendanceToday(): array
+    public function attendanceToday(): array
     {
         $counts = AttendanceRecord::query()
             ->whereDate('attended_on', today()->toDateString())
