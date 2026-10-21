@@ -113,9 +113,10 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 6. Mark the student as left: gone from the list, found under "Left school"; placing is refused until "Bring back to school".
 7. Delete a class or stream that has students: refused with a message.
 8. Teacher and accountant can open the list and the pages but see no Add student, no forms, and posting answers 403. A parent/student gets 403 on `/students`.
-9. In Kiswahili all pages are in Swahili; Help has the topic "Wanafunzi" with five articles.
+9. In Kiswahili all pages are in Swahili; Help has the topic "Wanafunzi" with six articles.
 10. Bulk import: as owner open Academics > Students > Import students. Download the template and open it in Excel: the header row and two example rows (using your first class) show. Upload it unchanged: two students are added, placed in the current year, each with a main contact. Upload it again: refused, "admission number already used", nothing added. Put a wrong class name, a bad date and a missing last name in three rows: nothing is added and each line number is listed. Day-first dates (06/05/2012) and a phone that lost its zero (755123456) are accepted. As a teacher the menu entry and page are absent (403), and in a read-only school the page opens but uploading answers 403.
-11. `select action, subject_type, subject_id, user_id from audit_logs` shows the actions above and no names.
+11. Admission numbers: as owner open Settings > Admission numbers (head teacher, teacher, accountant get 403). Choose "Make them for me", prefix `sch`, year Full, separator Dash, 4 digits: the dark box shows `SCH-<year>-0001` and updates while you change the controls. Save. Add student: the number field is gone, a note says what the number will be; after saving the student has it, the edit page shows it read-only and a typed number in a hand-made request is ignored. Add a student admitted next year: `SCH-<next year>-0001`. Set "Start counting at" 250 with a year-less format: the next student gets 0250; a lower value later does not move it back. Bulk import: empty number cells get numbers, a typed old number is kept and not repeated; the template's example rows have an empty number. Switch back to "I type them myself": the field returns and is required. In a read-only school the page opens and saving answers 403. Switch to Kiswahili: everything is in Swahili.
+12. `select action, subject_type, subject_id, user_id from audit_logs` shows the actions above and no names.
 
 ## Attendance
 
@@ -245,4 +246,3 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 2. In the browser's developer tools, Network tab: `/assets/css/style.css` and `/assets/css/somaplus.css` load from `https://` with status 200, and the Console shows no "Mixed Content" warnings.
 3. View the page source: every `href`/`src` that starts with the site address starts with `https://`.
 4. Request a password reset: the emailed link starts with `https://`.
-

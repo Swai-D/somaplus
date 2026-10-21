@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Students;
 
 use App\Domain\Settings\RecordAudit;
+use App\Domain\Students\AdmissionNumbers;
 use App\Domain\Students\ChangeStudentStatus;
 use App\Domain\Students\CurrentPlacements;
 use App\Domain\Students\SaveStudent;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Students\LeaveRequest;
 use App\Http\Requests\Students\StudentRequest;
 use App\Models\AcademicYear;
+use App\Models\AdmissionSetting;
 use App\Models\Enrollment;
 use App\Models\Exam;
 use App\Models\ExamMark;
@@ -83,7 +85,7 @@ class StudentController extends Controller
     {
         Gate::authorize('create', Student::class);
 
-        return view('students.create', $this->choices());
+        return view('students.create', $this->choices() + $this->admission());
     }
 
     public function store(StudentRequest $request, SaveStudent $save): RedirectResponse
@@ -115,7 +117,7 @@ class StudentController extends Controller
     {
         Gate::authorize('update', $student);
 
-        return view('students.edit', ['student' => $student]);
+        return view('students.edit', ['student' => $student] + $this->admission());
     }
 
     public function update(StudentRequest $request, Student $student, SaveStudent $save): RedirectResponse
@@ -154,6 +156,14 @@ class StudentController extends Controller
             'placements' => $placements->for($students, $year),
             'classes' => SchoolClass::query()->orderBy('sort_order')->orderBy('name')->get(),
         ]);
+    }
+
+    /**
+     * @return array{admissionAuto: bool, admissionNext: string}
+     */
+    private function admission(): array
+    {
+        return ['admissionAuto' => AdmissionSetting::current()->isAuto(), 'admissionNext' => AdmissionNumbers::peek(now())];
     }
 
     /**

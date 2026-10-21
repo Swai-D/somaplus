@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Students;
 
+use App\Models\AdmissionSetting;
 use App\Models\Student;
 
 class StudentRequest extends StudentsRequest
@@ -22,8 +23,12 @@ class StudentRequest extends StudentsRequest
     {
         $student = $this->route('student');
 
-        return [
-            'admission_number' => ['required', 'string', 'max:30', $this->unique('students', 'admission_number', $student instanceof Student ? $student->id : null)],
+        // When the school lets Somaplus make admission numbers, a typed one is neither asked for nor accepted.
+        $number = AdmissionSetting::current()->isAuto()
+            ? []
+            : ['admission_number' => ['required', 'string', 'max:30', $this->unique('students', 'admission_number', $student instanceof Student ? $student->id : null)]];
+
+        return $number + [
             'first_name' => ['required', 'string', 'max:100'],
             'middle_name' => ['nullable', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],

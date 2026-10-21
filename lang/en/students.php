@@ -115,6 +115,7 @@ return [
         'stream_without_class' => 'A stream needs a class.',
         'col' => [
             'admission_number' => 'Unique number of the student in your school.',
+            'admission_number_auto' => 'Leave empty: Somaplus makes the number in your format. A number typed here (from an old register) is kept and must be unused.',
             'first_name' => 'First name.',
             'middle_name' => 'Middle name (optional).',
             'last_name' => 'Last name.',
