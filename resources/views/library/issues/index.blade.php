@@ -46,6 +46,7 @@
                             <th>{{ __('library.issues.list.book') }}</th>
                             <th>{{ __('library.issues.list.number') }}</th>
                             <th>{{ __('library.issues.list.issued_on') }}</th>
+                            <th>{{ __('library.issues.list.due_on') }}</th>
                             <th>{{ __('library.issues.list.returned_on') }}</th>
                             <th></th>
                         </tr>
@@ -62,6 +63,12 @@
                                 <td>{{ $issue->book->name }}</td>
                                 <td class="text-muted">{{ $issue->book->book_number ?? '—' }}</td>
                                 <td>{{ $issue->issued_on->isoFormat('D MMM YYYY') }}</td>
+                                <td>
+                                    {{ $issue->due_on?->isoFormat('D MMM YYYY') ?? '—' }}
+                                    @if ($issue->isOverdue())
+                                        <span class="badge bg-danger ms-1">{{ __('library.issues.list.overdue') }}</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($issue->isReturned())
                                         <span class="text-muted">{{ $issue->returned_on->isoFormat('D MMM YYYY') }}</span>
@@ -84,7 +91,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center text-muted py-4">{{ __('library.issues.list.empty') }}</td>
+                                <td colspan="9" class="text-center text-muted py-4">{{ __('library.issues.list.empty') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -122,6 +129,9 @@
                 </div>
                 <div class="col-md-6">
                     @include('academics._field', ['name' => 'issued_on', 'label' => __('library.issues.form.issued_on'), 'type' => 'date', 'value' => old('issued_on', now()->toDateString()), 'hint' => __('library.issues.form.day_hint')])
+                </div>
+                <div class="col-md-6">
+                    @include('academics._field', ['name' => 'due_on', 'label' => __('library.issues.form.due_on'), 'type' => 'date', 'value' => old('due_on', now()->addDays(14)->toDateString()), 'hint' => __('library.issues.form.due_hint')])
                 </div>
             </div>
         </x-form-modal>

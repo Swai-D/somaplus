@@ -36,6 +36,7 @@ Route::prefix('library')->name('library.')->group(function () {
         });
 
         Route::get('{member}', [MemberController::class, 'show'])->name('show')->whereNumber('member');
+        Route::get('{member}/card', [MemberController::class, 'card'])->name('card')->whereNumber('member');
         Route::get('{member}/edit', [MemberController::class, 'edit'])->name('edit')->whereNumber('member');
     });
 

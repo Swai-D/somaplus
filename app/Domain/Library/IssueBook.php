@@ -18,9 +18,9 @@ final class IssueBook
 {
     public function __construct(private readonly RecordAudit $audit) {}
 
-    public function handle(Book $book, LibraryMember $member, string $issuedOn, ?string $returnedOn = null): BookIssue
+    public function handle(Book $book, LibraryMember $member, string $issuedOn, string $dueOn): BookIssue
     {
-        return DB::transaction(function () use ($book, $member, $issuedOn, $returnedOn): BookIssue {
+        return DB::transaction(function () use ($book, $member, $issuedOn, $dueOn): BookIssue {
             $out = BookIssue::query()
                 ->where('book_id', $book->id)
                 ->whereNull('returned_on')
@@ -39,7 +39,8 @@ final class IssueBook
                 'book_id' => $book->id,
                 'member_id' => $member->id,
                 'issued_on' => $issuedOn,
-                'returned_on' => $returnedOn,
+                'due_on' => $dueOn,
+                'returned_on' => null,
             ]);
             $issue->save();
 

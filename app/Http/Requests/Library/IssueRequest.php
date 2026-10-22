@@ -36,6 +36,8 @@ class IssueRequest extends LibraryRequest
                 },
             ],
             'issued_on' => ['required', 'date', 'before_or_equal:today'],
+            // The day the school expects the copy back; never before the day it went out.
+            'due_on' => ['required', 'date', 'after_or_equal:issued_on'],
         ];
     }
 

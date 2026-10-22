@@ -1,7 +1,7 @@
 ---
 title: Maktaba
 summary: Hifadhi vitabu vya maktaba yako, wanamaktaba wake, na nakala zinazotoka na kurejea.
-keywords: maktaba, vitabu, orodha ya vitabu, ongeza kitabu, wanamaktaba, kadi, kopesha, rejesha, kukopa
+keywords: maktaba, vitabu, orodha ya vitabu, ongeza kitabu, wanamaktaba, kadi, kopesha, rejesha, kukopa, tarehe ya kurejesha, limeliwahi, kadi ya maktaba
 order: 1
 ---
 **Elimu** > **Maktaba** ina kurasa tatu: **orodha ya vitabu**, **wanamaktaba** na **kutoa na kurejesha**. Kitabu ni kile shule inachokimiliki; mwanamaktaba ni mwanafunzi mwenye kadi aliyoipewa na shule; matumizi ni nakala moja iliyotoka kwenye rafu na siku iliyorejea.
@@ -23,9 +23,13 @@ Ukurasa wa mwanamaktaba unaonyesha kila kitabu alilokopa, kile alichorejesha na 
 
 ## Kopesha kitabu na kurejesha
 
-Chini ya **kutoa na kurejesha**, chagua **Kopesha kitabu**. Chagua mwanamaktaba kwa namba ya kadi yake, chagua kitabu chenye nakala kwenye rafu, na chagua siku nakala itakayotoka. Tarehe ya siku ijayo inakataliwa.
+Chini ya **kutoa na kurejesha**, chagua **Kopesha kitabu**. Chagua mwanamaktaba kwa namba ya kadi yake, chagua kitabu chenye nakala kwenye rafu, chagua siku nakala itakayotoka na siku inapaswa kurejeshwa (**Tarehe ya kurejesha**). Tarehe ya siku ijayo inakataliwa, na siku ya kurejesha haiwezi kabla ya siku ya kutoka.
 
-Uorodha unaonyesha nakala zilizotoka bado, na **Rejesha** zinazirejesha maktabani siku inayoonyeshwa. Kichuja kilichofuata kinaonyesha matumizi yote, yaliyotoka bado, au yaliyorejeshwa.
+Uorodha unaonyesha nakala zilizotoka bado pamoja na siku zao za kurejesha, na **Rejesha** zinazirejesha maktabani siku inayoonyeshwa. Nakala isiyorejeshewa hadi siku yake ya kurejesha imepita inaonyeshwa kwa alama nyekundu **Limeliwahi**, kwenye uorodha na ukurasa wa mwanamaktaba. Kichuja kilichofuata kinaonyesha matumizi yote, yaliyotoka bado, au yaliyorejeshwa.
+
+## Kadi ya maktaba
+
+Kwenye ukurasa wa mwanamaktaba, **Chapisha kadi ya maktaba** hufungua kurasa ya kuchapisha kwenye kichupo kipya: jina la shule, jina la mwanafunzi, namba ya kadi yenye barcode, darasa lake na mwaka. Tumia uchapishaji wa kivinjari kwa karatasi.
 
 ## Kutowa kitabu au mwanamaktaba
 

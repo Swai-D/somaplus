@@ -14,6 +14,7 @@
                 <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
                     <h5 class="mb-0">{{ __('library.members.show.details') }}</h5>
                     <div class="d-flex gap-2">
+                        <a href="{{ route('library.members.card', $member) }}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="ti ti-id me-1"></i>{{ __('library.members.show.print_card') }}</a>
                         @can('update', $member)
                             <a href="{{ route('library.members.edit', $member) }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-edit me-1"></i>{{ __('library.members.show.edit') }}</a>
                         @endcan
@@ -55,6 +56,7 @@
                             <th>{{ __('library.issues.list.book') }}</th>
                             <th>{{ __('library.issues.list.number') }}</th>
                             <th>{{ __('library.issues.list.issued_on') }}</th>
+                            <th>{{ __('library.issues.list.due_on') }}</th>
                             <th>{{ __('library.issues.list.returned_on') }}</th>
                             <th></th>
                         </tr>
@@ -66,6 +68,12 @@
                                 <td>{{ $issue->book->name }}</td>
                                 <td class="text-muted">{{ $issue->book->book_number ?? '—' }}</td>
                                 <td>{{ $issue->issued_on->isoFormat('D MMM YYYY') }}</td>
+                                <td>
+                                    {{ $issue->due_on?->isoFormat('D MMM YYYY') ?? '—' }}
+                                    @if ($issue->isOverdue())
+                                        <span class="badge bg-danger ms-1">{{ __('library.issues.list.overdue') }}</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($issue->isReturned())
                                         <span class="text-muted">{{ $issue->returned_on->isoFormat('D MMM YYYY') }}</span>
@@ -88,7 +96,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center text-muted py-4">{{ __('library.members.show.no_history') }}</td>
+                                <td colspan="7" class="text-center text-muted py-4">{{ __('library.members.show.no_history') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

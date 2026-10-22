@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $book_id
  * @property int $member_id
  * @property CarbonImmutable $issued_on
+ * @property CarbonImmutable|null $due_on
  * @property CarbonImmutable|null $returned_on
  */
 class BookIssue extends Model
@@ -25,7 +26,7 @@ class BookIssue extends Model
     /** @use HasFactory<BookIssueFactory> */
     use BelongsToTenant, HasFactory;
 
-    protected $fillable = ['book_id', 'member_id', 'issued_on', 'returned_on'];
+    protected $fillable = ['book_id', 'member_id', 'issued_on', 'due_on', 'returned_on'];
 
     /**
      * @return array<string, string>
@@ -34,6 +35,7 @@ class BookIssue extends Model
     {
         return [
             'issued_on' => 'date',
+            'due_on' => 'date',
             'returned_on' => 'date',
         ];
     }
@@ -61,5 +63,11 @@ class BookIssue extends Model
     public function isReturned(): bool
     {
         return $this->returned_on !== null;
+    }
+
+    /** The day it had to come back has passed, and the copy is still out. */
+    public function isOverdue(): bool
+    {
+        return ! $this->isReturned() && $this->due_on !== null && $this->due_on->lessThan(now());
     }
 }
