@@ -30,7 +30,23 @@ Route::prefix('students')->name('students.')->group(function () {
         Route::post('{student}/leave', [StudentController::class, 'leave'])->name('leave')->whereNumber('student');
         Route::post('{student}/reinstate', [StudentController::class, 'reinstate'])->name('reinstate')->whereNumber('student');
         Route::post('{student}/enrollments', [EnrollmentController::class, 'store'])->name('enrollments.store')->whereNumber('student');
-        Route::post('{student}/guardians', [GuardianController::class, 'store'])->name('guardians.store')->whereNumber('student');
-        Route::delete('{student}/guardians/{guardian}', [GuardianController::class, 'destroy'])->name('guardians.destroy')->whereNumber(['student', 'guardian']);
+        Route::post('{student}/guardians', [GuardianController::class, 'linkToStudent'])->name('guardians.store')->whereNumber('student');
+        Route::delete('{student}/guardians/{guardian}', [GuardianController::class, 'unlinkFromStudent'])->name('guardians.destroy')->whereNumber(['student', 'guardian']);
+    });
+});
+
+// The guardians of the school, on their own. Reading needs `students.view`, changing needs
+// `students.manage` (GuardianPolicy) and a school that is not read-only.
+Route::prefix('guardians')->name('guardians.')->group(function () {
+    Route::get('/', [GuardianController::class, 'index'])->name('index');
+    Route::get('add', [GuardianController::class, 'add'])->name('add');
+    Route::get('{guardian}', [GuardianController::class, 'show'])->name('show')->whereNumber('guardian');
+
+    Route::middleware('tenant.writable')->group(function () {
+        Route::post('/', [GuardianController::class, 'store'])->name('store');
+        Route::put('{guardian}', [GuardianController::class, 'update'])->name('update')->whereNumber('guardian');
+        Route::delete('{guardian}', [GuardianController::class, 'destroy'])->name('destroy')->whereNumber('guardian');
+        Route::post('{guardian}/students', [GuardianController::class, 'addStudent'])->name('students.store')->whereNumber('guardian');
+        Route::delete('{guardian}/students/{student}', [GuardianController::class, 'removeStudent'])->name('students.destroy')->whereNumber(['guardian', 'student']);
     });
 });
