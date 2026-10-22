@@ -390,7 +390,23 @@ it('searches for an issue with a POST, so what is typed never lands in a URL', f
 
 it('keeps the library away from the accounts that may not see it', function (string $account) {
     $this->actingAs($this->{$account})->get($this->url.'/library/books')->assertForbidden();
-})->with(['teacher', 'accountant', 'parent']);
+})->with(['accountant', 'parent']);
+
+it('lets a teacher look at the library without changing it', function () {
+    $book = aBook($this->school, 'Kiswahili Fasaha');
+    aMember($this->school, ($this->aPupil)());
+
+    $this->actingAs($this->teacher)->get($this->url.'/library/books')->assertOk()->assertSee('Kiswahili Fasaha');
+    $this->actingAs($this->teacher)->get($this->url.'/library/members')->assertOk();
+
+    $page = $this->actingAs($this->teacher)->get($this->url.'/library/issues')->assertOk();
+    $html = $page->getContent();
+    expect($html)->not->toContain('data-bs-target="#issue-modal"')
+        ->and($html)->not->toContain('id="issue-modal"');
+
+    $this->actingAs($this->teacher)->post($this->url.'/library/books', ['name' => 'Changanja', 'quantity' => 1])
+        ->assertForbidden();
+});
 
 it('lets a head teacher work in the library', function () {
     aBook($this->school);
@@ -485,5 +501,5 @@ it('prints the library card of a member', function () {
 it('sends an account that may not use the library away from the card', function () {
     $member = aMember($this->school, ($this->aPupil)());
 
-    $this->actingAs($this->teacher)->get($this->url.'/library/members/'.$member->id.'/card')->assertForbidden();
+    $this->actingAs($this->accountant)->get($this->url.'/library/members/'.$member->id.'/card')->assertForbidden();
 });

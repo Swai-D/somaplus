@@ -37,7 +37,7 @@ A book or a member the library ever issued cannot be deleted, because the record
 
 ## Good to know
 
-- Only the owner and the head teacher see the library; another role can be given the permission in [Custom roles](help:account/custom-roles).
+- Only the owner, the head teacher and the teachers see the library; the teachers look without changing, and another role can be given the permission in [Custom roles](help:account/custom-roles).
 - The subjects a book belongs to are the ones the school has: add them first under [Classes and subjects](help:academics/classes-and-streams).
 - The search is sent to the server, so what you type is not kept in the address of the page.
 - Every change is written to the audit log.

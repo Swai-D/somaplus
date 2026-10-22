@@ -19,6 +19,8 @@ A role decides what a person can see and do. The side menu shows only what the p
 | Take and look at attendance | Yes | Yes | Yes | No | No |
 | Look at exams, grading scales and marks, and enter marks | Yes | Yes | Yes | No | No |
 | Look at results, positions and report cards | Yes | Yes | Yes | No | No |
+| Look at the library: books, members and the copies out | Yes | Yes | Yes | No | No |
+| Add books and members, put books out and take them back | Yes | Yes | No | No | No |
 | Look at fee structures and invoices | Yes | Yes | No | Yes | No |
 | Change fee structures, make invoices, set control numbers | Yes | No | No | Yes | No |
 | Record payments and issue receipts | Yes | No | No | Yes | No |
