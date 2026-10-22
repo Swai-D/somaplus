@@ -58,7 +58,7 @@ it('hides the quick actions the person may not use', function () {
 });
 
 it('shows no quick menu to a parent or student account', function () {
-    $html = $this->actingAs($this->parent)->get('http://acme.somaplus.test/')->assertOk()->getContent();
+    $html = $this->actingAs($this->parent)->get('http://acme.somaplus.test/help')->assertOk()->getContent();
 
     expect($html)->not->toContain('link-item')
         ->not->toContain(route('students.create'));
@@ -171,7 +171,7 @@ it('searches the students from the top bar, with a POST so the name stays out of
         ->toContain(route('help.show', ['category' => 'students', 'slug' => 'add-and-find']));
 
     // A parent or student account may not look at the students, so there is no search box.
-    $html = $this->actingAs($this->parent)->get('http://acme.somaplus.test/')->assertOk()->getContent();
+    $html = $this->actingAs($this->parent)->get('http://acme.somaplus.test/help')->assertOk()->getContent();
 
     expect($html)->not->toContain('name="term"');
 });
