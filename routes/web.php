@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
     require __DIR__.'/academics.php';
     require __DIR__.'/students.php';
     require __DIR__.'/teachers.php';
+    require __DIR__.'/library.php';
     require __DIR__.'/attendance.php';
     require __DIR__.'/exams.php';
     require __DIR__.'/fees.php';

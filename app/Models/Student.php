@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * A pupil of the school. Personal data of a minor: collect only what is needed
@@ -81,5 +82,15 @@ class Student extends Model
             ->withTimestamps()
             ->orderByDesc('guardian_student.is_primary')
             ->orderBy('guardians.name');
+    }
+
+    /**
+     * The card of the library the pupil holds, when they are a member of it.
+     *
+     * @return HasOne<LibraryMember, $this>
+     */
+    public function libraryMember(): HasOne
+    {
+        return $this->hasOne(LibraryMember::class);
     }
 }
