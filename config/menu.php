@@ -203,6 +203,18 @@ return [
             ],
         ],
         [
+            'label' => 'menu.sections.platform',
+            'items' => [
+                [
+                    'label' => 'menu.schools',
+                    'icon' => 'ti ti-building-community',
+                    'route' => 'platform.schools.index',
+                    'scope' => 'central',
+                    'active' => ['platform.schools.*'],
+                ],
+            ],
+        ],
+        [
             'label' => 'menu.sections.support',
             'items' => [
                 [

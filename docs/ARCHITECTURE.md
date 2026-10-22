@@ -182,6 +182,13 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - Idempotent: unique (tenant, kind, invoice, guardian, day), so one reminder per guardian per invoice per day. The balance is re-derived when the job runs: a paid invoice cancels the message. Temporary provider failures are retried (3 tries), then the row is `failed`.
 - No phone number and no message text are stored; a provider error with long digit runs is masked. `reminder.queued` is written to the audit log (ids only).
 
+## Platform: schools (super-admin)
+
+- `platform/schools` (list, create, edit; `routes/platform.php`) exists only on a central address for a platform administrator: `platform.admin` (`EnsurePlatformAdmin`) answers 404 to everyone else, so a school's owner never sees it. `Tenant` is not tenant-scoped, so route binding of `{tenant}` sees every school here; this is the one reviewed place that does.
+- `CreateSchool` makes the school (its five roles are added by `Tenant::created`), then its first owner inside that school's context with a random password nobody sees, and sends the owner a reset link. The link must point at the school's own address, not the central one: `ResetPasswordNotification` uses `SchoolAddress::rootForCentralRequest()` (own domain, else `<slug>.<base domain>`). With Railway path entry and no own domain a school has no address of its own, so no link is sent and the page says so.
+- `UpdateSchool` changes name, own domain, plan and subscription state (grace needs a date). The short name and the currency are fixed after creation. Nothing is ever deleted.
+- There is no help article: the Help centre is for a school's people, the platform area is not.
+
 ## Deployment behind Railway's proxy (HTTPS)
 
 Railway ends TLS at its edge and forwards plain http to the container, so without help PHP believes every request is `http://`. `asset()` and `route()` then emit `http://` stylesheet and script links, and the browser blocks them on the `https://` page as mixed content: the page loads with no styling. The template's CSS is static (`public/assets/`, not built by Vite), so the files are fine; only the links were wrong.

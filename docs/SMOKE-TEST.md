@@ -250,6 +250,15 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 5. Switch SMS off in Settings: sending is refused with a message pointing to Integrations. A teacher or head teacher gets 403 on the page; a read-only school can open it but cannot send.
 6. Kiswahili: page, statuses and Help > Ada na ankara > "Wakumbushe wazazi ada kwa SMS" are in Swahili.
 
+## Platform: schools
+
+1. Sign in on the central address as the platform administrator (`admin@somaplus.test` in the demo): the menu has Platform > Schools; a school owner never sees it, and opening `/platform/schools` on a school address gives 404.
+2. Add a school: name, short name `demo2`, plan, currency KES, owner name and email. After saving, the school is in the list and the owner receives an email whose link starts with the school's address (`demo2.<base domain>`), not the central one.
+3. Open the link, choose a password, sign in on the school address: the owner has all owner menus; the school's currency is KES.
+4. Reuse the short name `demo2`, or use `admin`, `my school`, a currency `XYZ` or the central domain as own domain: each is refused.
+5. Open the school and change the plan, then set the subscription to Grace (a date is required), then Read-only: the owner of that school can still sign in and read but changes get 403. The short name and the currency cannot be changed.
+6. Kiswahili: all these pages are in Swahili. On Railway with path entry and no own domain, no email link is sent and the page says so.
+
 ## Production on Railway (HTTPS styling)
 
 1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.
