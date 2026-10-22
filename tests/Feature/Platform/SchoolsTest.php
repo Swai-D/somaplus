@@ -52,7 +52,7 @@ it('opens a school with its roles, plan, currency and first owner, and sends the
     expect($school->subscription_plan_id)->toBe($this->plan->id)->and($school->currency)->toBe('KES')
         ->and($school->subscription_status)->toBe(SubscriptionStatus::Active)->and($school->domain)->toBeNull();
 
-    TenantContext::run($school, function () {
+    TenantContext::run($school, function () use ($school) {
         $owner = User::query()->where('email', 'owner@zxqnew.test')->sole();
         expect($owner->hasRole('owner'))->toBeTrue()->and(Role::where('tenant_id', $school->id)->count())->toBe(count(config('roles.roles')));
         Notification::assertSentTo($owner, ResetPasswordNotification::class, function ($notification) use ($owner) {
