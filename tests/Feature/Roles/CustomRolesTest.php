@@ -99,7 +99,7 @@ it('gives a person with a custom role exactly what the role allows', function ()
     $registrar = ($this->personWith)(($this->makeRole)('Registrar', ['students.manage']));
 
     $this->actingAs($registrar)->get("{$this->url}/students")->assertOk();
-    $this->actingAs($registrar)->get("{$this->url}/students/create")->assertOk();
+    $this->actingAs($registrar)->get("{$this->url}/students/create")->assertRedirect();
     $this->actingAs($registrar)->get("{$this->url}/fees/invoices")->assertForbidden();
     $this->actingAs($registrar)->get("{$this->url}/settings/roles")->assertForbidden();
     $this->actingAs($registrar)->get("{$this->url}/settings/users")->assertForbidden();

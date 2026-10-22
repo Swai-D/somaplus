@@ -281,7 +281,7 @@ it('lets teachers and accountants look, and only the owner and head teacher chan
 
     $create = $this->actingAs($user)->get("{$this->url}/students/create");
     $post = $this->actingAs($user)->post("{$this->url}/students", ($this->valid)(['admission_number' => 'Z-9']));
-    $manage ? $create->assertOk() : $create->assertForbidden();
+    $manage ? $create->assertRedirect() : $create->assertForbidden();
     $manage ? $post->assertRedirect() : $post->assertForbidden();
 })->with([
     'owner' => ['owner', true],

@@ -7,6 +7,7 @@ use App\Models\Stream;
 use App\Models\SubscriptionPlan;
 use App\Models\Tenant;
 use App\Models\Term;
+use App\Tenancy\TenantContext;
 
 /**
  * The forms of the list pages are pop-ups, as in the template: the page is not loaded
