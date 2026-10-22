@@ -6,6 +6,8 @@ order: 3
 ---
 Fungua mtihani kisha chini ya **Ingiza au angalia alama**, chagua **Darasa**, kama unataka **Mkondo**, na **Somo**, kisha **Onyesha**. Wamiliki, walimu wakuu na walimu wanaweza kuingiza alama.
 
+Mwalimu huona madarasa na masomo tu ambayo shule imempa chini ya **Walimu** — orodha zinabeba wanachofundisha, si vingine. Mmiliki na mwalimu mkuu huona kila kitu.
+
 ## Ingiza alama
 
 1. Andika **Alama** ya kila mwanafunzi (kati ya alama ya juu ya mtihani). Tumia nukta au koma kwa desimali, zisizozidi mbili, kwa mfano `45` au `45.5`.
