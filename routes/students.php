@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Students\EnrollmentController;
 use App\Http\Controllers\Students\GuardianController;
+use App\Http\Controllers\Students\PortalAccessController;
 use App\Http\Controllers\Students\StudentController;
 use App\Http\Controllers\Students\StudentIdCardController;
 use App\Http\Controllers\Students\StudentImportController;
@@ -46,6 +47,8 @@ Route::prefix('guardians')->name('guardians.')->group(function () {
         Route::post('/', [GuardianController::class, 'store'])->name('store');
         Route::put('{guardian}', [GuardianController::class, 'update'])->name('update')->whereNumber('guardian');
         Route::delete('{guardian}', [GuardianController::class, 'destroy'])->name('destroy')->whereNumber('guardian');
+        Route::post('{guardian}/portal', [PortalAccessController::class, 'store'])->name('portal.store')->whereNumber('guardian');
+        Route::delete('{guardian}/portal', [PortalAccessController::class, 'destroy'])->name('portal.destroy')->whereNumber('guardian');
         Route::post('{guardian}/students', [GuardianController::class, 'addStudent'])->name('students.store')->whereNumber('guardian');
         Route::delete('{guardian}/students/{student}', [GuardianController::class, 'removeStudent'])->name('students.destroy')->whereNumber(['guardian', 'student']);
     });

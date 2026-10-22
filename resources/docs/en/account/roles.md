@@ -25,6 +25,8 @@ A role decides what a person can see and do. The side menu shows only what the p
 | Reverse a payment | Yes | No | No | No | No |
 | Send fee reminders by SMS | Yes | No | No | Yes | No |
 | Set up integrations (Settings > Integrations) | Yes | No | No | No | No |
+| Give a guardian access to the family pages | Yes | No | No | No | No |
+| Open the family pages: own children's fees and results | No | No | No | No | Yes |
 | Change the school profile (Settings > School profile) | Yes | No | No | No | No |
 | Add and change grading scales and exams, lock and unlock exams | Yes | Yes | No | No | No |
 

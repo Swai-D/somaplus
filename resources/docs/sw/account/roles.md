@@ -25,6 +25,8 @@ Wadhifa unaamua mtu anaweza kuona na kufanya nini. Menyu ya pembeni inaonyesha t
 | Kubatilisha malipo | Ndiyo | Hapana | Hapana | Hapana | Hapana |
 | Kutuma vikumbusho vya ada kwa SMS | Ndiyo | Hapana | Hapana | Ndiyo | Hapana |
 | Kuweka miunganisho (Mipangilio > Miunganisho) | Ndiyo | Hapana | Hapana | Hapana | Hapana |
+| Kumpa mlezi ufikiaji wa kurasa za familia | Ndiyo | Hapana | Hapana | Hapana | Hapana |
+| Kufungua kurasa za familia: ada na matokeo ya watoto wake | Hapana | Hapana | Hapana | Hapana | Ndiyo |
 | Kubadilisha wasifu wa shule (Mipangilio > Wasifu wa shule) | Ndiyo | Hapana | Hapana | Hapana | Hapana |
 | Kuongeza na kubadilisha mizani ya madaraja na mitihani, kufunga na kufungua mitihani | Ndiyo | Ndiyo | Hapana | Hapana | Hapana |
 

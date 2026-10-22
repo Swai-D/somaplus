@@ -246,6 +246,18 @@ return [
             ],
         ],
         [
+            'label' => 'menu.sections.family',
+            'items' => [
+                [
+                    'label' => 'menu.my_children',
+                    'icon' => 'ti ti-users-group',
+                    'route' => 'family.index',
+                    'permission' => 'family.portal',
+                    'active' => ['family.*'],
+                ],
+            ],
+        ],
+        [
             'label' => 'menu.sections.platform',
             'items' => [
                 [

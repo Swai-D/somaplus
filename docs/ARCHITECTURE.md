@@ -187,6 +187,11 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - Idempotent: unique (tenant, kind, invoice, guardian, day), so one reminder per guardian per invoice per day. The balance is re-derived when the job runs: a paid invoice cancels the message. Temporary provider failures are retried (3 tries), then the row is `failed`.
 - No phone number and no message text are stored; a provider error with long digit runs is masked. `reminder.queued` is written to the audit log (ids only).
 
+## Family pages (parents)
+
+- A guardian can be given an account: `guardians.user_id` (unique, nullable) links the guardian record to a user with the `parent_student` role (`GrantPortalAccess`: the guardian's email, a random password nobody sees, a reset link; an email that belongs to another account is never taken over; owner only, `GuardianPolicy::managePortal`). `RevokePortalAccess` removes the role, scrambles the password, ends database sessions and unlinks; nothing is deleted, and a guardian with access cannot be deleted.
+- `family.portal` (parent role only, in `custom_excluded`) guards `family/*`. `FamilyChildren` is the one place that decides which pupils a parent sees: those linked, through `guardian_student`, to a guardian record whose `user_id` is the parent; any other child answers 404, so unlinking a child ends access at once. The pages only read (they work in a read-only school): invoices with `InvoiceBalance`, payments with receipt numbers, and `ReportCard` for locked exams (shared partial `exams.results._cards`). Views are audit-logged (`family.child_viewed`, `report.viewed`, ids only). The parent's `/` redirects to `family.index`.
+
 ## Settings: school profile
 
 - `settings/school` (owner, `settings.manage`, `SchoolProfilePolicy`; saving uses `tenant.writable`) keeps a school's phone, email and address in `school_profiles` (one row per school, `BelongsToTenant`; no row = name only). `SaveSchoolProfile` clears empty fields and writes `settings.profile_updated` (ids only) to the audit log.

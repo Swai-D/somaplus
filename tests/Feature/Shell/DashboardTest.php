@@ -159,9 +159,10 @@ it('shows only the blocks the person may see anywhere else in the application', 
         ->assertSee('feesChart')
         ->assertDontSee(__('dashboard.attendance_today'));
 
-    // A parent or student role holds none of those permissions: only the school card.
-    $this->actingAs($parent)->get('http://acme.somaplus.test/')->assertOk()
-        ->assertSee(__('dashboard.your_school'))
+    // A parent has no school dashboard: they are sent to their children, and none of those blocks is there.
+    $this->actingAs($parent)->get('http://acme.somaplus.test/')->assertRedirect(route('family.index', [], false));
+    $this->app['auth']->forgetGuards();
+    $this->actingAs($parent)->get('http://acme.somaplus.test/family')->assertOk()
         ->assertDontSee(__('dashboard.new_admissions'))
         ->assertDontSee(__('dashboard.recent_payments'))
         ->assertDontSee(__('dashboard.fees_chart'))
@@ -302,7 +303,7 @@ it('does not show the people, the results or the register to a person who may no
     $parent = userWithRole($this->school, 'parent_student');
 
     $this->actingAs($parent)
-        ->get('http://acme.somaplus.test/')
+        ->get('http://acme.somaplus.test/family')
         ->assertOk()
         ->assertDontSee(__('dashboard.people'))
         ->assertDontSee(__('dashboard.top_students'))

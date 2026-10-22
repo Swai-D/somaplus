@@ -43,6 +43,31 @@
         </div>
 
         <div class="col-lg-8">
+            @can('managePortal', $guardian)
+                <div class="card">
+                    <div class="card-header"><h5 class="mb-0">{{ __('family.access.title') }}</h5></div>
+                    <div class="card-body">
+                        @error('portal')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        <p class="text-muted">{{ __('family.access.hint') }}</p>
+                        @if ($guardian->hasPortalAccess())
+                            <p class="mb-3"><span class="badge bg-success">{{ __('family.access.has') }}</span></p>
+                            <form method="POST" action="{{ route('guardians.portal.destroy', $guardian) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger">{{ __('family.access.revoke') }}</button>
+                            </form>
+                        @elseif (blank($guardian->email))
+                            <p class="text-danger mb-0">{{ __('family.errors.no_email') }}</p>
+                        @else
+                            <form method="POST" action="{{ route('guardians.portal.store', $guardian) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">{{ __('family.access.give') }}</button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+            @endcan
+
             <div class="card">
                 <div class="card-header"><h5 class="mb-0">{{ __('students.guardians.list.children') }}</h5></div>
                 <div class="card-body">

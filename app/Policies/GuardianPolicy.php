@@ -32,6 +32,12 @@ class GuardianPolicy
         return $user->can('students.manage');
     }
 
+    /** Giving or taking away a person's account is managing users: owner only. */
+    public function managePortal(User $user, Guardian $guardian): bool
+    {
+        return $user->can('settings.manage');
+    }
+
     public function delete(User $user, Guardian $guardian): bool
     {
         return $user->can('students.manage');

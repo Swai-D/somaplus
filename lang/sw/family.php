@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'title' => 'Watoto wangu',
+    'intro' => 'Ada na matokeo ya watoto wako katika shule hii.',
+    'open' => 'Fungua',
+    'owed' => 'Deni',
+    'nothing_owed' => 'Hakuna deni',
+    'no_children' => 'Bado hakuna mtoto aliyeunganishwa na akaunti yako. Uliza ofisi ya shule.',
+    'results' => 'Matokeo',
+    'results_hint' => 'Chagua muhula kuona ripoti. Mitihani ambayo shule imemaliza na kufunga tu ndiyo inaonyeshwa.',
+    'invoices' => 'Ankara za ada',
+    'no_invoices' => 'Bado hakuna ankara.',
+    'total' => 'Jumla',
+    'paid' => 'Kimelipwa',
+    'payments' => 'Malipo yaliyopokelewa',
+    'no_payments' => 'Bado hakuna malipo.',
+    'reversed' => 'Yamebatilishwa',
+    'access' => [
+        'title' => 'Ufikiaji wa kurasa za familia',
+        'hint' => 'Inamruhusu mlezi huyu kuingia kwa barua pepe yake na kuona ada na matokeo ya watoto wake mwenyewe tu, na si kingine. Anapokea barua pepe ya kuchagua nenosiri.',
+        'has' => 'Ana ufikiaji',
+        'give' => 'Mpe ufikiaji',
+        'revoke' => 'Ondoa ufikiaji',
+    ],
+    'granted_sent' => 'Ufikiaji umetolewa. Mlezi ametumiwa barua pepe ya kuchagua nenosiri.',
+    'granted_not_sent' => 'Ufikiaji umetolewa, lakini barua pepe haikuweza kutumwa. Mwambie mlezi atumie "Nimesahau nenosiri".',
+    'revoked' => 'Ufikiaji umeondolewa.',
+    'errors' => [
+        'already' => 'Mlezi huyu tayari ana ufikiaji.',
+        'no_email' => 'Weka kwanza barua pepe ya mlezi.',
+        'email_taken' => 'Barua pepe hii tayari ni ya akaunti nyingine ya shule.',
+        'revoke_first' => 'Mlezi huyu ana ufikiaji wa kurasa za familia. Mwondolee kwanza.',
+    ],
+];
