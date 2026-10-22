@@ -40,6 +40,25 @@
                             </div>
                         </div>
                     </div>
+                    @if ($figures['teaches'] !== null)
+                        <div class="border rounded p-2 text-center mt-2">
+                            <p class="fs-12 text-muted mb-1">{{ __('dashboard.teacher.teaches') }}</p>
+                            <p class="mb-0">
+                                @if ($figures['teaches']['subjects'] === [] && $figures['teaches']['classes'] === [])
+                                    <span class="text-muted">{{ __('dashboard.teacher.teaches_none') }}</span>
+                                @endif
+                                @if ($figures['teaches']['subjects'] !== [])
+                                    {{ implode(', ', $figures['teaches']['subjects']) }}
+                                @endif
+                                @if ($figures['teaches']['subjects'] !== [] && $figures['teaches']['classes'] !== [])
+                                    <span class="text-muted">·</span>
+                                @endif
+                                @if ($figures['teaches']['classes'] !== [])
+                                    {{ implode(', ', $figures['teaches']['classes']) }}
+                                @endif
+                            </p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -88,6 +107,43 @@
                                 </div>
                             @endforeach
                         @endif
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if ($figures['library'] !== null)
+            <div class="col-xl-4 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title mb-0">{{ __('dashboard.teacher.library') }}</h5>
+                        <a href="{{ route('library.issues.index') }}" class="btn btn-sm btn-light">{{ __('menu.book_list') }}</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <div class="border rounded p-2 text-center">
+                                    <p class="fs-12 text-muted mb-1">{{ __('dashboard.teacher.library_shelf') }}</p>
+                                    <h6 class="fw-bold mb-0">{{ number_format($figures['library']['shelf']) }}</h6>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border rounded p-2 text-center">
+                                    <p class="fs-12 text-muted mb-1">{{ __('dashboard.teacher.library_out') }}</p>
+                                    <h6 class="fw-bold mb-0">{{ number_format($figures['library']['out']) }}</h6>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border rounded p-2 text-center">
+                                    <p class="fs-12 text-muted mb-1">{{ __('dashboard.teacher.library_overdue') }}</p>
+                                    <h6 class="fw-bold mb-0 {{ $figures['library']['overdue'] > 0 ? 'text-danger' : '' }}">{{ number_format($figures['library']['overdue']) }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="fs-13 text-muted mb-0 mt-2">
+                            {{ __('dashboard.teacher.library_copies', ['copies' => number_format($figures['library']['copies'])]) }}
+                            <a href="{{ route('library.issues.index', ['filter' => 'open']) }}">{{ __('dashboard.teacher.library_open_issues') }}</a>
+                        </p>
                     </div>
                 </div>
             </div>

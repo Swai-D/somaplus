@@ -37,7 +37,7 @@ Kitabu au mwanamaktaba aliyewahi kutumwa nje ya maktaba hakuwezi kufutwa, kwa sa
 
 ## Kujua vizuri
 
-- Ni mmiliki na mkurugenzi tu wanaoona maktaba; jukumu lingine linaweza kupewa ruhusa katika [Majukumu maalum](help:account/custom-roles).
+- Ni mmiliki, mkurugenzi na walimu wanaoona maktaba; walimu wanaangalia bila kubadilisha, na jukumu lingine linaweza kupewa ruhusa katika [Majukumu maalum](help:account/custom-roles).
 - Somo kitabu kinachotumia ni somo la shule linalopo: ongeza somo kwanza katika [Madarasa na masomo](help:academics/classes-and-streams).
 - Utafutaji unatuma kwa seva, kwa hiyo kile unachoweka hakihifadhiwi kwenye anwani ya ukurasa.
 - Kila mabadiliko huandikwa kwenye kumbukumbu ya ukaguzi.

@@ -19,6 +19,8 @@ Wadhifa unaamua mtu anaweza kuona na kufanya nini. Menyu ya pembeni inaonyesha t
 | Kuchukua na kuangalia mahudhurio | Ndiyo | Ndiyo | Ndiyo | Hapana | Hapana |
 | Kuangalia mitihani, mizani ya madaraja na alama, na kuingiza alama | Ndiyo | Ndiyo | Ndiyo | Hapana | Hapana |
 | Kuangalia matokeo, nafasi na ripoti za mwanafunzi | Ndiyo | Ndiyo | Ndiyo | Hapana | Hapana |
+| Kuangalia maktaba: vitabu, wanamaktaba na nakala zilizotoka | Ndiyo | Ndiyo | Ndiyo | Hapana | Hapana |
+| Kuongeza vitabu na wanamaktaba, kutoa vitabu na kuvirejesha | Ndiyo | Ndiyo | Hapana | Hapana | Hapana |
 | Kuangalia miundo ya ada na ankara | Ndiyo | Ndiyo | Hapana | Ndiyo | Hapana |
 | Kubadilisha miundo ya ada, kutengeneza ankara, kuweka control number | Ndiyo | Hapana | Hapana | Ndiyo | Hapana |
 | Kurekodi malipo na kutoa risiti | Ndiyo | Hapana | Hapana | Ndiyo | Hapana |
