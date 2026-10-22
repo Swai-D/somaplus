@@ -209,4 +209,72 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Quick actions
+    |--------------------------------------------------------------------------
+    |
+    | The "Add new" menu of the top bar: the pages a person reaches for most
+    | often. An entry is shown only when the route exists and the person holds
+    | the permission that guards it, exactly like the entries of the sidebar.
+    |
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Settings pages
+    |--------------------------------------------------------------------------
+    |
+    | The pages of the school's settings, in the order the "Settings" link of
+    | the top bar tries them. The first one that exists and that the person
+    | may open is the one the link leads to.
+    |
+    */
+
+    'settings_routes' => ['settings.integrations.index', 'settings.admission.index'],
+
+    'quick' => [[
+        'label' => 'menu.quick_add_student',
+        'icon' => 'ti ti-user-plus',
+        'route' => 'students.create',
+        'permission' => 'students.manage',
+    ],
+        [
+            'label' => 'menu.quick_import_students',
+            'icon' => 'ti ti-upload',
+            'route' => 'students.import',
+            'permission' => 'students.manage',
+        ],
+        [
+            'label' => 'menu.quick_attendance',
+            'icon' => 'ti ti-calendar-check',
+            'route' => 'attendance.index',
+            'permission' => 'attendance.manage',
+        ],
+        [
+            'label' => 'menu.quick_exam',
+            'icon' => 'ti ti-file-certificate',
+            'route' => 'exams.create',
+            'permission' => 'exams.manage',
+        ],
+        [
+            'label' => 'menu.quick_grading_scale',
+            'icon' => 'ti ti-chart-bar',
+            'route' => 'grading-scales.create',
+            'permission' => 'grades.manage',
+        ],
+        [
+            'label' => 'menu.quick_fee_structure',
+            'icon' => 'ti ti-cash',
+            'route' => 'fees.structures.create',
+            'permission' => 'fees.manage',
+        ],
+        [
+            'label' => 'menu.quick_payment',
+            'icon' => 'ti ti-receipt',
+            'route' => 'fees.payments.create',
+            'permission' => 'payments.record',
+        ],
+    ],
+
 ];

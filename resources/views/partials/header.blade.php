@@ -8,10 +8,34 @@
         </div>
 
         <a class="mobile_btn" href="#sidebar" id="mobile_btn">
-            <span class="bar-icon"><span></span><span></span><span></span></span>
+            <span class="bar-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
         </a>
 
         <ul class="nav user-menu">
+            @if ($quickActions !== [])
+                <li class="nav-item dropdown link-nav">
+                    <a href="javascript:void(0);" class="btn btn-primary btn-md d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <i class="ti ti-circle-plus me-1"></i>{{ __('layout.add_new') }}
+                    </a>
+                    <div class="dropdown-menu dropdown-xl dropdown-menu-center">
+                        <div class="row g-2">
+                            @foreach ($quickActions as $action)
+                                <div class="col-md-2">
+                                    <a href="{{ $action['url'] }}" class="link-item">
+                                        <span class="link-icon"><i class="{{ $action['icon'] }}"></i></span>
+                                        <p>{{ $action['label'] }}</p>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </li>
+            @endif
+
             <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button" title="{{ __('layout.language') }}">
                     <img alt="{{ __('layout.language') }}" class="img-fluid" src="{{ asset(app()->getLocale() === 'sw' ? 'assets/img/flags/tz.svg' : 'assets/img/flags/us-flag.svg') }}">
@@ -30,11 +54,53 @@
             </li>
 
             <li class="nav-item nav-item-box">
+                <a href="{{ route('help.index') }}" title="{{ __('layout.help') }}"><i class="ti ti-help-circle"></i></a>
+            </li>
+
+            <li class="nav-item nav-item-box">
                 <a href="javascript:void(0);" id="btnFullscreen" title="{{ __('layout.fullscreen') }}"><i class="ti ti-maximize"></i></a>
             </li>
 
+            <li class="nav-item dropdown nav-item-box">
+                <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" title="{{ __('layout.notifications') }}">
+                    <i class="ti ti-bell"></i>
+                    @if ($alerts !== [])
+                        <span class="badge rounded-pill">{{ count($alerts) }}</span>
+                    @endif
+                </a>
+                <div class="dropdown-menu notifications">
+                    <div class="topnav-dropdown-header">
+                        <h5 class="notification-title">{{ __('layout.notifications') }}</h5>
+                    </div>
+                    <div class="noti-content">
+                        <ul class="notification-list">
+                            @forelse ($alerts as $alert)
+                                <li class="notification-message">
+                                    <div class="media d-flex p-2">
+                                        <span class="avatar flex-shrink-0 bg-{{ $alert['tone'] }}-transparent text-{{ $alert['tone'] }}"><i class="{{ $alert['icon'] }} fs-18"></i></span>
+                                        <div class="flex-grow-1 ms-2">
+                                            <p class="noti-details mb-0">
+                                                <span class="noti-title">{{ $alert['title'] }}</span> {{ $alert['message'] }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            @empty
+                                <li class="p-3 text-center text-muted">{{ __('layout.no_notifications') }}</li>
+                            @endforelse
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            @if ($settingsUrl !== null)
+                <li class="nav-item nav-item-box">
+                    <a href="{{ $settingsUrl }}" title="{{ __('layout.settings') }}"><i class="ti ti-settings"></i></a>
+                </li>
+            @endif
+
             <li class="nav-item dropdown has-arrow main-drop profile-nav">
-                <a class="nav-link userset" data-bs-toggle="dropdown" href="javascript:void(0);">
+                <a href="javascript:void(0);" class="nav-link userset" data-bs-toggle="dropdown">
                     <span class="user-info p-0">
                         <span class="avatar avatar-md bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center">{{ mb_strtoupper(mb_substr($currentUser->name, 0, 1)) }}</span>
                     </span>
@@ -58,6 +124,9 @@
         <div class="dropdown mobile-user-menu">
             <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-ellipsis-v"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
+                @foreach ($quickActions as $action)
+                    <a class="dropdown-item" href="{{ $action['url'] }}">{{ $action['label'] }}</a>
+                @endforeach
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="dropdown-item">{{ __('layout.logout') }}</button>

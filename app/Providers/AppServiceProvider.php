@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Domain\Settings\NavigationAlerts;
 use App\Models\User;
 use App\Support\Menu;
 use App\Tenancy\TenantContext;
@@ -37,11 +38,15 @@ class AppServiceProvider extends ServiceProvider
             $authenticated = Auth::user();
             $user = $authenticated instanceof User ? $authenticated : null;
             $context = $this->app->make(TenantContext::class);
+            $menu = Menu::fromConfig();
 
             $view->with([
                 'currentUser' => $user,
                 'currentSchool' => $context->current(),
-                'menu' => Menu::fromConfig()->build($user, request()),
+                'menu' => $menu->build($user, request()),
+                'quickActions' => $menu->quick($user),
+                'settingsUrl' => $menu->settingsUrl($user),
+                'alerts' => $this->app->make(NavigationAlerts::class)->handle($user),
                 'roleLabel' => $user === null ? '' : ($user->isSuperAdmin()
                     ? __('layout.platform_admin')
                     : (string) $user->getRoleNames()->map(fn ($role) => __('roles.'.$role))->implode(', ')),
