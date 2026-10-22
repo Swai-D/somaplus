@@ -21,6 +21,7 @@ return [
         'getting-started' => ['title' => 'Kuanza', 'description' => 'Ingia na ujue mahali pa kila kitu'],
         'students' => ['title' => 'Wanafunzi', 'description' => 'Ongeza wanafunzi, walezi, historia ya madarasa na kuondoka shuleni'],
         'teachers' => ['title' => 'Walimu', 'description' => 'Ongeza walimu wako, kile wanachofundisha na madarasa yao'],
+        'library' => ['title' => 'Maktaba', 'description' => 'Hifadhi vitabu vya maktaba yako, wanamaktaba na nakala zinazotoka na kurejea'],
         'attendance' => ['title' => 'Mahudhurio', 'description' => 'Chukua mahudhurio na uone wanafunzi wanahudhuria mara ngapi'],
         'exams' => ['title' => 'Mitihani na alama', 'description' => 'Mizani ya madaraja, mitihani, kuingiza alama na kufunga'],
         'fees' => ['title' => 'Ada na ankara', 'description' => 'Miundo ya ada, ankara na control number'],

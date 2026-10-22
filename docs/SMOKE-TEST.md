@@ -146,6 +146,21 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 10. In Kiswahili all the pages are in Swahili; Help has the topic "Walimu" with one article.
 11. `select action, subject_id from audit_logs` shows the teacher actions with ids only and no names.
 
+## Library
+
+1. Sign in as owner. The sidebar has Academics > Library with **Add book**, **Book list**, **Library members** and **Issue and return**. A teacher, an accountant and a parent/student neither see the entry nor get the pages; the head teacher sees everything.
+2. Add a book: the form is a pop-up of the book list. Fill in the name, a subject of the school, the number `BK-001`, the rack, 3 copies and the price `5500.50`; save. The book is in the list with **On the shelf: 3**. A price of another currency is saved with the decimals of the school.
+3. The same book number in the same school is refused, and so is a book without a name or copies; the pop-up opens again with what was typed.
+4. Add a member under **Library members**: choose a pupil (only the pupils without a card are in the list) and give the card `LIB-0001`. The list shows the pupil, their class, the phone of the guardian and the card. A second card for the same pupil and a second `LIB-0001` are refused.
+5. Under **Issue and return**, use **Issue a book**: the member is in the list with their card, only the copies on the shelf are choosable. Save with today. The book now shows **On the shelf: 2**.
+6. Issue the last copy again for another member: the form refuses. A day in the future is refused too.
+7. **Bring back** on the open issue: the copy is on the shelf again and the row shows the day. Pressing it twice is refused.
+8. Open a member: the page shows the card, the class, the phone of the guardian and every borrowed book, brought back or still out. The search on each page is a POST to `/library/{books|members|issues}/search` and needs two letters.
+9. **Delete** a book the library ever lent, or a member the library ever gave a book: refused, because the history of the school stays. A book and a member without a record can be deleted.
+10. In a read-only school the pages open and every change answers 403. A member of another school gives 404.
+11. In Kiswahili all the pages are in Swahili; Help has the topic "Maktaba" with one article.
+12. `select action, subject_id from audit_logs` shows `book.*`, `member.*` and `issue.*` with ids only and no names.
+
 ## Attendance
 
 1. Sign in as a teacher. The sidebar has Academics > Attendance > Take attendance and Summary. An accountant does not see Attendance and gets 403 on `/attendance`.

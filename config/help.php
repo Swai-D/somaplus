@@ -20,6 +20,7 @@ return [
         'students' => 'ti ti-users',
         'teachers' => 'ti ti-user-check',
         'attendance' => 'ti ti-checklist',
+        'library' => 'ti ti-books',
         'exams' => 'ti ti-file-certificate',
         'fees' => 'ti ti-cash',
         'academics' => 'ti ti-school',

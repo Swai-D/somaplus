@@ -178,6 +178,36 @@ return [
                         ],
                     ],
                 ],
+                [
+                    'label' => 'menu.library',
+                    'icon' => 'ti ti-books',
+                    'children' => [
+                        [
+                            'label' => 'menu.add_book',
+                            'route' => 'library.books.create',
+                            'permission' => 'library.manage',
+                            'active' => ['library.books.create'],
+                        ],
+                        [
+                            'label' => 'menu.book_list',
+                            'route' => 'library.books.index',
+                            'permission' => 'library.view',
+                            'active' => ['library.books.*'],
+                        ],
+                        [
+                            'label' => 'menu.library_members',
+                            'route' => 'library.members.index',
+                            'permission' => 'library.view',
+                            'active' => ['library.members.*'],
+                        ],
+                        [
+                            'label' => 'menu.issue_return',
+                            'route' => 'library.issues.index',
+                            'permission' => 'library.view',
+                            'active' => ['library.issues.*'],
+                        ],
+                    ],
+                ],
             ],
         ],
         [
