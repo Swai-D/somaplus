@@ -31,6 +31,7 @@ return [
     'fees' => 'Fees',
     'invoices' => 'Invoices',
     'payments' => 'Payments',
+    'fee_reminders' => 'Fee reminders',
     'collections_report' => 'Collections report',
     'fee_structures' => 'Fee structures',
     'help' => 'Help',

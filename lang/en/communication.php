@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'intro' => 'Send an SMS to the guardians of students who still owe fees. Each guardian gets at most one reminder per invoice per day.',
+    'sms_off' => 'SMS is not switched on for this school.',
+    'none' => 'No invoice with a balance matches.',
+    'select_all' => 'Select all',
+    'guardians' => 'Guardians with a phone',
+    'reachable' => '{1} :count guardian|[2,*] :count guardians',
+    'no_phone' => 'No valid phone number',
+    'last' => 'Last reminder',
+    'limited' => 'Only the first 200 invoices are shown. Filter by class or term to see the rest.',
+    'language' => 'Language of the message',
+    'languages' => ['en' => 'English', 'sw' => 'Swahili'],
+    'send' => 'Send reminders',
+    'send_hint' => 'The balance is checked again when each message is sent. A message is not sent if the invoice has been paid in the meantime.',
+    'queued' => ':queued queued, :no_phone without a valid phone number, :already already reminded today, :paid already paid.',
+    'history' => 'Latest reminders',
+    'history_none' => 'No reminder sent yet.',
+    'statuses' => ['queued' => 'Waiting', 'sent' => 'Sent', 'failed' => 'Failed', 'cancelled' => 'Cancelled'],
+    'reasons' => [
+        'paid' => 'invoice was paid',
+        'sms_off' => 'SMS switched off',
+        'bad_phone' => 'invalid phone number',
+        'unreachable' => 'SMS service not reachable',
+        'rejected' => 'rejected by the SMS service',
+    ],
+    'reminder' => ':school: :student has a balance of :balance on invoice :invoice. Please pay as soon as you can.',
+    'reminder_control' => 'Control number: :number.',
+    'errors' => [
+        'sms_off' => 'Switch on SMS in Settings > Integrations first.',
+        'locale' => 'Choose English or Swahili.',
+        'batch' => 'Choose between 1 and :max invoices.',
+    ],
+];

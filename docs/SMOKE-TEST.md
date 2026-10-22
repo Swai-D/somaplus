@@ -240,6 +240,15 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 5. A callback with a wrong signature gets 401; with another amount than asked the request is "Failed" and nothing is recorded.
 6. With another provider chosen the card is gone from invoices. Kiswahili: card, statuses and Help > Ada na ankara > "Omba malipo kwenye simu kwa AzamPay" are in Swahili.
 
+## SMS fee reminders
+
+1. As owner open Settings > Integrations > SMS to parents, provider NextSMS, enter username, password and sender name (3 to 11 characters), switch on, Save. Reload: the password is not shown.
+2. As accountant open Finance > Fees > Fee reminders: invoices with a balance are listed with the number of guardians that have a phone. An invoice whose guardians have no valid phone cannot be ticked.
+3. Tick one invoice, language Kiswahili, Send reminders: the status line shows 1 queued; the guardian's phone receives an SMS naming the school, student and balance; "Latest reminders" shows Sent.
+4. Send again the same day: nothing new is sent ("already reminded today"). Record a full payment on the invoice: it disappears from the list.
+5. Switch SMS off in Settings: sending is refused with a message pointing to Integrations. A teacher or head teacher gets 403 on the page; a read-only school can open it but cannot send.
+6. Kiswahili: page, statuses and Help > Ada na ankara > "Wakumbushe wazazi ada kwa SMS" are in Swahili.
+
 ## Production on Railway (HTTPS styling)
 
 1. Open the deployed address in a browser: the sign-in page shows the Somaplus styling (Bootstrap look, logo), not plain unstyled HTML.

@@ -44,6 +44,7 @@ return [
         'fees.manage' => ['owner', 'accountant'],
         'payments.record' => ['owner', 'accountant'],
         'payments.reverse' => ['owner'],
+        'reminders.send' => ['owner', 'accountant'],
         'settings.manage' => ['owner'],
     ],
 

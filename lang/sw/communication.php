@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'intro' => 'Tuma SMS kwa walezi wa wanafunzi wanaodaiwa ada. Kila mlezi hupata kikumbusho kimoja tu kwa ankara kwa siku.',
+    'sms_off' => 'SMS haijawashwa kwa shule hii.',
+    'none' => 'Hakuna ankara yenye deni inayolingana.',
+    'select_all' => 'Chagua zote',
+    'guardians' => 'Walezi wenye simu',
+    'reachable' => '{1} mlezi :count|[2,*] walezi :count',
+    'no_phone' => 'Hakuna namba sahihi ya simu',
+    'last' => 'Kikumbusho cha mwisho',
+    'limited' => 'Ankara 200 za kwanza tu zinaonyeshwa. Chuja kwa darasa au muhula kuona zilizobaki.',
+    'language' => 'Lugha ya ujumbe',
+    'languages' => ['en' => 'Kiingereza', 'sw' => 'Kiswahili'],
+    'send' => 'Tuma vikumbusho',
+    'send_hint' => 'Deni hukaguliwa tena kila ujumbe unapotumwa. Ujumbe hautumwi ikiwa ankara imelipwa kwa wakati huo.',
+    'queued' => ':queued zimewekwa kwenye foleni, :no_phone hazina namba sahihi ya simu, :already zimekumbushwa leo, :paid zimeshalipwa.',
+    'history' => 'Vikumbusho vya hivi karibuni',
+    'history_none' => 'Bado hakuna kikumbusho kilichotumwa.',
+    'statuses' => ['queued' => 'Inasubiri', 'sent' => 'Imetumwa', 'failed' => 'Imeshindwa', 'cancelled' => 'Imefutwa'],
+    'reasons' => [
+        'paid' => 'ankara ililipwa',
+        'sms_off' => 'SMS imezimwa',
+        'bad_phone' => 'namba ya simu si sahihi',
+        'unreachable' => 'huduma ya SMS haipatikani',
+        'rejected' => 'imekataliwa na huduma ya SMS',
+    ],
+    'reminder' => ':school: :student ana deni la :balance kwenye ankara :invoice. Tafadhali lipa mapema iwezekanavyo.',
+    'reminder_control' => 'Namba ya malipo: :number.',
+    'errors' => [
+        'sms_off' => 'Washa SMS kwanza kwenye Mipangilio > Miunganisho.',
+        'locale' => 'Chagua Kiingereza au Kiswahili.',
+        'batch' => 'Chagua ankara kati ya 1 na :max.',
+    ],
+];
