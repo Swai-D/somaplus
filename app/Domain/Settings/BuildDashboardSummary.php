@@ -44,7 +44,7 @@ final class BuildDashboardSummary
             'plan' => $school->plan?->name,
             'status' => $school->subscription_status->value,
             'grace_ends_at' => $school->grace_ends_at,
-            'roles' => $user->getRoleNames()->map(fn ($role) => __('roles.'.$role))->values()->all(),
+            'roles' => $user->getRoleNames()->map(fn ($role) => RoleCatalog::label($role))->values()->all(),
             'figures' => $this->figures->handle($user, $school, $year),
         ];
     }

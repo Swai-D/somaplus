@@ -22,6 +22,8 @@ return [
     'add_guardian' => 'Add guardian',
     'id_cards' => 'Print ID cards',
     'admission_numbers' => 'Admission numbers',
+    'users' => 'Users',
+    'roles' => 'Roles',
     'attendance' => 'Attendance',
     'take_attendance' => 'Take attendance',
     'attendance_summary' => 'Summary',

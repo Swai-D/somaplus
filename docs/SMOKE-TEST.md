@@ -48,6 +48,15 @@ $id = App\Tenancy\TenantContext::run($acme, function () {
 4. Inside Beta (`TenantContext::run($beta, ...)`), `App\Models\User::count()` does not include Acme's user, and `hasRole('teacher')` on that user, loaded with `App\Tenancy\TenantContext::runAsSystem(fn () => App\Models\User::find($id))`, is `false`.
 5. `php artisan tinker` shows the same email can be used at Acme and at Beta, but twice at Acme is refused.
 
+## Settings > Users and custom roles
+
+1. As owner open Settings > Users: everyone of the school is listed with a role badge, nobody from another school. Add a user (name, email, role Teacher, password of 8+ characters): the person appears, can sign in at the school address and sees the Teacher menu. The same email is refused a second time in this school but accepted at another school. Edit the user: change the role to Accountant (the menu changes at once); leave the password empty and the old password still works. Try to change the only owner to Teacher: refused, \"at least one owner\". Head teacher, teacher, accountant and parent get 403 on the page.
+2. On the **Basic** plan Settings has no Roles entry and `/settings/roles` answers 403. On **Enterprise** open Settings > Roles: the five default roles are listed as Default, without edit or delete.
+3. Add a role `Registrar` with only \"Add and change students...\": the form ticks \"Look at students...\" for you and will not let you untick it. Save. The role shows as Custom with 0 people and 2 permissions. `settings.manage` is not offered anywhere.
+4. Edit the user: give them Registrar. Sign in as that user: the menu shows Students (list, add, import, ID cards) but no Fees, Exams or Settings; `/fees/invoices` and `/settings/users` answer 403; the profile menu and dashboard say Registrar.
+5. Edit Registrar and remove \"Add and change students\": the user loses the Add student page at once. Try to name a role \"Teacher\", \"Mwalimu\" or `registrar` (again): refused. Try to delete Registrar while the user holds it: refused; give the user another role, then delete works. Every step above has a line in the audit log (`role.created`, `role.updated`, `role.deleted`, `user.created`, `user.role_changed`) with ids only and no password.
+6. In a read-only school both pages open and every save answers 403. In Kiswahili everything is in Swahili.
+
 ## Sign-in, language and layout
 
 Create a user for Acme from `php artisan tinker` (password `password`):

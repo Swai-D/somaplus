@@ -29,6 +29,10 @@ A role decides what a person can see and do. The side menu shows only what the p
 
 More rows are added here as new parts of Somaplus arrive.
 
+## Your own roles
+
+On the **Enterprise** plan the owner can make **custom roles** next to these five, with exactly the permissions the school wants. See [Custom roles](help:account/custom-roles). Anyone can be given a role under **Settings** > **Users** ([Users](help:account/users)).
+
 ## Good to know
 
 - A person's role belongs to one school. The same person at another school needs a role there too.
