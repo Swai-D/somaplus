@@ -18,13 +18,14 @@ The menu shows only what your role may use. If an item you expect is missing, se
 
 ## The top bar
 
+- **Search.** Finds a student by name or admission number from any page. The search is a POST, so what you type never stays in the address bar.
 - **Add new.** The orange button opens the pages you reach for most: add a student, import students from a file, take the attendance, a new exam, a grading scale, a fee structure or a payment. You only see the ones your role may open.
 - **Flag.** Switch between English and Kiswahili.
 - **Question mark.** Opens the Help centre.
 - **Full screen icon.** Fills the screen with the page.
 - **Bell.** Tells you what needs your attention: when the subscription of the school ends or the school is read-only, the exams of this year that are still open and the invoices that are not paid in full. A number on the bell says how many notices there are. You only see the notices about a page your role may open.
 - **Gear.** Opens the settings of the school (for the owner).
-- **Your profile.** Shows your name and role, and has **Log out**.
+- **Your profile.** Shows your name, your role and your school, and has **Help** and **Log out**.
 
 ## The Dashboard
 
