@@ -18,13 +18,14 @@ Menyu inaonyesha tu unachoruhusiwa kutumia. Ukikosa kipengele unachotegemea, ang
 
 ## Upau wa juu
 
+- **Tafuta.** Inapata mwanafunzi kwa jina au namba ya usajili kutoka ukurasa wowote. Tafutaji ni POST, hivyo kile unachokiandika hikibaki kwenye kumbukumbu ya anwani.
 - **Ongeza.** Kitufe cha kahawia hufungua kurasa unazotumia zaidi: ongeza mwanafunzi, pakia wanafunzi kutoka kwenye faili, chukua mahudhurio, mtihani mpya, mizani ya madaraja, muundo wa ada au malipo. Huona zile unazohitaji kwa jukumu lako pekee.
 - **Bendera.** Badilisha kati ya English na Kiswahili.
 - **Alama ya swali.** Inafungua Msaada.
 - **Aikoni ya skrini nzima.** Inajaza skrini na ukurasa.
 - **Kengele.** Inakuambia kile kinachohitaji kushughulika: muda wa usajili wa shule unapoisha au shule ikiwa ya kusoma tu, mitihani ya mwaka huu iliyo wazi na ankara hazijalipwa kikamilifu. Namba kwenye kengele inaonyesha idadi ya taarifa. Huona tu taarifa za ukurasa unazohitaji kwa jukumu lako.
 - **Gears.** Inafungua mipangilio ya shule (kwa mmiliki).
-- **Wasifu wako.** Unaonyesha jina na wadhifa wako, na una **Toka**.
+- **Wasifu wako.** Unaonyesha jina lako, wadhifa wako na shule yako, na una **Msaada** na **Toka**.
 
 ## Dashibodi
 
