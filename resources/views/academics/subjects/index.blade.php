@@ -3,9 +3,16 @@
 @section('title', __('menu.subjects'))
 
 @section('page')
-    <div class="mb-3">
-        <h3 class="page-title mb-1">{{ __('menu.subjects') }}</h3>
-        <p class="text-muted mb-0">{{ __('academics.subjects.intro') }}</p>
+    <div class="d-flex flex-wrap justify-content-between align-items-start mb-3">
+        <div>
+            <h3 class="page-title mb-1">{{ __('menu.subjects') }}</h3>
+            <p class="text-muted mb-0">{{ __('academics.subjects.intro') }}</p>
+        </div>
+        @can('create', App\Models\Subject::class)
+            <button type="button" class="btn btn-primary mt-2 mt-md-0" data-bs-target="#subject-modal" data-bs-toggle="modal">
+                <i class="ti ti-circle-plus me-1"></i>{{ __('academics.subjects.add') }}
+            </button>
+        @endcan
     </div>
 
     <div class="card">
@@ -45,11 +52,8 @@
     </div>
 
     @can('create', App\Models\Subject::class)
-        <div class="card">
-            <div class="card-body">
-                <h5 class="mb-3">{{ __('academics.subjects.add') }}</h5>
-                @include('academics.subjects._form', ['subject' => null])
-            </div>
-        </div>
+        <x-form-modal id="subject-modal" title="{{ __('academics.subjects.add') }}" action="{{ route('academics.subjects.store') }}" size="modal-lg">
+            @include('academics.subjects._fields', ['subject' => null])
+        </x-form-modal>
     @endcan
 @endsection

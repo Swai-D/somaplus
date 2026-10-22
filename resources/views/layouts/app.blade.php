@@ -40,6 +40,19 @@
     @stack('modals')
 @endsection
 
+@push('page-scripts')
+    <script>
+        // A form in a pop-up that was refused opens its pop-up again, with what was typed.
+        (function () {
+            var wanted = document.body.dataset.openModal;
+            if (!wanted || !window.bootstrap) { return; }
+
+            var modal = document.getElementById(wanted);
+            if (modal) { new window.bootstrap.Modal(modal).show(); }
+        })();
+    </script>
+@endpush
+
 @push('scripts')
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/simplebar/simplebar.min.js') }}"></script>

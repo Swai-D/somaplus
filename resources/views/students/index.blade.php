@@ -10,8 +10,10 @@
         </div>
         @can('create', App\Models\Student::class)
             <div class="mt-2 mt-md-0 d-flex gap-2">
+                <button type="button" class="btn btn-outline-primary" data-bs-target="#student-modal" data-bs-toggle="modal">
+                    <i class="ti ti-circle-plus me-1"></i>{{ __('students.create.title') }}
+                </button>
                 <a href="{{ route('students.import') }}" class="btn btn-outline-primary"><i class="ti ti-upload me-1"></i>{{ __('students.list.import') }}</a>
-                <a href="{{ route('students.create') }}" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('students.list.add') }}</a>
             </div>
         @endcan
     </div>
@@ -94,4 +96,18 @@
             @endif
         </div>
     </div>
+
+    @can('create', App\Models\Student::class)
+        <x-form-modal id="student-modal" title="{{ __('students.create.title') }}" action="{{ route('students.store') }}" size="modal-lg">
+            @include('students._fields', [
+                'student' => null,
+                'years' => $years,
+                'classes' => $classes,
+                'streams' => $streams,
+                'currentYearId' => $currentYearId,
+                'admissionAuto' => $admissionAuto,
+                'admissionNext' => $admissionNext,
+            ])
+        </x-form-modal>
+    @endcan
 @endsection

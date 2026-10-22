@@ -52,7 +52,7 @@ class StudentController extends Controller
 
         return $this->list($students->getCollection()->all(), $year, $placements, [
             'students' => $students, 'term' => null, 'left' => $left, 'classId' => $classId,
-        ]);
+        ] + $this->choices() + $this->admission());
     }
 
     /**
@@ -78,14 +78,18 @@ class StudentController extends Controller
 
         return $this->list($students->all(), $year, $placements, [
             'students' => $students, 'term' => $term, 'left' => false, 'classId' => null,
-        ]);
+        ] + $this->choices() + $this->admission());
     }
 
-    public function create(): View
+    /**
+     * The form of a new student is a pop-up of the list, as in the template, so this address
+     * only opens the list with the pop-up ready.
+     */
+    public function create(): RedirectResponse
     {
         Gate::authorize('create', Student::class);
 
-        return view('students.create', $this->choices() + $this->admission());
+        return redirect()->route('students.index', ['add' => 'student-modal']);
     }
 
     public function store(StudentRequest $request, SaveStudent $save): RedirectResponse
