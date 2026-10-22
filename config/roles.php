@@ -13,6 +13,11 @@
 | is added here only together with the feature that checks it, for example
 | 'students.view' => ['owner', 'head_teacher', 'teacher'].
 |
+| `implies` lists, for a permission, the permissions a person needs with it for its pages to work
+| (changing students needs looking at them). A custom role always gets them together.
+| `custom_excluded` lists permissions only the five default roles can have: a custom role never
+| gets them, because they would let its holder change roles, users, integrations and more.
+|
 | Syncing only ever adds: it creates missing roles and permissions and grants
 | missing ones. It never revokes, so a change that removes a permission from a
 | role needs a data migration.
@@ -47,5 +52,17 @@ return [
         'reminders.send' => ['owner', 'accountant'],
         'settings.manage' => ['owner'],
     ],
+
+    'implies' => [
+        'academics.manage' => ['academics.view'],
+        'students.manage' => ['students.view'],
+        'exams.manage' => ['exams.view'],
+        'marks.enter' => ['exams.view'],
+        'fees.manage' => ['fees.view'],
+        'payments.record' => ['fees.view'],
+        'payments.reverse' => ['fees.view'],
+    ],
+
+    'custom_excluded' => ['settings.manage'],
 
 ];

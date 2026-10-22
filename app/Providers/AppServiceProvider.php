@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Domain\Settings\NavigationAlerts;
+use App\Domain\Settings\RoleCatalog;
 use App\Models\User;
 use App\Support\Menu;
 use App\Tenancy\TenantContext;
@@ -49,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
                 'alerts' => $this->app->make(NavigationAlerts::class)->handle($user),
                 'roleLabel' => $user === null ? '' : ($user->isSuperAdmin()
                     ? __('layout.platform_admin')
-                    : (string) $user->getRoleNames()->map(fn ($role) => __('roles.'.$role))->implode(', ')),
+                    : (string) $user->getRoleNames()->map(fn ($role) => RoleCatalog::label($role))->implode(', ')),
             ]);
         });
     }

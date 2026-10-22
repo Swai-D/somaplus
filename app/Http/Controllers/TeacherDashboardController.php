@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Settings\RoleCatalog;
 use App\Domain\Settings\TeacherDashboardFigures;
 use App\Models\User;
 use App\Tenancy\TenantContext;
@@ -22,7 +23,7 @@ class TeacherDashboardController extends Controller
             'user' => $user,
             'school' => $school,
             'figures' => $figures->handle($user),
-            'roles' => $user->getRoleNames()->map(fn ($role) => __('roles.'.$role))->values()->all(),
+            'roles' => $user->getRoleNames()->map(fn ($role) => RoleCatalog::label($role))->values()->all(),
         ]);
     }
 }

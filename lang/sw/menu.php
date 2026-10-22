@@ -19,6 +19,8 @@ return [
     'import_students' => 'Pakia Wanafunzi',
     'id_cards' => 'Chapa vitambulisho',
     'admission_numbers' => 'Namba za usajili',
+    'users' => 'Watumiaji',
+    'roles' => 'Majukumu (roles)',
     'attendance' => 'Mahudhurio',
     'take_attendance' => 'Chukua Mahudhurio',
     'attendance_summary' => 'Muhtasari',
