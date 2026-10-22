@@ -31,6 +31,7 @@ return [
     'fees' => 'Ada',
     'invoices' => 'Ankara',
     'payments' => 'Malipo',
+    'fee_reminders' => 'Vikumbusho vya ada',
     'collections_report' => 'Ripoti ya mapato',
     'fee_structures' => 'Miundo ya Ada',
     'help' => 'Msaada',

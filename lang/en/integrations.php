@@ -16,14 +16,22 @@ return [
             'title' => 'Payment notices (bank, GePG, mobile money)',
             'hint' => 'Your bank or payment provider tells Somaplus when a control number is paid. The payment and its receipt are then recorded automatically.',
         ],
+        'sms' => [
+            'title' => 'SMS to parents',
+            'hint' => 'Lets the school send fee reminders by SMS. Use the NextSMS account of your school; the sender name must be approved by NextSMS.',
+        ],
     ],
     'drivers' => [
+        'nextsms' => 'NextSMS (Tanzania)',
         'gepg' => 'GePG (Government e-Payment Gateway)',
         'selcom' => 'Selcom (mobile wallets, banks, agents)',
         'azampay' => 'AzamPay (mobile money)',
         'signed_webhook' => 'Signed web notice',
     ],
     'fields' => [
+        'sms_username' => 'NextSMS username',
+        'sms_password' => 'NextSMS password',
+        'sms_sender_id' => 'Sender name (3 to 11 characters)',
         'sp_code' => 'Service provider code (SpCode)',
         'sp_sys_id' => 'System ID (SpSysId)',
         'gepg_certificate' => 'GePG public certificate (PEM)',

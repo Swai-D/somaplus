@@ -158,6 +158,12 @@ return [
                             'active' => ['fees.payments.*', 'fees.receipts.*'],
                         ],
                         [
+                            'label' => 'menu.fee_reminders',
+                            'route' => 'communication.reminders.index',
+                            'permission' => 'reminders.send',
+                            'active' => ['communication.reminders.*'],
+                        ],
+                        [
                             'label' => 'menu.collections_report',
                             'route' => 'fees.reports.collections',
                             'permission' => 'fees.view',

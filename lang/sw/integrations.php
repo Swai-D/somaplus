@@ -16,14 +16,22 @@ return [
             'title' => 'Taarifa za malipo (benki, GePG, pesa za simu)',
             'hint' => 'Benki au mtoa huduma wako anaiambia Somaplus namba ya malipo inapolipwa. Malipo na stakabadhi yake hurekodiwa kiotomatiki.',
         ],
+        'sms' => [
+            'title' => 'SMS kwa wazazi',
+            'hint' => 'Inaruhusu shule kutuma vikumbusho vya ada kwa SMS. Tumia akaunti ya NextSMS ya shule yako; jina la mtumaji lazima liidhinishwe na NextSMS.',
+        ],
     ],
     'drivers' => [
+        'nextsms' => 'NextSMS (Tanzania)',
         'gepg' => 'GePG (Lango la Malipo ya Kielektroniki la Serikali)',
         'selcom' => 'Selcom (pochi za simu, benki, mawakala)',
         'azampay' => 'AzamPay (pesa za simu)',
         'signed_webhook' => 'Taarifa ya mtandao iliyosainiwa',
     ],
     'fields' => [
+        'sms_username' => 'Jina la mtumiaji la NextSMS',
+        'sms_password' => 'Nenosiri la NextSMS',
+        'sms_sender_id' => 'Jina la mtumaji (herufi 3 hadi 11)',
         'sp_code' => 'Msimbo wa mtoa huduma (SpCode)',
         'sp_sys_id' => 'Kitambulisho cha mfumo (SpSysId)',
         'gepg_certificate' => 'Cheti cha umma cha GePG (PEM)',
