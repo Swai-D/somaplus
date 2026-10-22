@@ -36,4 +36,10 @@ class StudentPolicy
     {
         return $user->can('results.view');
     }
+
+    /** An ID card shows a child's name and number: only people who manage students print them. */
+    public function printIdCard(User $user): bool
+    {
+        return $user->can('students.manage');
+    }
 }
