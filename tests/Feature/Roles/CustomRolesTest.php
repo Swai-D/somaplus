@@ -127,7 +127,7 @@ it('opens the edit page with the permissions ticked', function () {
     $role = ($this->makeRole)('Clerk', ['fees.manage']);
 
     $this->actingAs($this->owner)->get("{$this->url}/settings/roles/{$role->id}/edit")->assertOk()->assertSee('Clerk')->assertSee('value="fees.manage"', false);
-    $this->actingAs($this->owner)->get("{$this->url}/settings/roles/create")->assertOk()->assertSee('Start from the permissions of');
+    $this->actingAs($this->owner)->get("{$this->url}/settings/roles")->assertOk()->assertSee('Start from the permissions of');
 });
 
 it('deletes an unused custom role and refuses one that people hold', function () {

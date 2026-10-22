@@ -8,7 +8,9 @@
             <h3 class="page-title mb-1">{{ __('custom_roles.title') }}</h3>
             <p class="text-muted mb-0">{{ __('custom_roles.intro') }}</p>
         </div>
-        <a href="{{ route('settings.roles.create') }}" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('custom_roles.add') }}</a>
+        <button type="button" class="btn btn-primary" data-bs-target="#role-modal" data-bs-toggle="modal">
+            <i class="ti ti-circle-plus me-1"></i>{{ __('custom_roles.add') }}
+        </button>
     </div>
 
     @if ($errors->any())
@@ -54,4 +56,10 @@
         </div>
         <div class="card-footer text-muted fs-13">{{ __('custom_roles.default_locked') }}</div>
     </div>
+
+    @can('settings.manage')
+        <x-form-modal id="role-modal" title="{{ __('custom_roles.add') }}" action="{{ route('settings.roles.store') }}" size="modal-xl">
+            @include('settings.roles._fields', ['role' => null, 'groups' => $groups, 'implies' => $implies, 'copyFrom' => $copyFrom, 'chosen' => []])
+        </x-form-modal>
+    @endcan
 @endsection

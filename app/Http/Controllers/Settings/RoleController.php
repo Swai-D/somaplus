@@ -19,14 +19,21 @@ class RoleController extends Controller
     {
         Gate::authorize('settings.manage');
 
-        return view('settings.roles.index', ['roles' => RoleCatalog::all(), 'holders' => RoleCatalog::holders()]);
+        return view('settings.roles.index', [
+            'roles' => RoleCatalog::all(),
+            'holders' => RoleCatalog::holders(),
+        ] + $this->form(null));
     }
 
-    public function create(): View
+    /**
+     * The form of a new role is a pop-up of the list, as in the template, so this address only
+     * opens the list with the pop-up ready.
+     */
+    public function create(): RedirectResponse
     {
         Gate::authorize('settings.manage');
 
-        return view('settings.roles.create', $this->form(null));
+        return redirect()->route('settings.roles.index', ['add' => 'role-modal']);
     }
 
     public function store(RoleRequest $request, SaveCustomRole $save): RedirectResponse

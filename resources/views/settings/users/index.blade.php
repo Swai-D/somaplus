@@ -8,7 +8,9 @@
             <h3 class="page-title mb-1">{{ __('custom_roles.users.title') }}</h3>
             <p class="text-muted mb-0">{{ __('custom_roles.users.intro') }}</p>
         </div>
-        <a href="{{ route('settings.users.create') }}" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('custom_roles.users.add') }}</a>
+        <button type="button" class="btn btn-primary" data-bs-target="#user-modal" data-bs-toggle="modal">
+            <i class="ti ti-circle-plus me-1"></i>{{ __('custom_roles.users.add') }}
+        </button>
     </div>
 
     <div class="card">
@@ -32,4 +34,8 @@
             </div>
         </div>
     </div>
+
+    <x-form-modal id="user-modal" title="{{ __('custom_roles.users.add') }}" action="{{ route('settings.users.store') }}" size="modal-lg">
+        @include('settings.users._fields', ['user' => null, 'roles' => $roles])
+    </x-form-modal>
 @endsection
