@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'title' => 'My children',
+    'intro' => 'Fees and results of your children at this school.',
+    'open' => 'Open',
+    'owed' => 'Owed',
+    'nothing_owed' => 'Nothing owed',
+    'no_children' => 'No child is linked to your account yet. Ask the school office.',
+    'results' => 'Results',
+    'results_hint' => 'Choose a term to see the report card. Only exams the school has finished and locked are shown.',
+    'invoices' => 'Fee invoices',
+    'no_invoices' => 'No invoice yet.',
+    'total' => 'Total',
+    'paid' => 'Paid',
+    'payments' => 'Payments received',
+    'no_payments' => 'No payment yet.',
+    'reversed' => 'Reversed',
+    'access' => [
+        'title' => 'Access to the family pages',
+        'hint' => 'Lets this guardian sign in with their email and see the fees and results of their own children, and nothing else. They receive an email to choose a password.',
+        'has' => 'Has access',
+        'give' => 'Give access',
+        'revoke' => 'Take access away',
+    ],
+    'granted_sent' => 'Access given. The guardian was sent an email to choose a password.',
+    'granted_not_sent' => 'Access given, but the email could not be sent. Ask the guardian to use "Forgot password".',
+    'revoked' => 'Access taken away.',
+    'errors' => [
+        'already' => 'This guardian already has access.',
+        'no_email' => 'Add the guardian\'s email first.',
+        'email_taken' => 'This email already belongs to another account of the school.',
+        'revoke_first' => 'This guardian has access to the family pages. Take it away first.',
+    ],
+];

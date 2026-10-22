@@ -51,6 +51,7 @@ return [
         'payments.reverse' => ['owner'],
         'reminders.send' => ['owner', 'accountant'],
         'settings.manage' => ['owner'],
+        'family.portal' => ['parent_student'],
     ],
 
     'implies' => [
@@ -63,6 +64,7 @@ return [
         'payments.reverse' => ['fees.view'],
     ],
 
-    'custom_excluded' => ['settings.manage'],
+    // `family.portal` belongs to the parent role only: it opens a parent's own children, not the school's data.
+    'custom_excluded' => ['settings.manage', 'family.portal'],
 
 ];

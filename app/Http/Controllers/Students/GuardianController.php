@@ -110,6 +110,10 @@ class GuardianController extends Controller
     {
         Gate::authorize('delete', $guardian);
 
+        if ($guardian->hasPortalAccess()) {
+            return redirect()->route('guardians.show', $guardian)->with('delete', __('family.errors.revoke_first'));
+        }
+
         // A guardian who is still the parent of a pupil is not deleted; the link is removed first.
         if ($guardian->students()->exists()) {
             return redirect()->route('guardians.show', $guardian)

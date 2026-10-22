@@ -95,5 +95,6 @@ Route::middleware('auth')->group(function () {
     require __DIR__.'/settings.php';
     require __DIR__.'/communication.php';
     require __DIR__.'/platform.php';
+    require __DIR__.'/family.php';
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

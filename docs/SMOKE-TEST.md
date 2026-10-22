@@ -263,6 +263,15 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 5. Switch SMS off in Settings: sending is refused with a message pointing to Integrations. A teacher or head teacher gets 403 on the page; a read-only school can open it but cannot send.
 6. Kiswahili: page, statuses and Help > Ada na ankara > "Wakumbushe wazazi ada kwa SMS" are in Swahili.
 
+## Family pages (parents)
+
+1. As owner open a guardian that has an email, choose Give access: the guardian receives an email with a link on the school address; open it, choose a password, sign in.
+2. The parent lands on "My children" (not the dashboard), sees only the children linked to their guardian record, with the amount owed. The sidebar shows only "My children" and Help.
+3. Open a child: invoices (total, paid, balance, control number), payments with receipt numbers, and a button per term. A term's report card shows only locked exams.
+4. Another child's address (`/family/children/<id>`) gives 404; staff pages (`/students`, `/fees/invoices`, `/settings/users`) give 403.
+5. Unlink the child from the guardian: the parent no longer sees the child. As owner choose Take access away: the parent is signed out and cannot sign in again; the guardian cannot be deleted while access exists.
+6. Kiswahili: all family pages and Help > Akaunti > "Wazazi: ona ada na matokeo ya watoto wako" are in Swahili.
+
 ## Platform: schools
 
 1. Sign in on the central address as the platform administrator (`admin@somaplus.test` in the demo): the menu has Platform > Schools; a school owner never sees it, and opening `/platform/schools` on a school address gives 404.
