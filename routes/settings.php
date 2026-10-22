@@ -3,6 +3,7 @@
 use App\Http\Controllers\Settings\AdmissionSettingController;
 use App\Http\Controllers\Settings\IntegrationController;
 use App\Http\Controllers\Settings\RoleController;
+use App\Http\Controllers\Settings\SchoolProfileController;
 use App\Http\Controllers\Settings\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('settings/integrations', [IntegrationController::class, 'index'])->name('settings.integrations.index');
 
 Route::get('settings/admission-numbers', [AdmissionSettingController::class, 'index'])->name('settings.admission.index');
+
+Route::get('settings/school', [SchoolProfileController::class, 'index'])->name('settings.school.index');
 
 Route::get('settings/users', [UserController::class, 'index'])->name('settings.users.index');
 Route::get('settings/users/create', [UserController::class, 'create'])->name('settings.users.create');
@@ -25,6 +28,7 @@ Route::middleware('plan:custom_roles')->group(function () {
 });
 
 Route::middleware('tenant.writable')->group(function () {
+    Route::put('settings/school', [SchoolProfileController::class, 'update'])->name('settings.school.update');
     Route::post('settings/users', [UserController::class, 'store'])->name('settings.users.store');
     Route::put('settings/users/{user}', [UserController::class, 'update'])->name('settings.users.update')->whereNumber('user');
 
