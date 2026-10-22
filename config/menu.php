@@ -73,6 +73,30 @@ return [
                             'permission' => 'students.manage',
                             'active' => ['students.import', 'students.import.store', 'students.import.template'],
                         ],
+                        [
+                            'label' => 'menu.id_cards',
+                            'route' => 'students.id-cards',
+                            'permission' => 'students.manage',
+                            'active' => ['students.id-cards', 'students.id-cards.print', 'students.id-card'],
+                        ],
+                    ],
+                ],
+                [
+                    'label' => 'menu.guardians',
+                    'icon' => 'ti ti-users',
+                    'children' => [
+                        [
+                            'label' => 'menu.add_guardian',
+                            'route' => 'guardians.add',
+                            'permission' => 'students.manage',
+                            'active' => ['guardians.add'],
+                        ],
+                        [
+                            'label' => 'menu.guardian_list',
+                            'route' => 'guardians.index',
+                            'permission' => 'students.view',
+                            'active' => ['guardians.index', 'guardians.search', 'guardians.show'],
+                        ],
                     ],
                 ],
                 [
@@ -203,6 +227,19 @@ return [
                             'route' => 'settings.admission.index',
                             'permission' => 'settings.manage',
                             'active' => ['settings.admission.*'],
+                        ],
+                        [
+                            'label' => 'menu.users',
+                            'route' => 'settings.users.index',
+                            'permission' => 'settings.manage',
+                            'active' => ['settings.users.*'],
+                        ],
+                        [
+                            'label' => 'menu.roles',
+                            'route' => 'settings.roles.index',
+                            'permission' => 'settings.manage',
+                            'feature' => 'custom_roles',
+                            'active' => ['settings.roles.*'],
                         ],
                     ],
                 ],

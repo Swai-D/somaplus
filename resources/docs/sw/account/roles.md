@@ -30,6 +30,10 @@ Wadhifa unaamua mtu anaweza kuona na kufanya nini. Menyu ya pembeni inaonyesha t
 
 Safu zaidi zinaongezwa hapa sehemu mpya za Somaplus zinapofika.
 
+## Wadhifa vyako mwenyewe
+
+Kwenye mpango wa **Enterprise** mmiliki anaweza kutengeneza **roles maalum** kando ya hizi tano, zenye ruhusa kamili ambazo shule inazitaka. Tazama [Roles maalum](help:account/custom-roles). Mtu yeyote anaweza kupewa role chini ya **Mipangilio** > **Watumiaji** ([Watumiaji](help:account/users)).
+
 ## Vizuri kujua
 
 - Wadhifa wa mtu ni wa shule moja. Mtu yule yule kwenye shule nyingine anahitaji wadhifa huko pia.

@@ -46,7 +46,8 @@ it('renders every format', function (array $setting, string $expected) {
 ]);
 
 it('keeps typing by hand for a school that never chose, and shows the field', function () {
-    $this->actingAs($this->owner)->get("{$this->url}/students/create")->assertOk()->assertSee('name="admission_number"', false);
+    // The form of a new student is a pop-up of the list, so the field is on that page.
+    $this->actingAs($this->owner)->get("{$this->url}/students")->assertOk()->assertSee('name="admission_number"', false);
 
     $this->actingAs($this->owner)->post("{$this->url}/students", ($this->valid)())->assertSessionHasErrors('admission_number');
     $this->actingAs($this->owner)->post("{$this->url}/students", ($this->valid)(['admission_number' => 'OLD-1']))->assertSessionHasNoErrors();
@@ -108,7 +109,7 @@ it('shows the page in Swahili and lists it in the owner menu only', function () 
 it('makes the number when a student is added, ignores a typed one, and counts one by one', function () {
     ($this->useAuto)();
 
-    $this->actingAs($this->owner)->get("{$this->url}/students/create")->assertOk()->assertSee('SCH-'.now()->year.'-0001')->assertDontSee('name="admission_number"', false);
+    $this->actingAs($this->owner)->get("{$this->url}/students")->assertOk()->assertSee('SCH-'.now()->year.'-0001')->assertDontSee('name="admission_number"', false);
 
     $this->actingAs($this->owner)->post("{$this->url}/students", ($this->valid)(['admission_number' => 'HACK-1']))->assertSessionHasNoErrors();
     $this->actingAs($this->owner)->post("{$this->url}/students", ($this->valid)(['first_name' => 'Baraka']))->assertSessionHasNoErrors();

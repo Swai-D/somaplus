@@ -25,14 +25,18 @@ class ExamController extends Controller
 
         return view('exams.exams.index', [
             'exams' => Exam::query()->with(['term', 'academicYear', 'gradingScale'])->orderByDesc('id')->get(),
-        ]);
+        ] + $this->choices());
     }
 
-    public function create(): View
+    /**
+     * The form of a new exam is a pop-up of the list, as in the template, so this address
+     * only opens the list with the pop-up ready.
+     */
+    public function create(): RedirectResponse
     {
         Gate::authorize('create', Exam::class);
 
-        return view('exams.exams.create', $this->choices());
+        return redirect()->route('exams.index', ['add' => 'exam-modal']);
     }
 
     public function store(ExamRequest $request, SaveExam $save): RedirectResponse

@@ -9,7 +9,9 @@
             <p class="text-muted mb-0">{{ __('exams.exams.intro') }}</p>
         </div>
         @can('create', App\Models\Exam::class)
-            <a href="{{ route('exams.create') }}" class="btn btn-primary mt-2 mt-md-0"><i class="ti ti-plus me-1"></i>{{ __('exams.exams.add') }}</a>
+            <button type="button" class="btn btn-primary mt-2 mt-md-0" data-bs-target="#exam-modal" data-bs-toggle="modal">
+                <i class="ti ti-circle-plus me-1"></i>{{ __('exams.exams.add') }}
+            </button>
         @endcan
     </div>
     <div class="card">
@@ -38,4 +40,10 @@
             @endif
         </div>
     </div>
+
+    @can('create', App\Models\Exam::class)
+        <x-form-modal id="exam-modal" title="{{ __('exams.exams.add') }}" action="{{ route('exams.store') }}" size="modal-lg">
+            @include('exams.exams._fields', ['exam' => null, 'years' => $years, 'scales' => $scales])
+        </x-form-modal>
+    @endcan
 @endsection

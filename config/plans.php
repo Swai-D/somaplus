@@ -31,7 +31,7 @@ return [
         'enterprise' => [
             'name' => 'Enterprise',
             'sort_order' => 3,
-            'features' => [],
+            'features' => ['custom_roles'],
         ],
     ],
 
