@@ -6,6 +6,8 @@ order: 3
 ---
 Open an exam and, under **Enter or look at marks**, choose the **Class**, optionally the **Stream**, and the **Subject**, then **Show**. Owners, head teachers and teachers can enter marks.
 
+A teacher sees only the classes and subjects the school gave them under **Teachers** — the lists hold what teaches, nothing else. The owner and the head teacher always see everything.
+
 ## Enter the marks
 
 1. Type each student's **Score** (out of the exam's maximum). Use a point or a comma for decimals, with at most two decimals, for example `45` or `45.5`.

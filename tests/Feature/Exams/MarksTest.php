@@ -9,6 +9,8 @@ use App\Models\GradingScale;
 use App\Models\SchoolClass;
 use App\Models\Stream;
 use App\Models\Student;
+use App\Models\Subject;
+use App\Models\Teacher;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Tenancy\TenantContext;
@@ -23,6 +25,17 @@ beforeEach(function () {
     $this->teacher = userWithRole($this->school, 'teacher');
     $this->owner = userWithRole($this->school, 'owner');
     $this->w = makeExamWorld($this->school);
+
+    // The tests' teacher teaches Form 1 and Form 2 in Mathematics and English,
+    // because a teacher may enter marks only for what the school assigned them.
+    $teacherId = $this->teacher->id;
+    $assigned = [$this->w['form1']->id, $this->w['form2']->id];
+    $subjectIds = [$this->w['math']->id, $this->w['english']->id];
+    TenantContext::run($this->school, function () use ($teacherId, $assigned, $subjectIds) {
+        $profile = Teacher::factory()->create(['user_id' => $teacherId]);
+        $profile->classes()->attach($assigned);
+        $profile->subjects()->attach($subjectIds);
+    });
 
     $this->inSchool = fn (Closure $work, ?Tenant $school = null) => TenantContext::run($school ?? $this->school, $work);
 
@@ -345,6 +358,18 @@ it('lets teachers, head teachers and owners enter marks and nobody else', functi
     $a = ($this->place)([]);
     $user = userWithRole($this->school, $role);
 
+    if ($role === 'teacher') {
+        // A teacher writes only what the school assigned them.
+        $teacherId = $user->id;
+        $classId = $this->w['form1']->id;
+        $subjectId = $this->w['math']->id;
+        TenantContext::run($this->school, function () use ($teacherId, $classId, $subjectId) {
+            $profile = Teacher::factory()->create(['user_id' => $teacherId]);
+            $profile->classes()->attach($classId);
+            $profile->subjects()->attach($subjectId);
+        });
+    }
+
     $page = $this->actingAs($user)->get("{$this->url}/exams/{$this->exam->id}/marks?school_class_id={$this->w['form1']->id}&subject_id={$this->w['math']->id}");
     $post = ($this->save)([$a->id => ['score' => '50']], [], $user);
 
@@ -372,6 +397,14 @@ it('lets a read-only school look at marks but not save them', function () {
     ($this->save)([$a->id => ['score' => '30']]);
     $this->school->update(['subscription_status' => SubscriptionStatus::ReadOnly]);
     $teacher = userWithRole($this->school, 'teacher');
+    $teacherId = $teacher->id;
+    $classId = $this->w['form1']->id;
+    $subjectId = $this->w['math']->id;
+    TenantContext::run($this->school, function () use ($teacherId, $classId, $subjectId) {
+        $profile = Teacher::factory()->create(['user_id' => $teacherId]);
+        $profile->classes()->attach($classId);
+        $profile->subjects()->attach($subjectId);
+    });
 
     $this->actingAs($teacher)->get("{$this->url}/exams/{$this->exam->id}/marks?school_class_id={$this->w['form1']->id}&subject_id={$this->w['math']->id}")
         ->assertOk()->assertSee('value="30"', false)->assertDontSee(__('exams.marks.save'));
@@ -415,4 +448,41 @@ it('shows the sheet in Swahili when that language is chosen', function () {
 it('sends a guest to sign in', function () {
     $this->get("{$this->url}/exams/{$this->exam->id}/marks")->assertRedirect("{$this->url}/login");
     $this->post("{$this->url}/exams/{$this->exam->id}/marks", [])->assertRedirect("{$this->url}/login");
+});
+
+it('refuses a subject or a class the school did not assign the teacher', function () {
+    $a = ($this->place)([]);
+    $extra = ($this->inSchool)(fn () => [
+        'form3' => SchoolClass::factory()->create(['name' => 'Form 3', 'sort_order' => 3]),
+        'kiswahili' => Subject::factory()->create(['name' => 'Kiswahili']),
+    ]);
+
+    ($this->save)([$a->id => ['score' => '55']], ['subject_id' => $extra['kiswahili']->id])->assertForbidden();
+    ($this->save)([$a->id => ['score' => '55']], ['school_class_id' => $extra['form3']->id])->assertForbidden();
+
+    expect(($this->marks)())->toHaveCount(0);
+});
+
+it('lets the owner enter marks for anything without a teaching assignment', function () {
+    $a = ($this->place)([]);
+
+    ($this->save)([$a->id => ['score' => '66']], [], $this->owner)->assertSessionHasNoErrors();
+
+    expect(($this->marks)()->first()->score)->toBe('66.00');
+});
+
+it('lists only the assigned classes and subjects for a teacher on the marks page', function () {
+    ($this->inSchool)(fn () => SchoolClass::factory()->create(['name' => 'Form 3', 'sort_order' => 3]));
+    ($this->inSchool)(fn () => Subject::factory()->create(['name' => 'Agriculture']));
+
+    $this->actingAs($this->teacher)->get("{$this->url}/exams/{$this->exam->id}/marks")
+        ->assertOk()->assertSee('Form 1')->assertSee('Mathematics')->assertDontSee('Form 3')->assertDontSee('Agriculture');
+});
+
+it('shows a sheet a teacher does not teach without the save button', function () {
+    $extra = ($this->inSchool)(fn () => SchoolClass::factory()->create(['name' => 'Form 3', 'sort_order' => 3]));
+    $student = ($this->place)(['first_name' => 'Thirdrow'], $extra);
+
+    $this->actingAs($this->teacher)->get("{$this->url}/exams/{$this->exam->id}/marks?school_class_id={$extra->id}&subject_id={$this->w['math']->id}")
+        ->assertOk()->assertSee('Thirdrow')->assertDontSee(__('exams.marks.save'));
 });
