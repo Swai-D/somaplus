@@ -3,9 +3,16 @@
 @section('title', __('menu.academic_years'))
 
 @section('page')
-    <div class="mb-3">
-        <h3 class="page-title mb-1">{{ __('menu.academic_years') }}</h3>
-        <p class="text-muted mb-0">{{ __('academics.years.intro') }}</p>
+    <div class="d-flex flex-wrap justify-content-between align-items-start mb-3">
+        <div>
+            <h3 class="page-title mb-1">{{ __('menu.academic_years') }}</h3>
+            <p class="text-muted mb-0">{{ __('academics.years.intro') }}</p>
+        </div>
+        @can('create', App\Models\AcademicYear::class)
+            <button type="button" class="btn btn-primary mt-2 mt-md-0" data-bs-target="#year-modal" data-bs-toggle="modal">
+                <i class="ti ti-circle-plus me-1"></i>{{ __('academics.years.add') }}
+            </button>
+        @endcan
     </div>
 
     <div class="card">
@@ -53,11 +60,8 @@
     </div>
 
     @can('create', App\Models\AcademicYear::class)
-        <div class="card">
-            <div class="card-body">
-                <h5 class="mb-3">{{ __('academics.years.add') }}</h5>
-                @include('academics.years._form', ['year' => null])
-            </div>
-        </div>
+        <x-form-modal id="year-modal" title="{{ __('academics.years.add') }}" action="{{ route('academics.years.store') }}" size="modal-lg">
+            @include('academics.years._fields', ['year' => null])
+        </x-form-modal>
     @endcan
 @endsection

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/somaplus.css') }}">
     @stack('styles')
 </head>
-<body class="@yield('body_class')">
+<body class="@yield('body_class')" data-open-modal="{{ old('form') ?? request('add') }}">
     @yield('content')
 
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
