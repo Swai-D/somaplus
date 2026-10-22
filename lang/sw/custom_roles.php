@@ -31,6 +31,7 @@ return [
     'area' => [
         'academics' => 'Masomo',
         'students' => 'Wanafunzi',
+        'teachers' => 'Walimu',
         'attendance' => 'Mahudhurio',
         'grades' => 'Madaraja',
         'exams' => 'Mitihani',
@@ -43,6 +44,7 @@ return [
     'perm' => [
         'academics' => ['view' => 'Kuangalia miaka ya masomo, madarasa na masomo', 'manage' => 'Kuongeza, kubadilisha na kufuta'],
         'students' => ['view' => 'Kuangalia wanafunzi, wazazi na historia ya darasa', 'manage' => 'Kuongeza na kubadilisha wanafunzi, wazazi na uwekaji darasani; kupakia; kuchapa vitambulisho'],
+        'teachers' => ['view' => 'Kuangalia walimu wa shule', 'manage' => 'Kuongeza na kubadilisha walimu, mada zao na madarasa yao'],
         'attendance' => ['manage' => 'Kuchukua na kuangalia mahudhurio'],
         'grades' => ['manage' => 'Kuongeza na kubadilisha madaraja'],
         'exams' => ['view' => 'Kuangalia mitihani, madaraja na alama', 'manage' => 'Kuongeza na kubadilisha mitihani, kuifunga na kuifungua'],

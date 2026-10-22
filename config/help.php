@@ -18,6 +18,7 @@ return [
     'categories' => [
         'getting-started' => 'ti ti-rocket',
         'students' => 'ti ti-users',
+        'teachers' => 'ti ti-user-check',
         'attendance' => 'ti ti-checklist',
         'exams' => 'ti ti-file-certificate',
         'fees' => 'ti ti-cash',
