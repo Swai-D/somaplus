@@ -77,13 +77,8 @@ return [
             'personal' => 'Personal details',
             'save' => 'Save guardian',
             'cancel' => 'Cancel',
+            'close' => 'Close',
             'only_what_is_needed' => 'Only a name, a phone number and an email address are kept.',
-        ],
-        'create' => [
-            'intro' => 'Add a parent or a guardian of your school. You can link the pupils afterwards.',
-        ],
-        'edit' => [
-            'title' => 'Edit guardian',
         ],
         'show' => [
             'intro' => 'The details of this guardian and the pupils they are the parent of.',

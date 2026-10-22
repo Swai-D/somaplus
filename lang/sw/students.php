@@ -77,13 +77,8 @@ return [
             'personal' => 'Maelezo ya binafsi',
             'save' => 'Hifadhi mlezi',
             'cancel' => 'Ghairi',
+            'close' => 'Funga',
             'only_what_is_needed' => 'Hifadhiwi jina tu, namba ya simu na barua pepe.',
-        ],
-        'create' => [
-            'intro' => 'Ongeza mzazi au mlezi wa shule yako. Unaweza kuunganisha wanafunzi baadaye.',
-        ],
-        'edit' => [
-            'title' => 'Hariri mlezi',
         ],
         'show' => [
             'intro' => 'Maelezo ya mlezi huyu na wanafunzi ambao mzazi wao ni.',

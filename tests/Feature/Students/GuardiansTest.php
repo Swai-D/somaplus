@@ -134,23 +134,38 @@ it('keeps a guardian who is still the parent of a pupil', function () {
 it('shows the guardians in the sidebar only to people who may look at them', function () {
     $this->actingAs($this->owner)->get($this->url)
         ->assertSee(__('menu.guardians'))
-        ->assertSee(route('guardians.index'))
-        ->assertSee(route('guardians.create'));
+        ->assertSee(route('guardians.index'));
 
     $this->actingAs($this->teacher)->get($this->url)
         ->assertSee(__('menu.guardians'))
-        ->assertSee(route('guardians.index'))
-        ->assertDontSee(route('guardians.create'));
+        ->assertSee(route('guardians.index'));
 
     $this->actingAs($this->parent)->get($this->url)
         ->assertDontSee(route('guardians.index'));
 });
 
+it('adds and changes a guardian in a pop-up, without loading the page again', function () {
+    $guardian = TenantContext::run($this->school, fn () => Guardian::factory()->create(['name' => 'Fatuma Juma', 'phone' => '0712345678']));
+
+    $html = $this->actingAs($this->owner)->get("{$this->url}/guardians")->assertOk()->getContent();
+
+    expect($html)->toContain('id="guardian-modal"')
+        ->toContain('data-bs-target="#guardian-modal"')
+        ->toContain('action="'.route('guardians.store').'"')
+        ->toContain('data-guardian-action="'.route('guardians.update', $guardian).'"')
+        ->not->toContain('/guardians/create');
+
+    // The page of a guardian opens the pop-up filled with that guardian.
+    $html = $this->actingAs($this->owner)->get("{$this->url}/guardians?edit={$guardian->id}")->assertOk()->getContent();
+
+    expect($html)->toContain('data-guardian-open="1"')
+        ->toContain('data-guardian-edit-name="Fatuma Juma"');
+});
+
 it('lets only people who may change students add or change a guardian', function () {
     $guardian = TenantContext::run($this->school, fn () => Guardian::factory()->create());
 
-    $this->actingAs($this->teacher)->get("{$this->url}/guardians/create")->assertForbidden();
-    $this->actingAs($this->teacher)->get("{$this->url}/guardians/{$guardian->id}/edit")->assertForbidden();
+    $this->actingAs($this->teacher)->get("{$this->url}/guardians/create")->assertNotFound();
     $this->actingAs($this->teacher)->post("{$this->url}/guardians", ['name' => 'X', 'phone' => '0712345678'])->assertForbidden();
     $this->actingAs($this->parent)->get("{$this->url}/guardians")->assertForbidden();
 });

@@ -74,15 +74,6 @@ class GuardianController extends Controller
         ]);
     }
 
-    public function create(): View
-    {
-        Gate::authorize('create', Guardian::class);
-
-        return view('students.guardians.create', [
-            'students' => Student::query()->where('status', Student::ACTIVE)->orderBy('first_name')->orderBy('last_name')->get(),
-        ]);
-    }
-
     public function store(GuardianDetailsRequest $request, CreateGuardian $create): RedirectResponse
     {
         /** @var array{name: string, phone: string, email?: string|null} $data */
@@ -119,13 +110,10 @@ class GuardianController extends Controller
         ]);
     }
 
-    public function edit(Guardian $guardian): View
-    {
-        Gate::authorize('update', $guardian);
-
-        return view('students.guardians.edit', ['guardian' => $guardian]);
-    }
-
+    /**
+     * Changes what the school knows about a guardian. The form is the pop-up of the list, so
+     * the page comes back to the list.
+     */
     public function update(GuardianDetailsRequest $request, Guardian $guardian, SaveGuardian $save): RedirectResponse
     {
         Gate::authorize('update', $guardian);

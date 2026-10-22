@@ -29,7 +29,7 @@
                 </div>
                 @can('update', $guardian)
                     <div class="card-footer d-flex gap-2">
-                        <a href="{{ route('guardians.edit', $guardian) }}" class="btn btn-primary"><i class="ti ti-edit me-1"></i>{{ __('students.guardians.list.edit') }}</a>
+                        <a href="{{ route('guardians.index', ['edit' => $guardian->id]) }}" class="btn btn-primary"><i class="ti ti-edit me-1"></i>{{ __('students.guardians.list.edit') }}</a>
                         @if ($guardian->students->isEmpty())
                             <form method="POST" action="{{ route('guardians.destroy', $guardian) }}">
                                 @csrf

@@ -8,9 +8,9 @@ Mzazi au mlezi anaweza kuongezwa kutoka kwenye ukurasa wa mwanafunzi, au peke ya
 
 ## Orodha ya walezi
 
-**Masomo** > **Walezi** > **Orodha ya Walezi** inaonyesha kila mzazi na mlezi wa shule pamoja na wanafunzi wao, namba ya simu, barua pepe na siku aliyoongezwa. Tumia kijinsi cha kutafuta jina, namba ya simu au barua pepe; tafutaji ni POST, hivyo kile unachokiandika hikibali kwenye kumbukumbu ya anwani.
+**Masomo** > **Walezi** inaonyesha kila mzazi na mlezi wa shule pamoja na wanafunzi wao, namba ya simu, barua pepe na siku aliyoongezwa. Tumia kijinsi cha kutafuta jina, namba ya simu au barua pepe; tafutaji ni POST, hivyo kile unachokiandika hikibali kwenye kumbukumbu ya anwani.
 
-**Ongeza Mlezi** humfanya mlezi wa shule peke yake. Unaweza kuunganisha wanafunzi baadaye kutoka kwenye ukurasa wa mlezi.
+**Ongeza Mlezi** hufungua madirisha madogo yenye jina, namba ya simu na barua pepe; ukurasa hautakiwi kupakia tena. Penseli ya kila safu inafungua pop-up ile ile ikiwa imejaa na mlezi husika, na namba ya simu iliyomo shuleni tayari inakataliwa kwa pop-up kufunguka tena na ulichoweka kikiwa ndani.
 
 ## Ukurasa wa mlezi mmoja
 
