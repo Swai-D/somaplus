@@ -84,14 +84,21 @@ it('shows the page of a teacher', function () {
         ->assertSee('zawadi@acme.test');
 });
 
+/** A password only for the test run: fresh every time, so nothing is kept in the file. */
+function aPasswordFor(): string
+{
+    return 'Welcome-'.bin2hex(random_bytes(4));
+}
+
 it('adds a teacher with the account, the subjects and the classes', function () {
     $subject = TenantContext::run($this->school, fn () => Subject::factory()->create(['name' => 'Mathematics']));
     $class = TenantContext::run($this->school, fn () => SchoolClass::factory()->create(['name' => 'Form 1']));
+    $password = aPasswordFor();
 
     $this->actingAs($this->owner)->post("{$this->url}/teachers", [
         'name' => 'Neema Mushi',
         'email' => 'neema@acme.test',
-        'password' => 'sirika123',
+        'password' => $password,
         'phone' => '0755111222',
         'staff_number' => 'TCH-002',
         'gender' => 'female',
@@ -108,6 +115,8 @@ it('adds a teacher with the account, the subjects and the classes', function () 
         ->and($teacher->phone)->toBe('0755111222')
         ->and($teacher->staff_number)->toBe('TCH-002')
         ->and($teacher->isActive())->toBeTrue()
+        ->and(str_starts_with($teacher->user->password, '$2y$'))->toBeTrue()
+        ->and($teacher->user->password)->not->toBe($password)
         ->and($teacher->subjects->pluck('id')->all())->toBe([$subject->id])
         ->and($teacher->classes->pluck('id')->all())->toBe([$class->id]);
 });
@@ -124,7 +133,7 @@ it('refuses an email that is already in the school', function () {
     aTeacher($this->school, 'Zawadi Mushi', 'zawadi@acme.test');
 
     $this->actingAs($this->owner)->post("{$this->url}/teachers", [
-        'name' => 'Someone Else', 'email' => 'zawadi@acme.test', 'password' => 'sirika123',
+        'name' => 'Someone Else', 'email' => 'zawadi@acme.test', 'password' => aPasswordFor(),
         'phone' => '0755000000', 'joined_on' => '2026-01-15',
     ])->assertSessionHasErrors('email');
 
@@ -135,7 +144,7 @@ it('refuses a staff number that is already in the school', function () {
     aTeacher($this->school);
 
     $this->actingAs($this->owner)->post("{$this->url}/teachers", [
-        'name' => 'Someone Else', 'email' => 'other@acme.test', 'password' => 'sirika123',
+        'name' => 'Someone Else', 'email' => 'other@acme.test', 'password' => aPasswordFor(),
         'phone' => '0755000000', 'staff_number' => 'TCH-001', 'joined_on' => '2026-01-15',
     ])->assertSessionHasErrors('staff_number');
 });
