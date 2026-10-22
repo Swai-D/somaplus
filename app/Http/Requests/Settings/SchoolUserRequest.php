@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Settings;
 
 use App\Domain\Settings\RoleCatalog;
+use App\Models\User;
 use App\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -19,7 +20,9 @@ class SchoolUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('user');
+        // The route gives the person as a model, so the id is taken from the model.
+        $person = $this->route('user');
+        $id = $person instanceof User ? $person->getKey() : $person;
         $creating = ! is_scalar($id);
 
         return [

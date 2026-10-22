@@ -38,6 +38,7 @@ return [
         'results' => 'Matokeo',
         'fees' => 'Ada',
         'payments' => 'Malipo',
+        'reminders' => 'Vikumbusho vya ada',
     ],
     'perm' => [
         'academics' => ['view' => 'Kuangalia miaka ya masomo, madarasa na masomo', 'manage' => 'Kuongeza, kubadilisha na kufuta'],
@@ -49,6 +50,7 @@ return [
         'results' => ['view' => 'Kuangalia matokeo, nafasi na ripoti za wanafunzi'],
         'fees' => ['view' => 'Kuangalia miundo ya ada na ankara', 'manage' => 'Kubadilisha miundo ya ada, kutengeneza ankara, kuweka control number'],
         'payments' => ['record' => 'Kurekodi malipo na kutoa risiti', 'reverse' => 'Kubatilisha malipo'],
+        'reminders' => ['send' => 'Kutuma vikumbusho vya ada kwa SMS'],
     ],
     'users' => [
         'title' => 'Watumiaji',

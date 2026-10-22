@@ -38,6 +38,7 @@ return [
         'results' => 'Results',
         'fees' => 'Fees',
         'payments' => 'Payments',
+        'reminders' => 'Fee reminders',
     ],
     'perm' => [
         'academics' => ['view' => 'Look at academic years, classes and subjects', 'manage' => 'Add, change and delete them'],
@@ -49,6 +50,7 @@ return [
         'results' => ['view' => 'Look at results, positions and report cards'],
         'fees' => ['view' => 'Look at fee structures and invoices', 'manage' => 'Change fee structures, make invoices, set control numbers'],
         'payments' => ['record' => 'Record payments and issue receipts', 'reverse' => 'Reverse a payment'],
+        'reminders' => ['send' => 'Send fee reminders by SMS'],
     ],
     'users' => [
         'title' => 'Users',
