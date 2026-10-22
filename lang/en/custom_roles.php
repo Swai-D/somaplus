@@ -31,6 +31,7 @@ return [
     'area' => [
         'academics' => 'Academics',
         'students' => 'Students',
+        'teachers' => 'Teachers',
         'attendance' => 'Attendance',
         'grades' => 'Grading scales',
         'exams' => 'Exams',
@@ -43,6 +44,7 @@ return [
     'perm' => [
         'academics' => ['view' => 'Look at academic years, classes and subjects', 'manage' => 'Add, change and delete them'],
         'students' => ['view' => 'Look at students, parents and class history', 'manage' => 'Add and change students, parents and placements; import; print ID cards'],
+        'teachers' => ['view' => 'Look at the teachers of the school', 'manage' => 'Add and change teachers, their subjects and their classes'],
         'attendance' => ['manage' => 'Take and look at attendance'],
         'grades' => ['manage' => 'Add and change grading scales'],
         'exams' => ['view' => 'Look at exams, grading scales and marks', 'manage' => 'Add and change exams, lock and unlock them'],

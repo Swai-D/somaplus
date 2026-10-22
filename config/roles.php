@@ -39,6 +39,8 @@ return [
         'academics.manage' => ['owner', 'head_teacher'],
         'students.view' => ['owner', 'head_teacher', 'teacher', 'accountant'],
         'students.manage' => ['owner', 'head_teacher'],
+        'teachers.view' => ['owner', 'head_teacher'],
+        'teachers.manage' => ['owner', 'head_teacher'],
         'attendance.manage' => ['owner', 'head_teacher', 'teacher'],
         'grades.manage' => ['owner', 'head_teacher'],
         'exams.view' => ['owner', 'head_teacher', 'teacher'],
@@ -57,6 +59,7 @@ return [
     'implies' => [
         'academics.manage' => ['academics.view'],
         'students.manage' => ['students.view'],
+        'teachers.manage' => ['teachers.view'],
         'exams.manage' => ['exams.view'],
         'marks.enter' => ['exams.view'],
         'fees.manage' => ['fees.view'],

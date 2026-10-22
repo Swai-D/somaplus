@@ -132,6 +132,20 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 14. Guardians: the sidebar has Academics > Guardians with **Add New Guardian** and **Guardians List** (a teacher sees the list but not "Add New Guardian"; a parent/student sees neither and gets 403 on `/guardians`). The list is a datatable of the template: its own search box sits in the header of the card, with the page length, the sorting of the columns and the paging. **Add New Guardian** and the pencil of a row open a pop-up (the page is not loaded again; the pencil of the row fills the pop-up with that guardian). In the pop-up, a name, a phone and an email are typed and saved: a phone that is already in the school is refused and the pop-up opens again with what was typed. On the guardian's page, link a pupil with a relationship and as main contact; the pupil is listed with its class, and **Take off** unlinks them. A guardian who is left with no pupil is deleted; a guardian with a pupil is not (the delete is refused with a message).
 15. `select action, subject_type, subject_id, user_id from audit_logs` shows the actions above and no names.
 
+## Teachers
+
+1. Sign in as owner. The sidebar has Academics > Teachers with **Add teacher** and **Teacher list**. A teacher, an accountant and a parent/student do not see the entry and get 403 on `/teachers`; the head teacher sees the list and can add a teacher too.
+2. Add a teacher: the form is a pop-up of the list (the page is not loaded again). Fill in the name, the email and a password of 8+ characters, the phone and the staff number `TCH-001`, tick a subject and a class, save. The teacher is in the list with the name, the staff number, the phone, the subject and the class.
+3. The same email in the same school is refused, and so is the same staff number; the pop-up opens again with what was typed. An email that is already used at another school is accepted.
+4. The person signs in with that email and password and has the teacher menu (marks, attendance).
+5. Open the teacher: the page shows the details, what the teacher teaches and the account. **Edit** opens a page; leave the password empty and the old password still works, type a new one and it replaces it.
+6. Search "ama" in the list: the address stays `/teachers/search` and shows no name. The filter shows only the teachers on duty or only those out of duty.
+7. **Put out of duty**: the teacher is marked as such in the list and the filter finds them. **Back in duty** undoes it.
+8. **Take out of the school**: the record and what it teaches are gone, the account stays and has no role any more, so the person can be given another role in Settings > Users. The marks the person entered keep their name.
+9. In a read-only school the pages open and every change answers 403. A teacher of another school gives 404.
+10. In Kiswahili all the pages are in Swahili; Help has the topic "Walimu" with one article.
+11. `select action, subject_id from audit_logs` shows the teacher actions with ids only and no names.
+
 ## Attendance
 
 1. Sign in as a teacher. The sidebar has Academics > Attendance > Take attendance and Summary. An accountant does not see Attendance and gets 403 on `/attendance`.

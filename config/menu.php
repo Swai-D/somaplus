@@ -100,6 +100,24 @@ return [
                     ],
                 ],
                 [
+                    'label' => 'menu.teachers',
+                    'icon' => 'ti ti-user-check',
+                    'children' => [
+                        [
+                            'label' => 'menu.add_teacher',
+                            'route' => 'teachers.create',
+                            'permission' => 'teachers.manage',
+                            'active' => ['teachers.create'],
+                        ],
+                        [
+                            'label' => 'menu.teacher_list',
+                            'route' => 'teachers.index',
+                            'permission' => 'teachers.view',
+                            'active' => ['teachers.index', 'teachers.search', 'teachers.show', 'teachers.edit'],
+                        ],
+                    ],
+                ],
+                [
                     'label' => 'menu.attendance',
                     'icon' => 'ti ti-checklist',
                     'children' => [
