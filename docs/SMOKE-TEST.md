@@ -104,7 +104,7 @@ Mail goes to Mailpit (`http://localhost:8025`) with the `MAIL_*` values of `.env
 
 Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, created in the sign-in section).
 
-1. The sidebar has a section Academics (Masomo) like the template: **Academic years**, and **Classes** which opens to **Class list** and **Subjects**. Every "add" form is a pop-up of the page (the page is not loaded again): the orange button opens it, and a form that is refused opens the pop-up again with what was typed. `/students/create` and `/exams/create` open the list with the pop-up ready. Streams are managed inside each class.
+1. The sidebar has a section Academics (Masomo) like the template: **Academic years**, and **Classes** which opens to **Class list** and **Subjects**. Every "add" form is a pop-up of the page (the page is not loaded again): the orange button opens it, and a form that is refused opens the pop-up again with what was typed. `/students/create`, `/exams/create`, `/grading-scales/create`, `/fees/structures/create`, `/fees/payments/create`, `/settings/users/create` and `/settings/roles/create` open the list with the pop-up ready. Streams are managed inside each class.
 2. Academic years: add `2026` from 2026-01-01 to 2026-12-31 and mark it current. Adding `2026-27` from 2026-12-31 is refused (overlap); `2027` from 2027-01-01 is accepted. Marking `2027` current removes the badge from `2026`.
 3. Open `2026`: add `Term 1` (2026-01-12 to 2026-04-03) and `Term 2` (2026-05-04 to 2026-08-14). A term dated 2025-12-01 to 2026-03-01 is refused (outside the year); one starting 2026-04-03 is refused (overlap). The dashboard shows the current year and, when today is inside a term, that term.
 4. Deleting `2026` while it has terms is refused with a message; after deleting both terms it works.
@@ -271,6 +271,14 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 4. Another child's address (`/family/children/<id>`) gives 404; staff pages (`/students`, `/fees/invoices`, `/settings/users`) give 403.
 5. Unlink the child from the guardian: the parent no longer sees the child. As owner choose Take access away: the parent is signed out and cannot sign in again; the guardian cannot be deleted while access exists.
 6. Kiswahili: all family pages and Help > Akaunti > "Wazazi: ona ada na matokeo ya watoto wako" are in Swahili.
+
+## School profile
+
+1. As owner open Settings > School profile: the school name is shown but cannot be edited. Enter phone `+255 712 345 678`, email and address, Save.
+2. Open any receipt and any report card: the name, address, phone and email are printed under the school name; print preview shows them too.
+3. Empty the phone and Save: it disappears from receipts. A letter in the phone, or a bad email, is refused.
+4. A head teacher, teacher or accountant gets 403 on the page; a read-only school can open it but not save. Another school's receipts never show these details.
+5. Kiswahili: the page and Help > Kuanza > "Weka mawasiliano ya shule kwenye risiti na ripoti za wanafunzi" are in Swahili.
 
 ## Platform: schools
 

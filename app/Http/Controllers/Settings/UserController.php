@@ -18,14 +18,21 @@ class UserController extends Controller
     {
         Gate::authorize('settings.manage');
 
-        return view('settings.users.index', ['users' => User::query()->with('roles')->orderBy('name')->get()]);
+        return view('settings.users.index', [
+            'users' => User::query()->with('roles')->orderBy('name')->get(),
+            'roles' => RoleCatalog::all(),
+        ]);
     }
 
-    public function create(): View
+    /**
+     * The form of a new person is a pop-up of the list, as in the template, so this address
+     * only opens the list with the pop-up ready.
+     */
+    public function create(): RedirectResponse
     {
         Gate::authorize('settings.manage');
 
-        return view('settings.users.create', ['user' => null, 'roles' => RoleCatalog::all()]);
+        return redirect()->route('settings.users.index', ['add' => 'user-modal']);
     }
 
     public function store(SchoolUserRequest $request, SaveSchoolUser $save): RedirectResponse

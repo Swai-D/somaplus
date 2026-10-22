@@ -9,7 +9,9 @@
             <p class="text-muted mb-0">{{ __('fees.payments.intro') }}</p>
         </div>
         @can('create', App\Models\Payment::class)
-            <a href="{{ route('fees.payments.create') }}" class="btn btn-primary mt-2 mt-md-0"><i class="ti ti-plus me-1"></i>{{ __('fees.payments.record_by_control') }}</a>
+            <button type="button" class="btn btn-primary mt-2 mt-md-0" data-bs-target="#payment-modal" data-bs-toggle="modal">
+                <i class="ti ti-circle-plus me-1"></i>{{ __('fees.payments.record_by_control') }}
+            </button>
         @endcan
     </div>
     <div class="card">
@@ -43,4 +45,10 @@
             @endif
         </div>
     </div>
+
+    @can('create', App\Models\Payment::class)
+        <x-form-modal id="payment-modal" title="{{ __('fees.payments.record_by_control') }}" action="{{ route('fees.payments.store') }}" size="modal-lg">
+            @include('fees.payments._fields', ['key' => $paymentKey, 'withControlNumber' => true])
+        </x-form-modal>
+    @endcan
 @endsection

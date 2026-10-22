@@ -23,11 +23,15 @@ class GradingScaleController extends Controller
         ]);
     }
 
-    public function create(): View
+    /**
+     * The form of a new grading scale is a pop-up of the list, as in the template, so this
+     * address only opens the list with the pop-up ready.
+     */
+    public function create(): RedirectResponse
     {
         Gate::authorize('create', GradingScale::class);
 
-        return view('exams.scales.create');
+        return redirect()->route('grading-scales.index', ['add' => 'scale-modal']);
     }
 
     public function store(GradingScaleRequest $request, SaveGradingScale $save): RedirectResponse

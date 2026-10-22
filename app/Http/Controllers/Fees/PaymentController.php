@@ -24,14 +24,19 @@ class PaymentController extends Controller
 
         return view('fees.payments.index', [
             'payments' => Payment::query()->with(['invoice.student', 'receipt', 'reversal'])->orderByDesc('id')->limit(200)->get(),
+            'paymentKey' => (string) Str::uuid(),
         ]);
     }
 
-    public function create(): View
+    /**
+     * The form of a payment is a pop-up of the list, as in the template, so this address only
+     * opens the list with the pop-up ready.
+     */
+    public function create(): RedirectResponse
     {
         Gate::authorize('create', Payment::class);
 
-        return view('fees.payments.create', ['key' => (string) Str::uuid()]);
+        return redirect()->route('fees.payments.index', ['add' => 'payment-modal']);
     }
 
     /** Record a payment for the invoice that owns the typed control number. */

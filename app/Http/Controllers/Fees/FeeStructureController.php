@@ -24,14 +24,18 @@ class FeeStructureController extends Controller
 
         return view('fees.structures.index', [
             'structures' => FeeStructure::query()->with(['term.academicYear', 'schoolClass', 'items'])->withCount('invoices')->orderByDesc('term_id')->orderBy('school_class_id')->orderBy('name')->get(),
-        ]);
+        ] + $this->choices());
     }
 
-    public function create(): View
+    /**
+     * The form of a new fee structure is a pop-up of the list, as in the template, so this
+     * address only opens the list with the pop-up ready.
+     */
+    public function create(): RedirectResponse
     {
         Gate::authorize('create', FeeStructure::class);
 
-        return view('fees.structures.create', $this->choices());
+        return redirect()->route('fees.structures.index', ['add' => 'structure-modal']);
     }
 
     public function store(FeeStructureRequest $request, SaveFeeStructure $save): RedirectResponse

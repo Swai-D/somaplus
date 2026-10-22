@@ -19,6 +19,7 @@
 
     <div class="card">
         <div class="card-body">
+            @include('partials.letterhead')
             <dl class="row mb-0">
                 <dt class="col-sm-4">{{ __('fees.receipts.receipt') }}</dt><dd class="col-sm-8">{{ $receipt->reference() }} · {{ $receipt->issued_on->toDateString() }}</dd>
                 <dt class="col-sm-4">{{ __('fees.invoices.student') }}</dt><dd class="col-sm-8">{{ $invoice->student->fullName() }} ({{ $invoice->student->admission_number }})</dd>

@@ -217,6 +217,12 @@ return [
                             'active' => ['settings.integrations.*'],
                         ],
                         [
+                            'label' => 'menu.school_profile',
+                            'route' => 'settings.school.index',
+                            'permission' => 'settings.manage',
+                            'active' => ['settings.school.*'],
+                        ],
+                        [
                             'label' => 'menu.admission_numbers',
                             'route' => 'settings.admission.index',
                             'permission' => 'settings.manage',
@@ -298,7 +304,7 @@ return [
     |
     */
 
-    'settings_routes' => ['settings.integrations.index', 'settings.admission.index'],
+    'settings_routes' => ['settings.integrations.index', 'settings.admission.index', 'settings.school.index'],
 
     'quick' => [[
         'label' => 'menu.quick_add_student',

@@ -42,6 +42,10 @@ it('shows the form of a list page in a pop-up, with the button that opens it', f
     'subjects' => ['/academics/subjects', 'subject-modal', 'academics.subjects.store'],
     'academic years' => ['/academics/years', 'year-modal', 'academics.years.store'],
     'exams' => ['/exams', 'exam-modal', 'exams.store'],
+    'grading scales' => ['/grading-scales', 'scale-modal', 'grading-scales.store'],
+    'fee structures' => ['/fees/structures', 'structure-modal', 'fees.structures.store'],
+    'payments' => ['/fees/payments', 'payment-modal', 'fees.payments.store'],
+    'users' => ['/settings/users', 'user-modal', 'settings.users.store'],
 ]);
 
 it('opens the list with the pop-up ready instead of a page of its own', function (string $path, string $list, string $modal) {
@@ -50,6 +54,10 @@ it('opens the list with the pop-up ready instead of a page of its own', function
 })->with([
     'a student' => ['/students/create', '/students', 'student-modal'],
     'an exam' => ['/exams/create', '/exams', 'exam-modal'],
+    'a grading scale' => ['/grading-scales/create', '/grading-scales', 'scale-modal'],
+    'a fee structure' => ['/fees/structures/create', '/fees/structures', 'structure-modal'],
+    'a payment' => ['/fees/payments/create', '/fees/payments', 'payment-modal'],
+    'a person' => ['/settings/users/create', '/settings/users', 'user-modal'],
 ]);
 
 it('opens the pop-up of a form that was refused', function () {
