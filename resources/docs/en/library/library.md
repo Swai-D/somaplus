@@ -1,7 +1,7 @@
 ---
 title: Library
 summary: Keep the books of your library, its members, and the copies that go out and come back.
-keywords: library, books, book list, add book, members, card, issue, return, borrowed
+keywords: library, books, book list, add book, members, card, issue, return, borrowed, due, overdue, library card
 order: 1
 ---
 **Academics** > **Library** has three pages: the **book list**, the **library members** and **issue and return**. A book is what the school owns; a member is a pupil with a card the school gave them; an issue is one copy that left the shelf and the day it came back.
@@ -23,9 +23,13 @@ The page of a member lists every book the member borrowed and brought back or st
 
 ## Issue a book and take it back
 
-Under **issue and return**, choose **Issue a book**. Pick the member with their card number, pick a book that still has a copy on the shelf, and pick the day the copy leaves. The copy cannot be issued before the pupils have it, and a date in the future is refused.
+Under **issue and return**, choose **Issue a book**. Pick the member with their card number, pick a book that still has a copy on the shelf, and pick the day the copy leaves and the day it has to come back (**Return due**). The copy cannot be issued before the pupils have it, a date in the future is refused, and the return day cannot be before the issue day.
 
-The list shows the copies that are still out, and **Bring back** takes one copy back on the day it is pressed. The filter above the list shows every issue, only the ones out, or only the ones brought back.
+The list shows the copies that are still out with their due day, and **Bring back** takes one copy back on the day it is pressed. When a copy's return day has passed and it is still out, the row is marked **Overdue** in red, on the issue list and on the member's page. The filter above the list shows every issue, only the ones out, or only the ones brought back.
+
+## The library card
+
+On the page of a member, **Print library card** opens a printable sheet in a new tab: the school name, the name of the pupil, the card number with a barcode, their class and the year. Use the browser's print for the paper.
 
 ## Taking a book or a member out
 

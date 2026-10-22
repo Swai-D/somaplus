@@ -118,13 +118,13 @@ class BookIssueController extends Controller
 
     public function store(IssueRequest $request, IssueBook $issue): RedirectResponse
     {
-        /** @var array{member_id: int, book_id: int, issued_on: string} $data */
+        /** @var array{member_id: int, book_id: int, issued_on: string, due_on: string} $data */
         $data = $request->validated();
 
         $member = LibraryMember::query()->findOrFail($data['member_id']);
         $book = Book::query()->findOrFail($data['book_id']);
 
-        $issue->handle($book, $member, $data['issued_on']);
+        $issue->handle($book, $member, $data['issued_on'], $data['due_on']);
 
         return redirect()->route('library.issues.index')->with('status', __('library.issues.issued'));
     }

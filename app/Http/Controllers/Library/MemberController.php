@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Library;
 
+use App\Domain\Library\BuildLibraryCards;
 use App\Domain\Library\RemoveLibraryMember;
 use App\Domain\Library\SaveLibraryMember;
 use App\Domain\Settings\RecordAudit;
@@ -11,6 +12,7 @@ use App\Http\Requests\Library\MemberRequest;
 use App\Models\AcademicYear;
 use App\Models\LibraryMember;
 use App\Models\Student;
+use App\Tenancy\TenantContext;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -128,6 +130,19 @@ class MemberController extends Controller
         return view('library.members.edit', [
             'member' => $member->load('student'),
             'candidates' => $this->candidates($member->student_id),
+        ]);
+    }
+
+    /** The printable card of one member, opened in a new tab like the ID card of a pupil. */
+    public function card(LibraryMember $member, BuildLibraryCards $cards): View
+    {
+        Gate::authorize('view', $member);
+
+        $member->load('student');
+
+        return view('library.members.card', [
+            'cards' => collect([$cards->handle(collect([$member]))[0]]),
+            'school' => app(TenantContext::class)->current()?->name,
         ]);
     }
 

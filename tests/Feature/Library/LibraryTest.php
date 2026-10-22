@@ -60,11 +60,12 @@ function aMember(Tenant $school, Student $student, string $card = 'LIB-0001'): L
 }
 
 /** One copy of a book that went out to a member, on the shelf when it is not returned. */
-function anIssue(Tenant $school, Book $book, LibraryMember $member): BookIssue
+function anIssue(Tenant $school, Book $book, LibraryMember $member, ?string $dueOn = null): BookIssue
 {
     return TenantContext::run($school, fn () => $book->issues()->create([
         'member_id' => $member->id,
         'issued_on' => '2026-02-01',
+        'due_on' => $dueOn,
     ]));
 }
 
@@ -326,10 +327,12 @@ it('puts a copy out and counts it off the shelf', function () {
         'member_id' => $member->id,
         'book_id' => $book->id,
         'issued_on' => today()->toDateString(),
+        'due_on' => now()->addDays(14)->toDateString(),
     ])->assertRedirect($this->url.'/library/issues')->assertSessionHasNoErrors();
 
     $issue = ($this->inSchool)(fn () => BookIssue::query()->sole());
-    expect($issue->member_id)->toBe($member->id)->and($issue->isReturned())->toBeFalse();
+    expect($issue->member_id)->toBe($member->id)->and($issue->isReturned())->toBeFalse()
+        ->and($issue->due_on->toDateString())->toBe(now()->addDays(14)->toDateString());
 
     $book->refresh();
     expect($book->availableCount())->toBe(1)->and($book->outCount())->toBe(1)
@@ -344,12 +347,14 @@ it('refuses an issue of the last copy more than once or a day in the future', fu
     $this->actingAs($this->owner)->post($this->url.'/library/issues', [
         'member_id' => $member->id, 'book_id' => $book->id,
         'issued_on' => now()->addDay()->toDateString(),
+        'due_on' => now()->addDays(14)->toDateString(),
     ])->assertSessionHasErrors('issued_on');
 
     anIssue($this->school, $book, $other);
 
     $this->actingAs($this->owner)->post($this->url.'/library/issues', [
         'member_id' => $member->id, 'book_id' => $book->id, 'issued_on' => today()->toDateString(),
+        'due_on' => now()->addDays(14)->toDateString(),
     ])->assertSessionHasErrors('book_id');
 
     expect(($this->inSchool)(fn () => BookIssue::query()->count()))->toBe(1);
@@ -430,4 +435,55 @@ it('shows the library in the menu of the school', function () {
         ->toContain(route('library.issues.index'))
         ->toContain(__('menu.book_list'))
         ->toContain(__('menu.issue_return'));
+});
+
+it('refuses a day of return before the day the copy went out', function () {
+    $book = aBook($this->school, 'Kiswahili Fasaha');
+    $member = aMember($this->school, ($this->aPupil)());
+
+    $this->actingAs($this->owner)->post($this->url.'/library/issues', [
+        'member_id' => $member->id, 'book_id' => $book->id,
+        'issued_on' => today()->toDateString(),
+        'due_on' => now()->subDay()->toDateString(),
+    ])->assertSessionHasErrors('due_on');
+
+    expect(($this->inSchool)(fn () => BookIssue::query()->count()))->toBe(0);
+});
+
+it('marks a copy whose return day has passed as overdue', function () {
+    $book = aBook($this->school, 'Kiswahili Fasaha');
+    $member = aMember($this->school, ($this->aPupil)());
+    anIssue($this->school, $book, $member, now()->subDay()->toDateString());
+
+    $this->actingAs($this->owner)->get($this->url.'/library/issues')->assertOk()
+        ->assertSee(__('library.issues.list.overdue'));
+    $this->actingAs($this->owner)->get($this->url.'/library/members/'.$member->id)->assertOk()
+        ->assertSee(__('library.issues.list.overdue'));
+});
+
+it('does not mark a copy that is still within its return day', function () {
+    $book = aBook($this->school, 'Kiswahili Fasaha');
+    $member = aMember($this->school, ($this->aPupil)());
+    anIssue($this->school, $book, $member, now()->addDay()->toDateString());
+
+    $this->actingAs($this->owner)->get($this->url.'/library/issues')->assertOk()
+        ->assertDontSee(__('library.issues.list.overdue'));
+});
+
+it('prints the library card of a member', function () {
+    $member = aMember($this->school, ($this->aPupil)());
+
+    $this->actingAs($this->owner)->get($this->url.'/library/members/'.$member->id.'/card')
+        ->assertOk()
+        ->assertSee($member->card_number)
+        ->assertSee('Acme Secondary')
+        ->assertSee(__('library.members.card.tag'));
+
+    expect(($this->inSchool)(fn () => AuditLog::where('action', 'library.card_printed')->where('subject_id', $member->id)->exists()))->toBeTrue();
+});
+
+it('sends an account that may not use the library away from the card', function () {
+    $member = aMember($this->school, ($this->aPupil)());
+
+    $this->actingAs($this->teacher)->get($this->url.'/library/members/'.$member->id.'/card')->assertForbidden();
 });

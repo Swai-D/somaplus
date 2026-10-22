@@ -101,11 +101,19 @@ return [
             'no_history' => 'Mwanamaktaba huyu hajawahi kopaa kitabu bado.',
             'out' => 'Bado hajarejesha',
             'returned' => 'Amerejesha',
+            'print_card' => 'Chapisha kadi ya maktaba',
             'edit' => 'Badilisha mwanamaktaba',
             'delete' => 'Rudisha kadi',
             'delete_confirm' => 'Kumtoa mwanamaktaba huyu kwenye maktaba? Mwanamaktaba aliyewahi kopewa kitabu hawezi kwenda, kwa sababu rekodi ya matumizi yanasema ni yeye.',
             'no_guardian' => '—',
             'issue_more' => 'Kopesha kitabu kwa mwanamaktaba huyu',
+        ],
+
+        'card' => [
+            'title' => 'Kadi ya maktaba',
+            'tag' => 'Kadi ya maktaba',
+            'number' => 'Namba ya kadi',
+            'count' => 'kadi :count',
         ],
 
         'saved' => 'Kadi ya mwanamaktaba imehifadhiwa.',
@@ -123,6 +131,8 @@ return [
             'book' => 'Kitabu',
             'number' => 'Namba ya kitabu',
             'issued_on' => 'Kilichotoka',
+            'due_on' => 'Kilichopaswa kurejeshwa',
+            'overdue' => 'Limeliwahi',
             'returned_on' => 'Kilichorejeshwa',
             'out' => 'Kilichotoka',
             'returned' => 'Kilichorejesha',
@@ -153,6 +163,8 @@ return [
             'no_copies' => 'Hakuna nakala kwenye rafu',
             'issued_on' => 'Tarehe ya kutoka',
             'day_hint' => 'Siku nakala iliyotoka maktaba. Haiwezi kuwa siku ijayo.',
+            'due_on' => 'Tarehe ya kurejesha',
+            'due_hint' => 'Siku nakala inapaswa kurejeshwa. Haiwezi kabla ya siku iliyotoka.',
         ],
 
         'issued' => 'Kitabu kimetolewa kwa mwanamaktaba.',

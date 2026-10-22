@@ -101,11 +101,19 @@ return [
             'no_history' => 'This member has not borrowed a book yet.',
             'out' => 'Still out',
             'returned' => 'Brought back',
+            'print_card' => 'Print library card',
             'edit' => 'Change the member',
             'delete' => 'Take the card back',
             'delete_confirm' => 'Take this member out of the library? A member the library ever lent a book to cannot go, because the record of the issues says it is them.',
             'no_guardian' => '—',
             'issue_more' => 'Issue a book to this member',
+        ],
+
+        'card' => [
+            'title' => 'Library card',
+            'tag' => 'Library card',
+            'number' => 'Card number',
+            'count' => ':count card|:count cards',
         ],
 
         'saved' => 'The card of the member has been saved.',
@@ -123,6 +131,8 @@ return [
             'book' => 'Book',
             'number' => 'Book number',
             'issued_on' => 'Issued on',
+            'due_on' => 'Due on',
+            'overdue' => 'Overdue',
             'returned_on' => 'Brought back on',
             'out' => 'Out',
             'returned' => 'Brought back',
@@ -153,6 +163,8 @@ return [
             'no_copies' => 'No copy on the shelf',
             'issued_on' => 'Issued on',
             'day_hint' => 'The day the copy left the library. It cannot be in the future.',
+            'due_on' => 'Return due',
+            'due_hint' => 'The day the copy has to come back. It cannot be before the day it went out.',
         ],
 
         'issued' => 'The book has been put out to the member.',
