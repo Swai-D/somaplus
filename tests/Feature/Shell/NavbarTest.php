@@ -13,6 +13,7 @@ use App\Models\Tenant;
 use App\Models\Term;
 use App\Models\User;
 use App\Tenancy\TenantContext;
+use Illuminate\Support\Str;
 
 beforeEach(function () {
     useTestHosts();
@@ -158,4 +159,45 @@ it('leaves no template placeholders in the top bar', function () {
         ->not->toContain('email.html')
         ->not->toContain('activities.html')
         ->not->toContain('profile.html');
+});
+
+it('does not use the words of the buttons of the pages in the quick menu', function () {
+    // The invoice page has a "Record payment" button; the quick menu says "New payment",
+    // so a paid invoice shows no button of that name.
+    $invoice = TenantContext::run($this->school, function () {
+        $student = Student::factory()->create();
+        $structure = FeeStructure::factory()->create([
+            'academic_year_id' => $this->world['year']->id,
+            'term_id' => $this->world['term']->id,
+            'school_class_id' => $this->world['class']->id,
+            'name' => 'Tuition',
+        ]);
+
+        $invoice = new Invoice;
+        $invoice->forceFill([
+            'tenant_id' => $this->school->id,
+            'number' => 1,
+            'student_id' => $student->id,
+            'academic_year_id' => $this->world['year']->id,
+            'term_id' => $this->world['term']->id,
+            'fee_structure_id' => $structure->id,
+            'school_class_id' => $this->world['class']->id,
+            'currency' => 'TZS',
+            'total' => 100000,
+            'issued_on' => now()->toDateString(),
+        ])->save();
+
+        return $invoice;
+    });
+
+    $this->actingAs($this->accountant)
+        ->post("http://acme.somaplus.test/fees/invoices/{$invoice->id}/payments", [
+            'amount' => '1000', 'method' => 'cash', 'paid_on' => now()->toDateString(), 'idempotency_key' => (string) Str::uuid(),
+        ])->assertSessionHasNoErrors();
+
+    $html = $this->actingAs($this->accountant)
+        ->get("http://acme.somaplus.test/fees/invoices/{$invoice->id}")->assertOk()->getContent();
+
+    expect($html)->not->toContain(__('fees.payments.record_button'))
+        ->toContain(route('fees.payments.create'));
 });

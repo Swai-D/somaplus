@@ -40,5 +40,5 @@ return [
     'quick_exam' => 'Mtihani mpya',
     'quick_grading_scale' => 'Mizani ya madaraja',
     'quick_fee_structure' => 'Muundo wa ada',
-    'quick_payment' => 'Weka malipo',
+    'quick_payment' => 'Malipo mpya',
 ];

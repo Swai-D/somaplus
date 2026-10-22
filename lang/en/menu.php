@@ -40,5 +40,5 @@ return [
     'quick_exam' => 'New exam',
     'quick_grading_scale' => 'Grading scale',
     'quick_fee_structure' => 'Fee structure',
-    'quick_payment' => 'Record payment',
+    'quick_payment' => 'New payment',
 ];
