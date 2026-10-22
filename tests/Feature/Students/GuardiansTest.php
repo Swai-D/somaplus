@@ -134,11 +134,13 @@ it('keeps a guardian who is still the parent of a pupil', function () {
 it('shows the guardians in the sidebar only to people who may look at them', function () {
     $this->actingAs($this->owner)->get($this->url)
         ->assertSee(__('menu.guardians'))
-        ->assertSee(route('guardians.index'));
+        ->assertSee(route('guardians.index'))
+        ->assertSee(route('guardians.add'));
 
     $this->actingAs($this->teacher)->get($this->url)
         ->assertSee(__('menu.guardians'))
-        ->assertSee(route('guardians.index'));
+        ->assertSee(route('guardians.index'))
+        ->assertDontSee(route('guardians.add'));
 
     $this->actingAs($this->parent)->get($this->url)
         ->assertDontSee(route('guardians.index'));
@@ -153,6 +155,7 @@ it('adds and changes a guardian in a pop-up, without loading the page again', fu
         ->toContain('data-bs-target="#guardian-modal"')
         ->toContain('action="'.route('guardians.store').'"')
         ->toContain('data-guardian-action="'.route('guardians.update', $guardian).'"')
+        ->toContain('class="datatable table')
         ->not->toContain('/guardians/create');
 
     // The page of a guardian opens the pop-up filled with that guardian.
@@ -160,6 +163,9 @@ it('adds and changes a guardian in a pop-up, without loading the page again', fu
 
     expect($html)->toContain('data-guardian-open="1"')
         ->toContain('data-guardian-edit-name="Fatuma Juma"');
+
+    // The entry of the menu opens the list with the pop-up of a new guardian ready.
+    $this->actingAs($this->owner)->get("{$this->url}/guardians/add")->assertRedirect(route('guardians.index', ['add' => 1]));
 });
 
 it('lets only people who may change students add or change a guardian', function () {

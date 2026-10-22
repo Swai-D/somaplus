@@ -4,12 +4,14 @@
 
 @section('page')
     @php
-        // The pop-up opens on its own when the form was refused, or when the page was opened
-        // to change one guardian (the button on the page of a guardian).
+        // The pop-up opens on its own when the form was refused, when the page was opened
+        // to change one guardian (the button on the page of a guardian) or to add one
+        // (the entry of the menu).
         $editing = null;
         if (! $errors->any() && request()->filled('edit')) {
             $editing = \App\Models\Guardian::query()->whereKey((int) request('edit'))->first();
         }
+        $adding = request()->filled('add') && $editing === null;
     @endphp
 
     <div class="d-flex flex-wrap justify-content-between align-items-start mb-3">
@@ -42,7 +44,7 @@
                 <p class="text-muted mb-0">{{ $term === null ? __('students.guardians.list.empty') : __('students.guardians.list.none_found') }}</p>
             @else
                 <div class="table-responsive">
-                    <table class="table align-middle mb-0">
+                    <table class="datatable table align-middle mb-0">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -118,7 +120,7 @@
                     </div>
                     <form action="{{ route('guardians.store') }}" method="POST"
                         data-guardian-form
-                        data-guardian-open="{{ ($errors->any() || $editing !== null) ? '1' : '0' }}"
+                        data-guardian-open="{{ ($errors->any() || $editing !== null || $adding) ? '1' : '0' }}"
                         data-guardian-old-name="{{ old('name') }}"
                         data-guardian-old-phone="{{ old('phone') }}"
                         data-guardian-old-email="{{ old('email') }}"
@@ -214,8 +216,8 @@
                     }
                 });
 
-                // The page was opened to change a guardian, or the form was refused: the
-                // pop-up opens on its own, filled with what is known.
+                // The page was opened to change a guardian, to add one, or the form was refused:
+                // the pop-up opens on its own, filled with what is known.
                 if (form.getAttribute('data-guardian-open') === '1' && window.bootstrap) {
                     var editAction = form.getAttribute('data-guardian-edit-action');
                     if (editAction) {

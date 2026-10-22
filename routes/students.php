@@ -39,6 +39,7 @@ Route::prefix('students')->name('students.')->group(function () {
 // `students.manage` (GuardianPolicy) and a school that is not read-only.
 Route::prefix('guardians')->name('guardians.')->group(function () {
     Route::get('/', [GuardianController::class, 'index'])->name('index');
+    Route::get('add', [GuardianController::class, 'add'])->name('add');
     Route::post('search', [GuardianController::class, 'search'])->name('search');
     Route::get('{guardian}', [GuardianController::class, 'show'])->name('show')->whereNumber('guardian');
 

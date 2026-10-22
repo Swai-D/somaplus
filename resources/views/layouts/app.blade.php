@@ -45,6 +45,7 @@
     <script src="{{ asset('assets/plugins/simplebar/simplebar.min.js') }}"></script>
     @stack('vendor')
     <script src="{{ asset('assets/plugins/flatpickr/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     @stack('page-scripts')
 @endpush

@@ -8,9 +8,11 @@ A parent or a guardian can be added from a student's page, or on their own under
 
 ## The guardian list
 
-**Academics** > **Guardians** shows every parent and guardian of the school with their pupils, their phone number, their email address and the day they were added. Use the search box to look for a name, a phone number or an email address; the search is a POST, so what you type never stays in the address bar.
+**Academics** > **Guardians** has the two subsections of the template: **Add New Guardian** and **Guardians List**.
 
-**Add guardian** opens a small pop-up with the name, the phone number and the email address; the page is not loaded again. The pencil of a row opens the same pop-up filled with that guardian, and a phone number that is already in the school is refused with the pop-up opening again and what you typed kept.
+**Guardians List** shows every parent and guardian of the school with their pupils, their phone number, their email address and the day they were added. The table is a datatable: it has its own search box, the number of rows per page, the sorting of the columns and the paging, as in the template. Use it to look for someone in the list; to search the whole school, use the box above the table, which is a POST, so what you type never stays in the address bar.
+
+**Add New Guardian** opens a small pop-up with the name, the phone number and the email address; the page is not loaded again. The pencil of a row opens the same pop-up filled with that guardian, and a phone number that is already in the school is refused with the pop-up opening again and what you typed kept.
 
 ## The page of one guardian
 

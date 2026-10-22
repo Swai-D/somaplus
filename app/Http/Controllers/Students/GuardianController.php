@@ -74,6 +74,16 @@ class GuardianController extends Controller
         ]);
     }
 
+    /**
+     * Opens the list with the pop-up of a new guardian ready, so the menu can lead to it.
+     */
+    public function add(): RedirectResponse
+    {
+        Gate::authorize('create', Guardian::class);
+
+        return redirect()->route('guardians.index', ['add' => 1]);
+    }
+
     public function store(GuardianDetailsRequest $request, CreateGuardian $create): RedirectResponse
     {
         /** @var array{name: string, phone: string, email?: string|null} $data */

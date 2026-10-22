@@ -8,9 +8,11 @@ Mzazi au mlezi anaweza kuongezwa kutoka kwenye ukurasa wa mwanafunzi, au peke ya
 
 ## Orodha ya walezi
 
-**Masomo** > **Walezi** inaonyesha kila mzazi na mlezi wa shule pamoja na wanafunzi wao, namba ya simu, barua pepe na siku aliyoongezwa. Tumia kijinsi cha kutafuta jina, namba ya simu au barua pepe; tafutaji ni POST, hivyo kile unachokiandika hikibali kwenye kumbukumbu ya anwani.
+**Masomo** > **Walezi** ina ma subsections mbili ya template: **Ongeza Mlezi Mpya** na **Orodha ya Walezi**.
 
-**Ongeza Mlezi** hufungua madirisha madogo yenye jina, namba ya simu na barua pepe; ukurasa hautakiwi kupakia tena. Penseli ya kila safu inafungua pop-up ile ile ikiwa imejaa na mlezi husika, na namba ya simu iliyomo shuleni tayari inakataliwa kwa pop-up kufunguka tena na ulichoweka kikiwa ndani.
+**Orodha ya Walezi** inaonyesha kila mzazi na mlezi wa shule pamoja na wanafunzi wao, namba ya simu, barua pepe na siku aliyoongezwa. Jedwali ni datatable: lina kijinsi chake cha kutafuta, idadi ya safu kwa ukurasa, kupanga safu na kurasa, kama ilivyo kwenye template. Tumia kijinsi hapo kutafuta mtu kwenye orodha; ili kutafuta kwenye shule nzima, tumia kijinsi kilicho juu ya jedwali, ambacho ni POST, hivyo kile unachokiandika hikibali kwenye kumbukumbu ya anwani.
+
+**Ongeza Mlezi Mpya** hufungua madirisha madogo yenye jina, namba ya simu na barua pepe; ukurasa hautakiwi kupakia tena. Penseli ya kila safu inafungua pop-up ile ile ikiwa imejaa na mlezi husika, na namba ya simu iliyomo shuleni tayari inakataliwa kwa pop-up kufunguka tena na ulichoweka kikiwa ndani.
 
 ## Ukurasa wa mlezi mmoja
 
