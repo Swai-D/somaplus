@@ -42,7 +42,10 @@ beforeEach(function () {
     };
 
     // One invoice of TZS 100,000.00 for a student with one guardian (phone given or none).
-    $this->invoiceFor = fn (string $name, ?string $phone = '0712 345 678', ?string $guardianName = 'Zxqparent') => ($this->inSchool)(function () use ($name, $phone, $guardianName) {
+    $this->invoiceFor = fn (string $name, ?string $phone = 'auto', ?string $guardianName = 'Zxqparent') => ($this->inSchool)(function () use ($name, $phone, $guardianName) {
+        static $n = 0;
+        // A guardian's phone is unique in a school; the first one is the number the tests look for.
+        $phone = $phone === 'auto' ? ($n++ === 0 ? '0712 345 678' : '07123456'.str_pad((string) $n, 2, '0', STR_PAD_LEFT)) : $phone;
         $structure = FeeStructure::factory()->create(['academic_year_id' => $this->w['year']->id, 'term_id' => $this->w['term']->id, 'school_class_id' => $this->w['form1']->id]);
         $item = new FeeItem(['name' => 'Tuition', 'amount' => 10000000]);
         $item->fee_structure_id = $structure->id;
