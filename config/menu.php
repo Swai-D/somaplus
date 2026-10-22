@@ -82,6 +82,24 @@ return [
                     ],
                 ],
                 [
+                    'label' => 'menu.guardians',
+                    'icon' => 'ti ti-users',
+                    'children' => [
+                        [
+                            'label' => 'menu.guardian_list',
+                            'route' => 'guardians.index',
+                            'permission' => 'students.view',
+                            'active' => ['guardians.index', 'guardians.search', 'guardians.show', 'guardians.edit'],
+                        ],
+                        [
+                            'label' => 'menu.add_guardian',
+                            'route' => 'guardians.create',
+                            'permission' => 'students.manage',
+                            'active' => ['guardians.create'],
+                        ],
+                    ],
+                ],
+                [
                     'label' => 'menu.attendance',
                     'icon' => 'ti ti-checklist',
                     'children' => [
