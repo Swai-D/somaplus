@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\ApplyPathEntryTenant;
 use App\Http\Middleware\EnsurePlanAllows;
+use App\Http\Middleware\EnsurePlatformAdmin;
 use App\Http\Middleware\EnsureTenantWritable;
 use App\Http\Middleware\ResolveTenant;
 use App\Http\Middleware\SetLocale;
@@ -51,6 +52,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'plan' => EnsurePlanAllows::class,
             'tenant.writable' => EnsureTenantWritable::class,
+            'platform.admin' => EnsurePlatformAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
