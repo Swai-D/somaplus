@@ -69,6 +69,7 @@ App\Models\User::factory()->superAdmin()->create(['name' => 'Root', 'email' => '
 8. Dashboard submenu: the sidebar's Dashboard opens School and, for owner, head teacher and teacher, Teacher. The Teacher page shows school-wide student and class counts, the marks that person entered, open exams, and a table of this year's exams with Enter marks (open) or Results (locked). An accountant opening `/dashboard/teacher` gets a 403. Switch to Kiswahili: the page changes.
 9. The sidebar shows only "Dashboard" and "Help". Other items appear as the features that own them are built.
 10. "Log out" in the profile menu returns to `/login`.
+11. Top bar: the orange "Add new" button opens the pages of the role. As owner: add student, import students, take attendance, new exam, grading scale, fee structure and record payment. As teacher: only "Take attendance". A parent or student account has no quick menu at all. The bell has a number when there is something to report: set the school to `grace` and the notice names the day the grace period ends, an exam of this year that is not locked and an invoice that is not paid in full are reported (the money one only to the accountant, the head teacher and the owner). A school in `read_only` is told so in the bell. The gear opens the settings for the owner and is not there for the other roles.
 
 ## Help centre
 

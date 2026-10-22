@@ -34,4 +34,11 @@ return [
     'collections_report' => 'Ripoti ya mapato',
     'fee_structures' => 'Miundo ya Ada',
     'help' => 'Msaada',
+    'quick_add_student' => 'Ongeza mwanafunzi',
+    'quick_import_students' => 'Pakia wanafunzi',
+    'quick_attendance' => 'Chukua mahudhurio',
+    'quick_exam' => 'Mtihani mpya',
+    'quick_grading_scale' => 'Mizani ya madaraja',
+    'quick_fee_structure' => 'Muundo wa ada',
+    'quick_payment' => 'Malipo mpya',
 ];

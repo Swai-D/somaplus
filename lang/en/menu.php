@@ -34,4 +34,11 @@ return [
     'collections_report' => 'Collections report',
     'fee_structures' => 'Fee structures',
     'help' => 'Help',
+    'quick_add_student' => 'Add student',
+    'quick_import_students' => 'Import students',
+    'quick_attendance' => 'Take attendance',
+    'quick_exam' => 'New exam',
+    'quick_grading_scale' => 'Grading scale',
+    'quick_fee_structure' => 'Fee structure',
+    'quick_payment' => 'New payment',
 ];

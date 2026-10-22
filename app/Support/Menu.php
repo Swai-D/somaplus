@@ -51,6 +51,62 @@ final class Menu
     }
 
     /**
+     * The "Add new" menu of the top bar: the pages a person reaches for most often. An
+     * entry shows only when the route exists and the person holds the permission that
+     * guards it, exactly like the entries of the sidebar.
+     *
+     * @return list<array{label: string, icon: string, url: string}>
+     */
+    public function quick(?User $user): array
+    {
+        $actions = [];
+
+        foreach ($this->list(config('menu.quick', [])) as $item) {
+            if (! $this->allowed($item, $user)) {
+                continue;
+            }
+
+            $route = $item['route'] ?? null;
+
+            if (! is_string($route) || ! Route::has($route)) {
+                continue;
+            }
+
+            $actions[] = [
+                'label' => $this->text($item['label'] ?? ''),
+                'icon' => is_string($item['icon'] ?? null) ? $item['icon'] : '',
+                'url' => route($route),
+            ];
+        }
+
+        return $actions;
+    }
+
+    /**
+     * The settings page of the school, for the person who may manage it. The first page of
+     * the list that exists and that the person may open is used, so the link always leads
+     * somewhere real.
+     */
+    public function settingsUrl(?User $user): ?string
+    {
+        $routes = config('menu.settings_routes', []);
+
+        foreach (is_array($routes) ? $routes : [] as $route) {
+            if (! is_string($route) || ! Route::has($route)) {
+                continue;
+            }
+
+            if (! $this->allowed(['route' => $route, 'permission' => 'settings.manage'], $user)) {
+                continue;
+            }
+
+            return route($route);
+        }
+
+        return null;
+    }
+
+    /**
      * @param  array<string, mixed>  $item
      * @return array<string, mixed>|null
      */
