@@ -10,7 +10,9 @@
             <p class="text-muted mb-0">{{ __('fees.structures.intro') }}</p>
         </div>
         @can('create', App\Models\FeeStructure::class)
-            <a href="{{ route('fees.structures.create') }}" class="btn btn-primary mt-2 mt-md-0"><i class="ti ti-plus me-1"></i>{{ __('fees.structures.add') }}</a>
+            <button type="button" class="btn btn-primary mt-2 mt-md-0" data-bs-target="#structure-modal" data-bs-toggle="modal">
+                <i class="ti ti-circle-plus me-1"></i>{{ __('fees.structures.add') }}
+            </button>
         @endcan
     </div>
     <div class="card">
@@ -40,4 +42,10 @@
             @endif
         </div>
     </div>
+
+    @can('create', App\Models\FeeStructure::class)
+        <x-form-modal id="structure-modal" title="{{ __('fees.structures.add') }}" action="{{ route('fees.structures.store') }}" size="modal-xl">
+            @include('fees.structures._fields', ['structure' => null, 'terms' => $terms, 'classes' => $classes])
+        </x-form-modal>
+    @endcan
 @endsection

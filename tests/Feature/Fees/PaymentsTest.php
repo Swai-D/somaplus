@@ -312,7 +312,7 @@ it('lets only the right roles see, record and reverse payments', function (strin
 
     $check($this->get("{$this->url}/fees/payments"), $view);
     $check($this->get("{$this->url}/fees/receipts/{$receipt->id}"), $view);
-    $check($this->get("{$this->url}/fees/payments/create"), $record);
+    $record ? $this->get("{$this->url}/fees/payments/create")->assertRedirect() : $this->get("{$this->url}/fees/payments/create")->assertForbidden();
 
     $body = ['amount' => '1000', 'method' => 'cash', 'paid_on' => now()->toDateString(), 'idempotency_key' => (string) Str::uuid()];
     $response = $this->post("{$this->url}/fees/invoices/{$invoice->id}/payments", $body);

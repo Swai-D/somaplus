@@ -9,7 +9,9 @@
             <p class="text-muted mb-0">{{ __('exams.scales.intro') }}</p>
         </div>
         @can('create', App\Models\GradingScale::class)
-            <a href="{{ route('grading-scales.create') }}" class="btn btn-primary mt-2 mt-md-0"><i class="ti ti-plus me-1"></i>{{ __('exams.scales.add') }}</a>
+            <button type="button" class="btn btn-primary mt-2 mt-md-0" data-bs-target="#scale-modal" data-bs-toggle="modal">
+                <i class="ti ti-circle-plus me-1"></i>{{ __('exams.scales.add') }}
+            </button>
         @endcan
     </div>
 
@@ -43,4 +45,10 @@
     @empty
         <div class="card"><div class="card-body text-muted">{{ __('exams.scales.empty') }}</div></div>
     @endforelse
+
+    @can('create', App\Models\GradingScale::class)
+        <x-form-modal id="scale-modal" title="{{ __('exams.scales.add') }}" action="{{ route('grading-scales.store') }}" size="modal-xl">
+            @include('exams.scales._fields', ['scale' => null])
+        </x-form-modal>
+    @endcan
 @endsection

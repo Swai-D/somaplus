@@ -92,15 +92,17 @@
     @can('create', App\Models\Payment::class)
         @if ($balance->balance() > 0)
             <div class="card d-print-none">
-                <div class="card-body">
-                    <h5 class="mb-3">{{ __('fees.payments.record') }}</h5>
-                    <form action="{{ route('fees.invoices.payments.store', $invoice) }}" method="POST">
-                        @csrf
-                        @include('fees.payments._fields', ['key' => $key])
-                        <button type="submit" class="btn btn-primary">{{ __('fees.payments.record_button') }}</button>
-                    </form>
+                <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <h5 class="mb-0">{{ __('fees.payments.record') }}</h5>
+                    <button type="button" class="btn btn-primary" data-bs-target="#invoice-payment-modal" data-bs-toggle="modal">
+                        <i class="ti ti-circle-plus me-1"></i>{{ __('fees.payments.record_button') }}
+                    </button>
                 </div>
             </div>
+
+            <x-form-modal id="invoice-payment-modal" title="{{ __('fees.payments.record') }}" action="{{ route('fees.invoices.payments.store', $invoice) }}" size="modal-lg">
+                @include('fees.payments._fields', ['key' => $key])
+            </x-form-modal>
         @endif
     @endcan
 

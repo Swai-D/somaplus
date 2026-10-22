@@ -424,7 +424,7 @@ it('lets only the right roles see and change fees', function (string $role, bool
     $check($this->get("{$this->url}/fees/structures/{$structure->id}"), $view);
     $check($this->get("{$this->url}/fees/invoices"), $view);
     $check($this->get("{$this->url}/fees/invoices/{$invoice->id}"), $view);
-    $check($this->get("{$this->url}/fees/structures/create"), $manage);
+    $manage ? $this->get("{$this->url}/fees/structures/create")->assertRedirect() : $this->get("{$this->url}/fees/structures/create")->assertForbidden();
     $check($this->get("{$this->url}/fees/structures/{$structure->id}/edit"), $manage);
 
     $manage ? $this->post("{$this->url}/fees/structures", ($this->payload)(['name' => 'ByRole']))->assertRedirect() : $this->post("{$this->url}/fees/structures", ($this->payload)(['name' => 'ByRole']))->assertForbidden();
