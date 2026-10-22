@@ -27,86 +27,82 @@
     </div>
 
     <div class="card">
-        <div class="card-body">
-            <form action="{{ route('guardians.search') }}" method="POST" class="d-flex gap-2 mb-1">
-                @csrf
-                <input type="search" name="term" value="{{ $term }}" class="form-control @error('term') is-invalid @enderror" placeholder="{{ __('students.guardians.list.search_placeholder') }}" aria-label="{{ __('students.guardians.list.search_placeholder') }}" minlength="2" maxlength="100" required autocomplete="off">
-                <button type="submit" class="btn btn-primary"><i class="ti ti-search me-1"></i>{{ __('students.list.search') }}</button>
-            </form>
-            <div class="form-text mb-3">{{ __('students.guardians.list.search_hint') }}</div>
-            @error('term')<div class="text-danger fs-13 mb-2">{{ $message }}</div>@enderror
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-            @if ($guardians->isEmpty())
-                <p class="text-muted mb-0">{{ $term === null ? __('students.guardians.list.empty') : __('students.guardians.list.none_found') }}</p>
-            @else
-                <div class="table-responsive">
-                    <table class="datatable table align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ __('students.fields.name') }}</th>
-                                <th>{{ __('students.guardians.list.children') }}</th>
-                                <th>{{ __('students.fields.phone') }}</th>
-                                <th>{{ __('students.fields.email') }}</th>
-                                <th>{{ __('students.guardians.list.joined') }}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($guardians as $guardian)
-                                <tr>
-                                    <td class="text-muted">{{ $loop->iteration }}</td>
-                                    <td class="fw-medium">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="avatar avatar-md bg-light text-dark fw-semibold">{{ mb_strtoupper(mb_substr($guardian->name, 0, 1)) }}</span>
-                                            <a href="{{ route('guardians.show', $guardian) }}">{{ $guardian->name }}</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if ($guardian->students->isEmpty())
-                                            <span class="text-muted">{{ __('students.guardians.list.no_children') }}</span>
-                                        @else
-                                            @foreach ($guardian->students as $child)
-                                                @php($placement = $placements[$child->id] ?? null)
-                                                <div>
-                                                    <a href="{{ route('students.show', $child) }}">{{ $child->fullName() }}</a>
-                                                    @if ($placement)
-                                                        <span class="text-muted fs-12">{{ $placement->schoolClass->name }}@if ($placement->stream) – {{ $placement->stream->name }}@endif</span>
-                                                    @endif
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td>{{ $guardian->phone }}</td>
-                                    <td>{{ $guardian->email }}</td>
-                                    <td class="text-muted">{{ $guardian->created_at->toFormattedDateString() }}</td>
-                                    <td class="text-end">
-                                        <div class="d-flex gap-2 justify-content-end">
-                                            <a href="{{ route('guardians.show', $guardian) }}" class="btn btn-sm btn-outline-secondary" title="{{ __('academics.open') }}"><i class="ti ti-eye"></i></a>
-                                            @can('update', $guardian)
-                                                <button type="button" class="btn btn-sm btn-outline-secondary" title="{{ __('students.guardians.list.edit') }}"
-                                                    data-bs-target="#guardian-modal" data-bs-toggle="modal"
-                                                    data-guardian-action="{{ route('guardians.update', $guardian) }}"
-                                                    data-guardian-title="{{ __('students.guardians.list.edit') }}"
-                                                    data-guardian-submit="{{ __('students.guardians.form.save') }}"
-                                                    data-guardian-name="{{ $guardian->name }}"
-                                                    data-guardian-phone="{{ $guardian->phone }}"
-                                                    data-guardian-email="{{ $guardian->email }}">
-                                                    <i class="ti ti-edit"></i>
-                                                </button>
-                                            @endcan
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+            <div class="search-set">
+                <div class="search-input">
+                    <span class="btn-searchset"><i class="ti ti-search fs-14 feather-search"></i></span>
                 </div>
-            @endif
+            </div>
+            <div class="d-flex align-items-center flex-wrap gap-2"></div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="datatable table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ __('students.fields.name') }}</th>
+                            <th>{{ __('students.guardians.list.children') }}</th>
+                            <th>{{ __('students.fields.phone') }}</th>
+                            <th>{{ __('students.fields.email') }}</th>
+                            <th>{{ __('students.guardians.list.joined') }}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($guardians as $guardian)
+                            <tr>
+                                <td class="text-muted">{{ $loop->iteration }}</td>
+                                <td class="fw-medium">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="avatar avatar-md bg-light text-dark fw-semibold">{{ mb_strtoupper(mb_substr($guardian->name, 0, 1)) }}</span>
+                                        <a href="{{ route('guardians.show', $guardian) }}">{{ $guardian->name }}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if ($guardian->students->isEmpty())
+                                        <span class="text-muted">{{ __('students.guardians.list.no_children') }}</span>
+                                    @else
+                                        @foreach ($guardian->students as $child)
+                                            @php($placement = $placements[$child->id] ?? null)
+                                            <div>
+                                                <a href="{{ route('students.show', $child) }}">{{ $child->fullName() }}</a>
+                                                @if ($placement)
+                                                    <span class="text-muted fs-12">{{ $placement->schoolClass->name }}@if ($placement->stream) – {{ $placement->stream->name }}@endif</span>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </td>
+                                <td>{{ $guardian->phone }}</td>
+                                <td>{{ $guardian->email }}</td>
+                                <td class="text-muted">{{ $guardian->created_at->toFormattedDateString() }}</td>
+                                <td class="text-end">
+                                    <div class="d-flex gap-2 justify-content-end">
+                                        <a href="{{ route('guardians.show', $guardian) }}" class="btn btn-sm btn-outline-secondary" title="{{ __('academics.open') }}"><i class="ti ti-eye"></i></a>
+                                        @can('update', $guardian)
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" title="{{ __('students.guardians.list.edit') }}"
+                                                data-bs-target="#guardian-modal" data-bs-toggle="modal"
+                                                data-guardian-action="{{ route('guardians.update', $guardian) }}"
+                                                data-guardian-title="{{ __('students.guardians.list.edit') }}"
+                                                data-guardian-submit="{{ __('students.guardians.form.save') }}"
+                                                data-guardian-name="{{ $guardian->name }}"
+                                                data-guardian-phone="{{ $guardian->phone }}"
+                                                data-guardian-email="{{ $guardian->email }}">
+                                                <i class="ti ti-edit"></i>
+                                            </button>
+                                        @endcan
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">{{ __('students.guardians.list.empty') }}</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

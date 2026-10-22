@@ -62,8 +62,6 @@ return [
             'intro' => 'The parents and guardians of the pupils of your school.',
             'add' => 'Add guardian',
             'back' => 'Back to the guardian list',
-            'search_placeholder' => 'Name, phone or email',
-            'search_hint' => 'The search is a POST, so what you type never stays in the address bar.',
             'children' => 'Pupils',
             'no_children' => 'No pupil yet',
             'joined' => 'Added',
@@ -71,7 +69,6 @@ return [
             'delete' => 'Delete',
             'unlink' => 'Take off',
             'empty' => 'No guardian has been added yet.',
-            'none_found' => 'No guardian matches that.',
         ],
         'form' => [
             'personal' => 'Personal details',

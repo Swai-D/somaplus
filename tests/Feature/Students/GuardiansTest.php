@@ -33,15 +33,16 @@ it('shows the guardians of the school with their pupils', function () {
         ->assertSee('Zuhura Mwakyusa');
 });
 
-it('searches the guardians with a POST, so the typed text stays out of the address', function () {
+it('gives the list the search box of the datatable of the template', function () {
     TenantContext::run($this->school, fn () => Guardian::factory()->create(['name' => 'Fatuma Juma', 'phone' => '0712345678']));
     TenantContext::run($this->school, fn () => Guardian::factory()->create(['name' => 'Joseph Mushi', 'phone' => '0755123456']));
 
-    $this->actingAs($this->owner)
-        ->post("{$this->url}/guardians/search", ['term' => 'Mushi'])
-        ->assertOk()
-        ->assertSee('Joseph Mushi')
-        ->assertDontSee('Fatuma Juma');
+    // The datatable of the template moves its own search box into the header of the card.
+    $html = $this->actingAs($this->owner)->get("{$this->url}/guardians")->assertOk()->getContent();
+
+    expect($html)->toContain('class="datatable table')
+        ->toContain('class="search-set"')
+        ->toContain('class="search-input"');
 });
 
 it('shows the guardian and the pupils they are the parent of', function () {

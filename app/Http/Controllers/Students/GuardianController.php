@@ -16,7 +16,6 @@ use App\Models\AcademicYear;
 use App\Models\Guardian;
 use App\Models\Student;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -31,34 +30,7 @@ class GuardianController extends Controller
     {
         Gate::authorize('viewAny', Guardian::class);
 
-        return $this->list(null, $placements);
-    }
-
-    /**
-     * The guardians that match what was typed. It is a POST, so the typed text never reaches
-     * the address bar or a log.
-     */
-    public function search(Request $request, CurrentPlacements $placements): View
-    {
-        Gate::authorize('viewAny', Guardian::class);
-
-        $term = trim((string) $request->validate(['term' => ['required', 'string', 'min:2', 'max:100']])['term']);
-
-        return $this->list($term, $placements);
-    }
-
-    private function list(?string $term, CurrentPlacements $placements): View
-    {
         $guardians = Guardian::query()
-            ->when($term !== null, function ($query) use ($term): void {
-                $like = '%'.str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\_'], mb_strtolower($term)).'%';
-
-                $query->where(function ($q) use ($like): void {
-                    $q->whereRaw('lower(name) like ?', [$like])
-                        ->orWhereRaw('lower(phone) like ?', [$like])
-                        ->orWhereRaw('lower(email) like ?', [$like]);
-                });
-            })
             ->with('students')
             ->orderBy('name')
             ->limit(200)
@@ -70,7 +42,6 @@ class GuardianController extends Controller
             'guardians' => $guardians,
             'placements' => $placements->for($guardians->flatMap(fn (Guardian $g) => $g->students), $year),
             'year' => $year,
-            'term' => $term,
         ]);
     }
 

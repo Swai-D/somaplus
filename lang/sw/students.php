@@ -62,8 +62,6 @@ return [
             'intro' => 'Wazazi na walezi wa wanafunzi wa shule yako.',
             'add' => 'Ongeza mlezi',
             'back' => 'Rudi kwenye orodha ya walezi',
-            'search_placeholder' => 'Jina, simu au barua pepe',
-            'search_hint' => 'Tafutaji ni POST, hivyo kile unachokiandika hikibali kwenye kumbukumbu ya anwani.',
             'children' => 'Wanafunzi',
             'no_children' => 'Hakuna mwanafunzi bado',
             'joined' => 'Aliaddedwa',
@@ -71,7 +69,6 @@ return [
             'delete' => 'Futa',
             'unlink' => 'Ondoa',
             'empty' => 'Bado hakuna mlezi aliyoongezwa.',
-            'none_found' => 'Hakuna mlezi anayolingana na hilo.',
         ],
         'form' => [
             'personal' => 'Maelezo ya binafsi',
