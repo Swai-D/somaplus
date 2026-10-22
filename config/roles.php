@@ -41,7 +41,7 @@ return [
         'students.manage' => ['owner', 'head_teacher'],
         'teachers.view' => ['owner', 'head_teacher'],
         'teachers.manage' => ['owner', 'head_teacher'],
-        'library.view' => ['owner', 'head_teacher'],
+        'library.view' => ['owner', 'head_teacher', 'teacher'],
         'library.manage' => ['owner', 'head_teacher'],
         'attendance.manage' => ['owner', 'head_teacher', 'teacher'],
         'grades.manage' => ['owner', 'head_teacher'],

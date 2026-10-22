@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Book;
 use App\Models\Exam;
 use App\Models\ExamMark;
+use App\Models\LibraryMember;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Tenancy\TenantContext;
@@ -55,6 +58,66 @@ it('shows a teacher the school counts, their own marks and the exams of the year
         ->assertSee(__('dashboard.teacher.enter_marks'))
         ->assertSee(__('dashboard.teacher.results'))
         ->assertSee(__('dashboard.attendance_today'));
+});
+
+it('shows what the school assigned the teacher under Teachers', function () {
+    $name = $this->teacher->id;
+    TenantContext::run($this->school, function () use ($name) {
+        $profile = Teacher::factory()->create(['user_id' => $name]);
+        $profile->classes()->attach($this->w['form1']->id);
+        $profile->subjects()->attach($this->w['math']->id);
+    });
+
+    $this->actingAs($this->teacher)
+        ->get("{$this->url}/dashboard/teacher")
+        ->assertOk()
+        ->assertSee(__('dashboard.teacher.teaches'))
+        ->assertSee('Mathematics')
+        ->assertSee('Form 1');
+});
+
+it('says nothing is assigned when the person holds no teacher record', function () {
+    $this->actingAs($this->teacher)
+        ->get("{$this->url}/dashboard/teacher")
+        ->assertOk()
+        ->assertDontSee(__('dashboard.teacher.teaches'));
+});
+
+it('shows how the library stands to a person who may see it', function () {
+    TenantContext::run($this->school, function () {
+        $book1 = Book::factory()->create(['quantity' => 3]);
+        $book2 = Book::factory()->create(['name' => 'Pili', 'quantity' => 2]);
+        $student = Student::factory()->create();
+        $member = LibraryMember::factory()->create(['student_id' => $student->id]);
+        // One copy whose return day has passed and one still within it.
+        $book1->issues()->create(['member_id' => $member->id, 'issued_on' => '2026-02-01', 'due_on' => now()->subDay()->toDateString()]);
+        $book2->issues()->create(['member_id' => $member->id, 'issued_on' => '2026-02-02', 'due_on' => now()->addDay()->toDateString()]);
+    });
+
+    $this->actingAs($this->teacher)
+        ->get("{$this->url}/dashboard/teacher")
+        ->assertOk()
+        ->assertSee(__('dashboard.teacher.library'))
+        ->assertSee('<h6 class="fw-bold mb-0">3</h6>', false) // two copies out of five on the shelf
+        ->assertSee('<h6 class="fw-bold mb-0">2</h6>', false) // two copies out
+        ->assertSee('<h6 class="fw-bold mb-0 text-danger">1</h6>', false) // one overdue
+        ->assertSee(__('dashboard.teacher.library_open_issues'));
+});
+
+it('leaves the library block away from a person who may not see it', function () {
+    $marksOnly = makeSchoolUser($this->school);
+    TenantContext::run($this->school, fn () => $marksOnly->givePermissionTo('marks.enter'));
+    $marksOnly = TenantContext::runAsSystem(fn () => User::findOrFail($marksOnly->id));
+
+    $this->actingAs($marksOnly)->get("{$this->url}/dashboard/teacher")->assertOk()
+        ->assertDontSee(__('dashboard.teacher.library'));
+});
+
+it('returns the library figures even when the library is empty', function () {
+    $this->actingAs($this->teacher)
+        ->get("{$this->url}/dashboard/teacher")
+        ->assertOk()
+        ->assertSee(__('dashboard.teacher.library_copies', ['copies' => '0']));
 });
 
 it('says so when the year has no exams', function () {
