@@ -21,3 +21,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* The search dropdown of the top bar. The template gives it a fixed height for
+   its own sample content; ours holds two short notes. */
+.search-dropdown {
+    height: auto;
+    min-height: 0;
+}

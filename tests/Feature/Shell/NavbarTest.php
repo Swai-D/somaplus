@@ -161,6 +161,32 @@ it('leaves no template placeholders in the top bar', function () {
         ->not->toContain('profile.html');
 });
 
+it('searches the students from the top bar, with a POST so the name stays out of the address', function () {
+    $html = $this->actingAs($this->teacher)->get('http://acme.somaplus.test/')->assertOk()->getContent();
+
+    expect($html)->toContain('name="term"')
+        ->toContain('action="'.route('students.search').'"')
+        ->toContain('name="_token"')
+        ->toContain(__('layout.search_hint'))
+        ->toContain(route('help.show', ['category' => 'students', 'slug' => 'add-and-find']));
+
+    // A parent or student account may not look at the students, so there is no search box.
+    $html = $this->actingAs($this->parent)->get('http://acme.somaplus.test/')->assertOk()->getContent();
+
+    expect($html)->not->toContain('name="term"');
+});
+
+it('shows the person, the role and the school in the profile of the top bar', function () {
+    $html = $this->actingAs($this->owner)->get('http://acme.somaplus.test/')->assertOk()->getContent();
+
+    expect($html)->toContain($this->owner->name)
+        ->toContain(__('roles.owner'))
+        ->toContain('Acme Secondary')
+        ->toContain(route('settings.integrations.index'))
+        ->toContain(route('help.index'))
+        ->toContain('action="'.route('logout').'"');
+});
+
 it('does not use the words of the buttons of the pages in the quick menu', function () {
     // The invoice page has a "Record payment" button; the quick menu says "New payment",
     // so a paid invoice shows no button of that name.

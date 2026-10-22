@@ -16,6 +16,34 @@
         </a>
 
         <ul class="nav user-menu">
+            @can('viewAny', App\Models\Student::class)
+                <li class="nav-item nav-searchinputs">
+                    <div class="top-nav-search">
+                        <a class="responsive-search" href="javascript:void(0);"><i class="fa fa-search"></i></a>
+                        <form action="{{ route('students.search') }}" method="POST" class="dropdown">
+                            @csrf
+                            <div class="searchinputs input-group dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" id="navbarSearch">
+                                <input type="search" name="term" placeholder="{{ __('layout.search') }}" aria-label="{{ __('layout.search') }}" minlength="2" maxlength="100" required autocomplete="off">
+                                <div class="search-addon">
+                                    <button type="submit" class="btn p-0 border-0 bg-transparent" aria-label="{{ __('layout.search') }}">
+                                        <span><i class="ti ti-search"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div aria-labelledby="navbarSearch" class="dropdown-menu search-dropdown">
+                                <div class="search-info">
+                                    <h6><span><i class="feather-16" data-feather="search"></i></span>{{ __('layout.search_hint') }}</h6>
+                                </div>
+                                <div class="search-info">
+                                    <h6><span><i class="feather-16" data-feather="help-circle"></i></span>{{ __('layout.help') }}</h6>
+                                    <p class="mb-0"><a href="{{ route('help.show', ['category' => 'students', 'slug' => 'add-and-find']) }}">{{ __('layout.search_help') }}</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            @endcan
+
             @if ($quickActions !== [])
                 <li class="nav-item dropdown link-nav">
                     <a href="javascript:void(0);" class="btn btn-primary btn-md d-inline-flex align-items-center" data-bs-toggle="dropdown">
@@ -107,15 +135,22 @@
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profileset d-flex align-items-center">
+                        <span class="user-img me-2">
+                            <span class="avatar avatar-md bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center">{{ mb_strtoupper(mb_substr($currentUser->name, 0, 1)) }}</span>
+                        </span>
                         <div>
                             <h6 class="fw-medium">{{ $currentUser->name }}</h6>
-                            <p>{{ $roleLabel }}</p>
+                            <p>{{ $roleLabel }}@if ($currentSchool) &middot; {{ $currentSchool->name }}@endif</p>
                         </div>
                     </div>
+                    @if ($settingsUrl !== null)
+                        <a class="dropdown-item" href="{{ $settingsUrl }}"><i class="ti ti-settings-2 me-2"></i>{{ __('layout.settings') }}</a>
+                    @endif
+                    <a class="dropdown-item" href="{{ route('help.index') }}"><i class="ti ti-help-circle me-2"></i>{{ __('layout.help') }}</a>
                     <hr class="my-2">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="dropdown-item logout"><i class="ti ti-logout me-2"></i>{{ __('layout.logout') }}</button>
+                        <button type="submit" class="dropdown-item logout w-100 text-start"><i class="ti ti-logout me-2"></i>{{ __('layout.logout') }}</button>
                     </form>
                 </div>
             </li>
