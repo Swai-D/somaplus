@@ -17,6 +17,7 @@ return [
     'student_list' => 'Orodha ya Wanafunzi',
     'add_student' => 'Ongeza Mwanafunzi',
     'import_students' => 'Pakia Wanafunzi',
+    'school_profile' => 'Wasifu wa shule',
     'admission_numbers' => 'Namba za usajili',
     'attendance' => 'Mahudhurio',
     'take_attendance' => 'Chukua Mahudhurio',

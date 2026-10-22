@@ -17,6 +17,7 @@ return [
     'student_list' => 'Student list',
     'add_student' => 'Add student',
     'import_students' => 'Import students',
+    'school_profile' => 'School profile',
     'admission_numbers' => 'Admission numbers',
     'attendance' => 'Attendance',
     'take_attendance' => 'Take attendance',

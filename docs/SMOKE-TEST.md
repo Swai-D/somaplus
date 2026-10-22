@@ -251,6 +251,14 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 5. Switch SMS off in Settings: sending is refused with a message pointing to Integrations. A teacher or head teacher gets 403 on the page; a read-only school can open it but cannot send.
 6. Kiswahili: page, statuses and Help > Ada na ankara > "Wakumbushe wazazi ada kwa SMS" are in Swahili.
 
+## School profile
+
+1. As owner open Settings > School profile: the school name is shown but cannot be edited. Enter phone `+255 712 345 678`, email and address, Save.
+2. Open any receipt and any report card: the name, address, phone and email are printed under the school name; print preview shows them too.
+3. Empty the phone and Save: it disappears from receipts. A letter in the phone, or a bad email, is refused.
+4. A head teacher, teacher or accountant gets 403 on the page; a read-only school can open it but not save. Another school's receipts never show these details.
+5. Kiswahili: the page and Help > Kuanza > "Weka mawasiliano ya shule kwenye risiti na ripoti za wanafunzi" are in Swahili.
+
 ## Platform: schools
 
 1. Sign in on the central address as the platform administrator (`admin@somaplus.test` in the demo): the menu has Platform > Schools; a school owner never sees it, and opening `/platform/schools` on a school address gives 404.

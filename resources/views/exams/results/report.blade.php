@@ -13,6 +13,7 @@
 
     <div class="card">
         <div class="card-body">
+            @include('partials.letterhead')
             <h4 class="mb-1">{{ $student->fullName() }}</h4>
             <p class="text-muted mb-0">{{ $student->admission_number }} · {{ $term->academicYear->name }} – {{ $term->name }}</p>
         </div>

@@ -182,6 +182,11 @@ Help lives inside the application at `/help` (`HelpController`, sign-in required
 - Idempotent: unique (tenant, kind, invoice, guardian, day), so one reminder per guardian per invoice per day. The balance is re-derived when the job runs: a paid invoice cancels the message. Temporary provider failures are retried (3 tries), then the row is `failed`.
 - No phone number and no message text are stored; a provider error with long digit runs is masked. `reminder.queued` is written to the audit log (ids only).
 
+## Settings: school profile
+
+- `settings/school` (owner, `settings.manage`, `SchoolProfilePolicy`; saving uses `tenant.writable`) keeps a school's phone, email and address in `school_profiles` (one row per school, `BelongsToTenant`; no row = name only). `SaveSchoolProfile` clears empty fields and writes `settings.profile_updated` (ids only) to the audit log.
+- The `partials.letterhead` view prints the school name (from the tenant) and these lines at the top of every receipt and report card.
+
 ## Platform: schools (super-admin)
 
 - `platform/schools` (list, create, edit; `routes/platform.php`) exists only on a central address for a platform administrator: `platform.admin` (`EnsurePlatformAdmin`) answers 404 to everyone else, so a school's owner never sees it. `Tenant` is not tenant-scoped, so route binding of `{tenant}` sees every school here; this is the one reviewed place that does.
