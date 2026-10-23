@@ -30,6 +30,7 @@ return [
     'terms' => [
         'has_exams' => 'Muhula huu bado una mitihani.',
         'has_fees' => 'Muhula huu bado una miundo ya ada.',
+        'has_timetable' => 'Muhula huu bado una vipindi kwenye ratiba.',
         'empty' => 'Bado hakuna mihula. Ongeza muhula wa kwanza hapa chini.',
         'name' => 'Jina la muhula',
         'name_hint' => 'Kwa mfano Muhula 1.',
@@ -51,6 +52,7 @@ return [
         'has_streams' => 'Darasa hili bado lina mikondo. Futa mikondo yake kwanza.',
         'has_students' => 'Darasa hili bado lina wanafunzi waliopangwa ndani yake.',
         'has_fees' => 'Darasa hili bado lina miundo ya ada.',
+        'has_timetable' => 'Darasa hili bado lina vipindi kwenye ratiba.',
     ],
     'streams' => [
         'empty' => 'Bado hakuna mikondo. Darasa lisilo na mikondo lina kundi moja la wanafunzi.',
@@ -59,9 +61,11 @@ return [
         'add' => 'Ongeza mkondo',
         'edit' => 'Hariri mkondo',
         'has_students' => 'Mkondo huu bado una wanafunzi waliopangwa ndani yake.',
+        'has_timetable' => 'Mkondo huu bado una vipindi kwenye ratiba.',
     ],
     'subjects' => [
         'has_marks' => 'Somo hili bado lina alama zilizoingizwa.',
+        'has_timetable' => 'Somo hili bado lina vipindi kwenye ratiba.',
         'intro' => 'Masomo yanayofundishwa shuleni kwako.',
         'empty' => 'Bado hakuna masomo. Ongeza la kwanza hapa chini.',
         'name' => 'Jina la somo',

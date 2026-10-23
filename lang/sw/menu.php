@@ -61,4 +61,9 @@ return [
     'quick_grading_scale' => 'Mizani ya madaraja',
     'quick_fee_structure' => 'Muundo wa ada',
     'quick_payment' => 'Malipo mpya',
+    'timetable' => 'Ratiba ya masomo',
+    'class_timetable' => 'Ratiba ya darasa',
+    'teacher_timetable' => 'Ratiba ya mwalimu',
+    'my_timetable' => 'Ratiba yangu',
+    'timetable_periods' => 'Nafasi za vipindi',
 ];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Family\ChildController;
+use App\Http\Controllers\Family\TimetableController;
 use Illuminate\Support\Facades\Route;
 
 // Loaded inside the `auth` group (routes/web.php). The family pages are for a parent's own account (`family.portal`,
@@ -11,4 +12,5 @@ Route::middleware('can:family.portal')->prefix('family')->name('family.')->group
     Route::get('/', [ChildController::class, 'index'])->name('index');
     Route::get('children/{student}', [ChildController::class, 'show'])->name('children.show')->whereNumber('student');
     Route::get('children/{student}/report/{term}', [ChildController::class, 'report'])->name('children.report')->whereNumber(['student', 'term']);
+    Route::get('children/{student}/timetable', TimetableController::class)->name('children.timetable')->whereNumber('student');
 });

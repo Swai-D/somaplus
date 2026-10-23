@@ -22,6 +22,13 @@
     </div>
 
     <div class="card">
+        <div class="card-header"><h5 class="mb-0">{{ __('timetable.family_title') }}</h5></div>
+        <div class="card-body">
+            <a class="btn btn-outline-primary btn-sm" href="{{ route('family.children.timetable', $student->id) }}"><i class="ti ti-calendar-time me-1"></i>{{ __('timetable.family_title') }}</a>
+        </div>
+    </div>
+
+    <div class="card">
         <div class="card-header"><h5 class="mb-0">{{ __('family.invoices') }}</h5></div>
         <div class="card-body">
             @if ($invoices->isEmpty())
