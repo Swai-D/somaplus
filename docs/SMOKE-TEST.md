@@ -174,6 +174,25 @@ Sign in at `http://acme.localhost:8000` as the head teacher (`asha@acme.test`, c
 8. In Kiswahili all pages are in Swahili; Help has the topic "Mahudhurio" with two articles.
 9. `select action, subject_id from audit_logs` shows `attendance.recorded`.
 
+## Timetable
+
+It needs the academic year with its term, the classes and streams, the subjects and the teachers of the sections above.
+
+1. Sign in as owner. The sidebar has Academics > Timetable with Class timetable, Teacher timetable, My timetable and Lesson slots. The head teacher sees the four pages and can change everything. A teacher sees the first three pages but has no Lesson slots, and every posted change (add lesson, edit, delete, copy, slots) answers 403. An accountant and a parent/student see no entry and get 403 on `/timetable`.
+2. Class timetable with no term in the year says "Add an academic year with a term first"; with a term but no slots it says the school has no lesson slots, with a link to Lesson slots.
+3. Lesson slots: add Period 1 from 08:00 to 08:40, Period 2 from 08:40 to 09:20, then the Tea break from 09:20 to 09:40 with **This is a break** ticked. A slot that ends before it starts, one that overlaps another slot of the day, or the same name twice is refused. Every class uses this one list.
+4. Class timetable, choose the term and Form 1: the grid holds the days Monday to Friday. **Add a lesson**: whole class (no stream), Mathematics, the teacher whose subject and class were assigned under Teachers, Monday, Period 1, Room 5. The card shows the subject, the teacher, the room and 08:00 - 08:40.
+5. A second lesson for Form 1 in Monday Period 1 (any subject) is refused; so is a lesson for stream A while the whole class has that slot, and the other way round. A teacher with a lesson for Form 2 in the same slot, or the same room used there, is refused. The Tea break as a slot is refused. A teacher out of duty, or one who was not assigned this subject or class under Teachers, is refused; a teacher with nothing assigned yet is accepted for anything. Each message says which of these it is.
+6. Add a lesson on Saturday: the Saturday column appears from then (Sunday as well). A day without lessons shows nothing.
+7. Teacher timetable: choose the teacher, the same lessons show with the class of each one. As the teacher, My timetable shows their own week; a person without a teacher record is told there are no lessons to show.
+8. Copy a term: copy Term 1 into Term 2. The message counts what was copied and what was skipped (a clash, or a teacher now out of duty), the class timetable of Term 2 shows the same lessons, and copying again adds nothing.
+9. Deleting a term, a class, a stream, a subject or a slot that still holds lessons is refused with a message; a slot in use cannot be turned into a break either, and moving it needs its lessons moved first.
+10. **Print** on the class, teacher, mine and family timetables: the controls, the header and the sidebar disappear in the print preview, which at A4 shows a one-week grid; saving the print preview as a PDF keeps the same.
+11. Take the teacher of step 4 out of the school: the lesson stays on the timetable with **No teacher yet**.
+12. Open the child of a parent that has access: a **Timetable** card/button opens the week of the child (class and stream, with the term choosable). A child of another parent answers 404; a teacher is forbidden.
+13. In a read-only school the pages open and every change answers 403. A class, a teacher or a child that is not of this school answers 404.
+14. Kiswahili: all the timetable pages are in Swahili; Help has the article "Ratiba ya masomo" (Timetable) under Masomo.
+
 ## Exams, marks and grades
 
 1. Sign in as owner. Academics > Exams has Exams and Grading scales. Add the scale "Standard": 0 = F, 50 = D, 60 = C, 70 = B, 80 = A. Saving without a line at 0, with two lines at the same percentage or the same grade is refused.

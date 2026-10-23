@@ -30,6 +30,7 @@ return [
     'terms' => [
         'has_exams' => 'This term still has exams.',
         'has_fees' => 'This term still has fee structures.',
+        'has_timetable' => 'This term still has lessons on the timetable.',
         'empty' => 'No terms yet. Add the first term below.',
         'name' => 'Term name',
         'name_hint' => 'For example Term 1.',
@@ -51,6 +52,7 @@ return [
         'has_streams' => 'This class still has streams. Delete its streams first.',
         'has_students' => 'This class still has students placed in it.',
         'has_fees' => 'This class still has fee structures.',
+        'has_timetable' => 'This class still has lessons on the timetable.',
     ],
     'streams' => [
         'empty' => 'No streams yet. A class without streams has one group of students.',
@@ -59,9 +61,11 @@ return [
         'add' => 'Add a stream',
         'edit' => 'Edit stream',
         'has_students' => 'This stream still has students placed in it.',
+        'has_timetable' => 'This stream still has lessons on the timetable.',
     ],
     'subjects' => [
         'has_marks' => 'This subject still has marks entered.',
+        'has_timetable' => 'This subject still has lessons on the timetable.',
         'intro' => 'The subjects taught at your school.',
         'empty' => 'No subjects yet. Add the first one below.',
         'name' => 'Subject name',

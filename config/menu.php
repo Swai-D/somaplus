@@ -154,6 +154,36 @@ return [
                     ],
                 ],
                 [
+                    'label' => 'menu.timetable',
+                    'icon' => 'ti ti-calendar-time',
+                    'children' => [
+                        [
+                            'label' => 'menu.class_timetable',
+                            'route' => 'timetable.index',
+                            'permission' => 'timetable.view',
+                            'active' => ['timetable.index', 'timetable.entries.*', 'timetable.copy'],
+                        ],
+                        [
+                            'label' => 'menu.teacher_timetable',
+                            'route' => 'timetable.teachers',
+                            'permission' => 'timetable.view',
+                            'active' => ['timetable.teachers'],
+                        ],
+                        [
+                            'label' => 'menu.my_timetable',
+                            'route' => 'timetable.mine',
+                            'permission' => 'timetable.view',
+                            'active' => ['timetable.mine'],
+                        ],
+                        [
+                            'label' => 'menu.timetable_periods',
+                            'route' => 'timetable.periods.index',
+                            'permission' => 'timetable.manage',
+                            'active' => ['timetable.periods.*'],
+                        ],
+                    ],
+                ],
+                [
                     'label' => 'menu.academic_years',
                     'icon' => 'ti ti-calendar-event',
                     'route' => 'academics.years.index',

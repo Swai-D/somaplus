@@ -61,4 +61,9 @@ return [
     'quick_grading_scale' => 'Grading scale',
     'quick_fee_structure' => 'Fee structure',
     'quick_payment' => 'New payment',
+    'timetable' => 'Timetable',
+    'class_timetable' => 'Class timetable',
+    'teacher_timetable' => 'Teacher timetable',
+    'my_timetable' => 'My timetable',
+    'timetable_periods' => 'Lesson slots',
 ];
