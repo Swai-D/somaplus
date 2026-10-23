@@ -306,11 +306,19 @@ It needs the academic year with its term, the classes and streams, the subjects 
 ## SMS fee reminders
 
 1. As owner open Settings > Integrations > SMS to parents, provider NextSMS, enter username, password and sender name (3 to 11 characters), switch on, Save. Reload: the password is not shown.
-2. As accountant open Finance > Fees > Fee reminders: invoices with a balance are listed with the number of guardians that have a phone. An invoice whose guardians have no valid phone cannot be ticked.
+2. As accountant open Communication > Fee reminders: invoices with a balance are listed with the number of guardians that have a phone. An invoice whose guardians have no valid phone cannot be ticked.
 3. Tick one invoice, language Kiswahili, Send reminders: the status line shows 1 queued; the guardian's phone receives an SMS naming the school, student and balance; "Latest reminders" shows Sent.
 4. Send again the same day: nothing new is sent ("already reminded today"). Record a full payment on the invoice: it disappears from the list.
 5. Switch SMS off in Settings: sending is refused with a message pointing to Integrations. A teacher or head teacher gets 403 on the page; a read-only school can open it but cannot send.
 6. Kiswahili: page, statuses and Help > Ada na ankara > "Wakumbushe wazazi ada kwa SMS" are in Swahili.
+
+## Communication: notice board, events and messages
+
+1. As owner open Communication in the sidebar: Notices, Events, Messages and Fee reminders sit under the one section (fee reminders used to live under Finance > Fees; they moved to the Communication section).
+2. As owner put up a notice (a day, a title and a description). The teacher, the accountant and the head teacher all read the board; a notice whose day is older sits below the newer ones. Edit or take the notice down; a teacher or accountant who posts or deletes gets 403.
+3. As head teacher add an event ("Parents meeting" on this month). The calendar marks today and shows the event on its day; the arrows move a month back and forth; "Coming up" lists the meeting at the side; an end before a start is refused.
+4. Another school's notice or event id gives 404 on this school's address; the message of another school is never listed.
+5. As accountant open Communication > Messages: the reminders sent are listed with the day, the student, the guardian and the status, and the reason for a failed one; the filter of status refuses everything else. Only the owner and the accountant may open it; the teacher and the parent student get 403.
 
 ## Family pages (parents)
 

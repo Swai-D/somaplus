@@ -241,6 +241,43 @@ return [
             ],
         ],
         [
+            'label' => 'menu.sections.communication',
+            'items' => [
+                [
+                    'label' => 'menu.notice_board',
+                    'icon' => 'ti ti-notes',
+                    'children' => [
+                        [
+                            'label' => 'menu.notices',
+                            'route' => 'communication.notices.index',
+                            'permission' => 'communication.view',
+                            'active' => ['communication.notices.*'],
+                        ],
+                    ],
+                ],
+                [
+                    'label' => 'menu.events',
+                    'icon' => 'ti ti-calendar-event',
+                    'route' => 'communication.events.index',
+                    'permission' => 'communication.view',
+                    'active' => ['communication.events.*'],
+                ],
+                [
+                    'label' => 'menu.messages',
+                    'icon' => 'ti ti-message',
+                    'route' => 'communication.messages.index',
+                    'permission' => 'reminders.send',
+                    'active' => ['communication.messages.*'],
+                ],
+                [
+                    'label' => 'menu.fee_reminders',
+                    'route' => 'communication.reminders.index',
+                    'permission' => 'reminders.send',
+                    'active' => ['communication.reminders.*'],
+                ],
+            ],
+        ],
+        [
             'label' => 'menu.sections.finance',
             'items' => [
                 [
@@ -258,12 +295,6 @@ return [
                             'route' => 'fees.payments.index',
                             'permission' => 'fees.view',
                             'active' => ['fees.payments.*', 'fees.receipts.*'],
-                        ],
-                        [
-                            'label' => 'menu.fee_reminders',
-                            'route' => 'communication.reminders.index',
-                            'permission' => 'reminders.send',
-                            'active' => ['communication.reminders.*'],
                         ],
                         [
                             'label' => 'menu.collections_report',

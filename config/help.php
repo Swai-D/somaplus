@@ -22,6 +22,7 @@ return [
         'attendance' => 'ti ti-checklist',
         'library' => 'ti ti-books',
         'exams' => 'ti ti-file-certificate',
+        'communication' => 'ti ti-message',
         'fees' => 'ti ti-cash',
         'academics' => 'ti ti-school',
         'account' => 'ti ti-user-circle',

@@ -4,6 +4,7 @@ return [
     'sections' => [
         'main' => 'Kuu',
         'academics' => 'Masomo',
+        'communication' => 'Mawasiliano',
         'finance' => 'Fedha',
         'settings' => 'Mipangilio',
         'family' => 'Familia',
@@ -15,6 +16,10 @@ return [
     'my_children' => 'Watoto wangu',
     'dashboard_school' => 'Shule',
     'dashboard_teacher' => 'Mwalimu',
+    'notice_board' => 'Ubao wa matangazo',
+    'notices' => 'Matangazo',
+    'events' => 'Matukio',
+    'messages' => 'Ujumbe',
     'students' => 'Wanafunzi',
     'student_list' => 'Orodha ya Wanafunzi',
     'add_student' => 'Ongeza Mwanafunzi',
