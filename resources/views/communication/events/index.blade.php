@@ -3,89 +3,92 @@
 @section('title', __('menu.events'))
 
 @section('page')
-    <div class="d-flex flex-wrap justify-content-between align-items-start mb-3">
-        <div>
-            <h3 class="page-title mb-1">{{ __('menu.events') }}</h3>
-            <p class="text-muted mb-0">{{ __('communication.events.intro') }}</p>
-        </div>
-        @can('create', App\Models\Event::class)
-            <button type="button" class="btn btn-primary mt-2 mt-md-0" data-bs-target="#event-modal" data-bs-toggle="modal">
-                <i class="ti ti-circle-plus me-1"></i>{{ __('communication.events.add') }}
-            </button>
-        @endcan
-    </div>
-
-    <div class="row gy-4">
-        <div class="col-lg-9">
-            <div class="card">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <a href="{{ route('communication.events.index', ['month' => $prevMonth]) }}" class="btn btn-sm btn-outline-secondary" aria-label="{{ __('communication.events.back') }}"><i class="ti ti-chevron-left"></i></a>
-                    <h6 class="fw-semibold mb-0">{{ $month->translatedFormat('F Y') }}</h6>
-                    <a href="{{ route('communication.events.index', ['month' => $nextMonth]) }}" class="btn btn-sm btn-outline-secondary" aria-label="{{ __('communication.events.back') }}"><i class="ti ti-chevron-right"></i></a>
+<div class="page-wrapper">
+    <div class="content">
+        <div class="page-header">
+            <div class="add-item d-flex">
+                <div class="page-title">
+                    <h4>{{ __('menu.events') }}</h4>
+                    <h6>Dashboard / HRM</h6>
                 </div>
-                <div class="card-body">
+                <ul class="table-top-head">
+                    <li class="me-2"><a href="javascript:void(0);" title="Pdf"><img alt="pdf" src="{{ asset('assets/img/icons/pdf.svg') }}"/></a></li>
+                    <li class="me-2"><a href="javascript:void(0);" title="Excel"><img alt="excel" src="{{ asset('assets/img/icons/excel.svg') }}"/></a></li>
+                    <li class="me-2"><a data-bs-placement="top" data-bs-toggle="tooltip" href="javascript:location.reload()" title="Refresh"><i class="ti ti-refresh"></i></a></li>
+                    <li class="me-2"><a data-bs-placement="top" data-bs-toggle="tooltip" id="collapse-header" title="Collapse"><i class="ti ti-chevron-up"></i></a></li>
+                </ul>
+                <div class="page-btn">
+                    <a class="btn btn-primary d-flex align-items-center gap-1" data-bs-target="#event-modal" data-bs-toggle="modal" href="javascript:void(0);">
+                        <i class="ti ti-circle-plus me-1"></i>{{ __('communication.events.add') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                    <div class="search-set">
+                        <div class="search-input">
+                            <span class="btn-searchset"><i class="ti ti-search fs-14 feather-search"></i></span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap gap-2"></div>
+                </div>
+                <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-bordered text-center mb-0 calendar">
-                            <thead>
-                                <tr class="text-muted">
-                                    @foreach ([__('app.days.sun'), __('app.days.mon'), __('app.days.tue'), __('app.days.wed'), __('app.days.thu'), __('app.days.fri'), __('app.days.sat')] as $day)
-                                        <th class="fw-semibold">{{ $day }}</th>
-                                    @endforeach
-                                </tr>
+                        <table class="datatable table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">
+                                    <div class="d-flex align-items-center">
+                                        <label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label>
+                                        <span class="ms-2">S.L</span>
+                                    </div>
+                                </th>
+                                <th scope="col">{{ __('communication.events.day') }}</th>
+                                <th scope="col">{{ __('communication.events.title') }}</th>
+                                <th scope="col">{{ __('communication.events.description') }}</th>
+                                <th scope="col"></th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach ($weeks as $week)
-                                    <tr>
-                                        @foreach ($week as $day)
-                                            <td class="py-2 {{ $day->month !== $month->month ? 'text-muted bg-light' : '' }}">
-                                                <span class="badge {{ $day->isSameDay(now()) ? 'bg-primary' : 'bg-transparent text-body' }}">{{ $day->day }}</span>
-                                                @if ($byDay->has($day->format('Y-m-d')))
-                                                    <div class="d-grid gap-1 px-1">
-                                                        @foreach ($byDay->get($day->format('Y-m-d'))->take(3) as $dayEvent)
-                                                            <a href="{{ route('communication.events.edit', $dayEvent) }}"
-                                                                class="d-block text-truncate text-start fs-11 event-chip"
-                                                                title="{{ $dayEvent->title }}">{{ $dayEvent->title }}</a>
-                                                        @endforeach
-                                                        @if ($byDay->get($day->format('Y-m-d'))->count() > 3)
-                                                            <span class="text-muted fs-11">+{{ $byDay->get($day->format('Y-m-d'))->count() - 3 }}</span>
-                                                        @endif
-                                                    </div>
-                                                @endif
-                                            </td>
-                                        @endforeach
-                                    </tr>
-                                @endforeach
+                            @forelse ($events as $event)
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <label class="checkboxs"><input type="checkbox"/><span class="checkmarks"></span></label>
+                                            <span class="ms-2">{{ $loop->iteration }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">{{ $event->day->toDateString() }}</td>
+                                    <td class="fw-medium">{{ $event->title }}</td>
+                                    <td>{{ $event->description ? \Illuminate\Support\Str::limit($event->description, 120) : '—' }}</td>
+                                    <td class="text-end">
+                                        <div class="d-flex gap-2 justify-content-end">
+                                            @can('update', $event)
+                                                <a href="{{ route('communication.events.edit', $event) }}" class="btn btn-sm btn-outline-secondary" title="{{ __('communication.events.edit') }}"><i class="ti ti-edit"></i></a>
+                                            @endcan
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">{{ __('communication.events.empty') }}</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <div class="card-header"><h6 class="fw-semibold mb-0">{{ __('communication.events.upcoming') }}</h6></div>
-                <div class="card-body">
-                    @forelse ($upcoming as $event)
-                        <div class="d-flex justify-content-between gap-2 py-2 {{ $loop->first ? '' : 'border-top' }}">
-                            <div class="min-width-zero">
-                                <a href="{{ route('communication.events.edit', $event) }}" class="fw-medium d-block text-truncate">{{ $event->title }}</a>
-                                <span class="text-muted fs-13">{{ $event->starts_at->translatedFormat('D, j M g:i A') }}</span>
-                            </div>
-                        </div>
-                    @empty
-                        <p class="text-muted mb-0">{{ __('communication.events.upcoming_none') }}</p>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-    </div>
 
-    @can('create', App\Models\Event::class)
-        <x-form-modal id="event-modal" title="{{ __('communication.events.add') }}" action="{{ route('communication.events.store') }}">
-            @include('communication.events._fields', [
-                'event' => null,
-                'prefill' => $month->format('Y-m-d').'T08:00',
-            ])
-        </x-form-modal>
-    @endcan
+        @can('create', App\Models\Event::class)
+            <x-form-modal id="event-modal" title="{{ __('communication.events.add') }}" action="{{ route('communication.events.store') }}">
+                @include('communication.events._fields', ['event' => null, 'prefill' => now()->format('Y-m-d').'T08:00'])
+            </x-form-modal>
+        @endcan
+    </div>
+</div>
 @endsection
