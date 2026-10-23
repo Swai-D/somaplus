@@ -24,6 +24,7 @@ return [
         'library' => ['title' => 'Library', 'description' => 'Keep the books of your library, its members and the copies that go out and come back'],
         'attendance' => ['title' => 'Attendance', 'description' => 'Take attendance and see how often students attend'],
         'exams' => ['title' => 'Exams and marks', 'description' => 'Grading scales, exams, entering marks and locking'],
+        'communication' => ['title' => 'Communication', 'description' => 'The notice board, the school calendar and the messages sent to parents'],
         'fees' => ['title' => 'Fees and invoices', 'description' => 'Fee structures, invoices and control numbers'],
         'academics' => ['title' => 'Academics', 'description' => 'Academic years, terms, classes, streams and subjects'],
         'account' => ['title' => 'Account and roles', 'description' => 'Your password and what each role can do'],

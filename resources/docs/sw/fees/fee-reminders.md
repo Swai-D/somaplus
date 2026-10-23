@@ -10,7 +10,7 @@ Chagua **Mipangilio** > **Miunganisho** > **SMS kwa wazazi**, mtoa huduma **Next
 
 ## Tuma vikumbusho (mmiliki na mhasibu)
 
-1. Chagua **Fedha** > **Ada** > **Vikumbusho vya ada**. Ukurasa unaorodhesha ankara zenye deni. Chuja kwa muhula au darasa kisha chagua **Onyesha**.
+1. Chagua **Mawasiliano** > **Vikumbusho vya ada**. Ukurasa unaorodhesha ankara zenye deni. Chuja kwa muhula au darasa kisha chagua **Onyesha**.
 2. Weka alama kwenye ankara (au **Chagua zote**). Ankara ambayo walezi wake hawana namba sahihi ya simu haiwezi kuchaguliwa; ukurasa unaeleza hivyo.
 3. Chagua lugha ya ujumbe (Kiingereza au Kiswahili) kisha **Tuma vikumbusho**.
 

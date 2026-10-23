@@ -10,7 +10,7 @@ Choose **Settings** > **Integrations** > **SMS to parents**, provider **NextSMS 
 
 ## Send reminders (owner and accountant)
 
-1. Choose **Finance** > **Fees** > **Fee reminders**. The page lists invoices that still have a balance. Filter by term or class and choose **Show**.
+1. Choose **Communication** > **Fee reminders**. The page lists invoices that still have a balance. Filter by term or class and choose **Show**.
 2. Tick the invoices (or **Select all**). An invoice whose guardians have no valid phone number cannot be ticked; the page says so.
 3. Choose the language of the message (English or Swahili) and **Send reminders**.
 

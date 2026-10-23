@@ -24,6 +24,7 @@ return [
         'library' => ['title' => 'Maktaba', 'description' => 'Hifadhi vitabu vya maktaba yako, wanamaktaba na nakala zinazotoka na kurejea'],
         'attendance' => ['title' => 'Mahudhurio', 'description' => 'Chukua mahudhurio na uone wanafunzi wanahudhuria mara ngapi'],
         'exams' => ['title' => 'Mitihani na alama', 'description' => 'Mizani ya madaraja, mitihani, kuingiza alama na kufunga'],
+        'communication' => ['title' => 'Mawasiliano', 'description' => 'Ubao wa matangazo, kalenda ya shule na ujumbe uliotumwa kwa wazazi'],
         'fees' => ['title' => 'Ada na ankara', 'description' => 'Miundo ya ada, ankara na control number'],
         'academics' => ['title' => 'Masomo', 'description' => 'Miaka ya masomo, mihula, madarasa, mikondo na mada'],
         'account' => ['title' => 'Akaunti na wadhifa', 'description' => 'Nenosiri lako na kila wadhifa unaweza kufanya nini'],

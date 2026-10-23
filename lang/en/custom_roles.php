@@ -41,6 +41,7 @@ return [
         'fees' => 'Fees',
         'payments' => 'Payments',
         'reminders' => 'Fee reminders',
+        'communication' => 'Communication',
     ],
     'perm' => [
         'academics' => ['view' => 'Look at academic years, classes and subjects', 'manage' => 'Add, change and delete them'],
@@ -55,6 +56,7 @@ return [
         'fees' => ['view' => 'Look at fee structures and invoices', 'manage' => 'Change fee structures, make invoices, set control numbers'],
         'payments' => ['record' => 'Record payments and issue receipts', 'reverse' => 'Reverse a payment'],
         'reminders' => ['send' => 'Send fee reminders by SMS'],
+        'communication' => ['view' => 'Look at the notice board, the events and the messages sent', 'manage' => 'Put up notices and calendar events and change or remove them'],
     ],
     'users' => [
         'title' => 'Users',

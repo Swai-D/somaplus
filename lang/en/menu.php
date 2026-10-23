@@ -4,6 +4,7 @@ return [
     'sections' => [
         'main' => 'Main',
         'academics' => 'Academics',
+        'communication' => 'Communication',
         'finance' => 'Finance',
         'settings' => 'Settings',
         'family' => 'Family',
@@ -15,6 +16,10 @@ return [
     'my_children' => 'My children',
     'dashboard_school' => 'School',
     'dashboard_teacher' => 'Teacher',
+    'notice_board' => 'Notice board',
+    'notices' => 'Notices',
+    'events' => 'Events',
+    'messages' => 'Messages',
     'students' => 'Students',
     'student_list' => 'Student list',
     'add_student' => 'Add student',

@@ -35,6 +35,8 @@ return [
     ],
 
     'permissions' => [
+        'communication.view' => ['owner', 'head_teacher', 'teacher', 'accountant'],
+        'communication.manage' => ['owner', 'head_teacher'],
         'academics.view' => ['owner', 'head_teacher', 'teacher', 'accountant'],
         'academics.manage' => ['owner', 'head_teacher'],
         'students.view' => ['owner', 'head_teacher', 'teacher', 'accountant'],
@@ -65,6 +67,7 @@ return [
         'library.manage' => ['library.view'],
         'exams.manage' => ['exams.view'],
         'marks.enter' => ['exams.view'],
+        'communication.manage' => ['communication.view'],
         'fees.manage' => ['fees.view'],
         'payments.record' => ['fees.view'],
         'payments.reverse' => ['fees.view'],
