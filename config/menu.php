@@ -271,6 +271,7 @@ return [
                 ],
                 [
                     'label' => 'menu.fee_reminders',
+                    'icon' => 'ti ti-bell-ringing',
                     'route' => 'communication.reminders.index',
                     'permission' => 'reminders.send',
                     'active' => ['communication.reminders.*'],
