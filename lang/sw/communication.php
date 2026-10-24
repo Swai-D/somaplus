@@ -50,6 +50,7 @@ return [
         'starts_at' => 'Huanza',
         'ends_at' => 'Huisha',
         'ends_hint' => 'Acha wazi kwa tukio la siku nzima.',
+        'today' => 'Mwezi huu',
         'title' => 'Kichwa',
         'description' => 'Maelezo',
         'upcoming' => 'Yanayokuja',

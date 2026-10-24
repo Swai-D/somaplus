@@ -5,5 +5,7 @@ return [
     'cancel' => 'Ghairi',
     'save' => 'Hifadhi',
     'close' => 'Funga',
+    'previous' => 'Nyuma',
+    'next' => 'Mbele',
     'days' => ['sun' => 'Jpi', 'mon' => 'Jtt', 'tue' => 'Jnn', 'wed' => 'Jtn', 'thu' => 'Alh', 'fri' => 'Iju', 'sat' => 'Jms'],
 ];

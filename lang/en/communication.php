@@ -50,6 +50,7 @@ return [
         'starts_at' => 'Starts',
         'ends_at' => 'Ends',
         'ends_hint' => 'Leave empty for an all-day event.',
+        'today' => 'This month',
         'title' => 'Title',
         'description' => 'Description',
         'upcoming' => 'Coming up',
