@@ -184,3 +184,31 @@ a.sp-cal-event {
 a.sp-cal-event:hover {
     text-decoration: none;
 }
+
+/* --------------------------------------------------------------------------
+   Sidebar: the chosen entry. Every item of the menu lives inside the second
+   ul of its section (under li.submenu-open, as the template lays it out), so
+   the pill the template paints for its root items, which is keyed on
+   .sidebar-menu > ul > li > a.active, never reaches them: the class active
+   was set, but only the hidden colour of the anchor changed, and the person
+   could not see where they were. These rules give the chosen entry the same
+   pill wherever it sits: a standalone page (Messages, Fee reminders) or a
+   child of a group beside its little dot.
+   -------------------------------------------------------------------------- */
+.sidebar #sidebar-menu ul li a.active {
+    background: rgba(254, 159, 67, 0.08);
+    border-radius: 5px;
+}
+
+.sidebar #sidebar-menu ul li a.active span,
+.sidebar #sidebar-menu ul li a.active i {
+    color: #FE9F43;
+}
+
+.sidebar #sidebar-menu ul li a.active .menu-arrow {
+    background: #FFEDDC;
+}
+
+.sidebar #sidebar-menu ul li a.active .menu-arrow::before {
+    border-color: #FE9F43;
+}
